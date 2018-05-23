@@ -34,6 +34,7 @@ class ToolbarComponent extends React.Component {
     this.setTimerState = this.setTimerState.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
     this.togglePopupWarning = this.togglePopupWarning.bind(this);
+    this.resetTimerTime = this.resetTimerTime.bind(this);
   }
 
   static secondsToTime(secs) {
@@ -50,6 +51,12 @@ class ToolbarComponent extends React.Component {
       "m": minutes,
       "s": seconds
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.sectionNum !== this.props.sectionNum){
+      this.state.seconds = nextProps.sectionTime;
+    }
   }
 
   componentDidMount() {
@@ -90,8 +97,10 @@ class ToolbarComponent extends React.Component {
     }
   }
 
-  resetTimer() {
-    
+  resetTimerTime(newTime) {
+      let timeLeftVar = ToolbarComponent.secondsToTime(newTime);
+      this.setState({time: timeLeftVar});
+      this.startTimer();
   }
   
   togglePopup() {
@@ -222,7 +231,8 @@ class ToolbarComponent extends React.Component {
 function mapStateToProps(state) {
   return {
     allQuestionsAnswered : state.questionsOnAPage.allQuestionsAnswered,
-    sectionNum: state.questionsOnAPage.currentSectionNum,
+    sectionNum: state.questionsOnAPage.section,
+    sectionTime: state.questionsOnAPage.time
   }
 }
 

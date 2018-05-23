@@ -5,6 +5,7 @@ export const QUESTION_ANSWERED = "question_answered";
 export const SET_TO_DEFAULT = "set_to_default";
 export const CHANGE_BOOKMARK = "change_bookmark";
 export const LINE_NUMBER = "lineNumber";
+export const RESET_TIMER_TIME = "reset_timer_time";
 
 export function optionSelected(questionId, option) {
   return {
@@ -46,6 +47,13 @@ export function resetToDefaultState() {
     type: SET_TO_DEFAULT,
   }
 }
+
+export function resetTimerTime() {
+  return {
+    type: RESET_TIMER_TIME,
+  }
+}
+
 export function WayPointSection(lineNumber) {
 
    console.log("lineNumber: " + lineNumber);
