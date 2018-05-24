@@ -3,7 +3,6 @@ import React from 'react';
 
 import TestQuestions from './TestQuestions';
 import '../styles/App.css';
-import PropTypes from 'prop-types';
 export default class TestComponent extends React.Component {
 
     

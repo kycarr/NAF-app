@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import questionsOnAPageReducer from './questionsOnAPage';
+import QuestionsOnAPageReducer from './QuestionsOnAPage';
 import {WayPointSection} from '../actions';
 const rootReducer = combineReducers({
-    questionsOnAPage: questionsOnAPageReducer,
+    QuestionsOnAPage: QuestionsOnAPageReducer,
     WayPointSection
 });
 

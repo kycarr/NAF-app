@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import InsertCard from "../images/NAF_Icon_SlideCard.png";
 import NAFLogo from "../images/NAF_Logo_Large.png";
 import TAFLogo from "../images/TAF_Logo_Large.png";
-import {TAF_SYMBOL} from '../Utils';
+import {TAF_SYMBOL} from '../utils/Utils';
 
 const buttonStyle = {
   textTransform: 'none',

@@ -9,7 +9,7 @@ import './styles/index.css';
 import InstructionsPage from './components/InstructionsPage';
 import App from './components/App';
 import LoginPage from './components/LoginPage';
-import registerServiceWorker from './registerServiceWorker';
+import RegisterServiceWorker from './utils/RegisterServiceWorker';
 
 ReactDOM.render(
   <Provider store={createStore(reducers)}>
@@ -25,4 +25,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-registerServiceWorker();
+RegisterServiceWorker();

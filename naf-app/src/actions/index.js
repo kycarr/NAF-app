@@ -48,12 +48,6 @@ export function resetToDefaultState() {
   }
 }
 
-export function resetTimerTime() {
-  return {
-    type: RESET_TIMER_TIME,
-  }
-}
-
 export function WayPointSection(lineNumber) {
 
    console.log("lineNumber: " + lineNumber);

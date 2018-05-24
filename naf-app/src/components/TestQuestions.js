@@ -8,7 +8,7 @@ import {
   SHORT_ANSWER,
   ESSAY,
   MULTIPLE_ANSWER
-} from '../Utils';
+} from '../utils/Utils';
 import scrollTo from 'scroll-to';
 import TextField from 'material-ui/TextField';
 import Waypoint from 'react-waypoint';
@@ -33,7 +33,7 @@ class TestQuestions extends Component {
     if (null != imageURL) {
       return (
       <div>
-        <a data-fancybox="gallery" href={imageURL}><img className="image-type" src={imageURL}/></a>
+        <a data-fancybox="gallery" href={imageURL}><img className="image-type" src={imageURL} alt="Test Loading"/></a>
       </div>
       )
     }
@@ -189,9 +189,9 @@ class TestQuestions extends Component {
 
 function mapStateToProps(state) {
   return {
-    allQuestions: state.questionsOnAPage.questionsArray,
-    allQuestionsAnswered: state.questionsOnAPage.allQuestionsAnswered,
-    pageNumber: state.questionsOnAPage.page
+    allQuestions: state.QuestionsOnAPage.questionsArray,
+    allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered,
+    pageNumber: state.QuestionsOnAPage.page
   }
 }
 

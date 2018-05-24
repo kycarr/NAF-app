@@ -4,6 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ReactRootPlugin = require('html-webpack-react-root-plugin');
+const axios = require('axios');
 module.exports = {
   entry: [
   'react-hot-loader/patch?reload=true',

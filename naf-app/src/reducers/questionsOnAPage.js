@@ -1,10 +1,10 @@
-import {OPTION_SELECTED, GO_TO_PAGE, GO_TO_SECTION, QUESTION_ANSWERED, SET_TO_DEFAULT, RESET_TIMER_TIME} from '../actions';
-import {ESSAY, MULTI_CHOICE, MULTIPLE_ANSWER, SHORT_ANSWER, SINGLE_ANSWER} from '../Utils';
+import {OPTION_SELECTED, GO_TO_PAGE, GO_TO_SECTION, QUESTION_ANSWERED, SET_TO_DEFAULT} from '../actions';
+import {ESSAY, MULTI_CHOICE, MULTIPLE_ANSWER, SHORT_ANSWER, SINGLE_ANSWER} from '../utils/Utils';
 import image from '../images/nimitz3.jpg';
 import {CHANGE_BOOKMARK} from "../actions/index";
 // import imageFlowChart from '../images/FlowChartExample.png';
 
-let sectionTimes = [15 * 60, 10 * 60];
+let sectionTimes = [15 * 60, 17 * 60];
 let qArray = [
   [
     {

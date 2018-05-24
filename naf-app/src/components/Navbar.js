@@ -13,8 +13,8 @@ import prevPage from "../images/NAF_Icon_CircleLeft.png";
 import warning from '../images/NAF_Icon_Warning.png';
 
 import '../styles/App.css';
-import {NUM_QUESTIONS_ON_A_PAGE, SCROLL_SPEED} from '../Utils';
-import {goToPage, goToSection, resetToDefaultState, resetTimerTime} from '../actions';
+import {NUM_QUESTIONS_ON_A_PAGE, SCROLL_SPEED} from '../utils/Utils';
+import {goToPage, goToSection, resetToDefaultState} from '../actions';
 
 import scrollTo from "scroll-to";
 
@@ -75,7 +75,6 @@ class NavbarComponent extends Component {
       scrollTo(0, 0, {
         duration: SCROLL_SPEED
       });
-      this.props.resetTimerTime();
     }
   }
 
@@ -166,14 +165,14 @@ class NavbarComponent extends Component {
 
 function mapStateToProps(state) {
   return {
-    allQuestions: state.questionsOnAPage.questionsArray,
-    sectionNum: state.questionsOnAPage.section,
-    pageNumber: state.questionsOnAPage.page,
-    totalSectionNum : state.questionsOnAPage.totalSections,
-    allQuestionsAnswered: state.questionsOnAPage.allQuestionsAnswered
+    allQuestions: state.QuestionsOnAPage.questionsArray,
+    sectionNum: state.QuestionsOnAPage.section,
+    pageNumber: state.QuestionsOnAPage.page,
+    totalSectionNum : state.QuestionsOnAPage.totalSections,
+    allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered
   }
 }
 
 
 
-export default connect(mapStateToProps, {goToPage, goToSection, resetToDefaultState, resetTimerTime})(NavbarComponent);
+export default connect(mapStateToProps, {goToPage, goToSection, resetToDefaultState})(NavbarComponent);

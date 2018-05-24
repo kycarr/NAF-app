@@ -14,7 +14,7 @@ import eye from '../images/NAF_Icon_EyeOn.png';
 import closeEye from '../images/NAF_Icon_EyeOff.png';
 import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
 import warning from '../images/NAF_Icon_Warning.png';
-import {MIN_TIME, TOTAL_TIME, SCROLL_SPEED} from '../Utils';
+import {MIN_TIME, TOTAL_TIME, SCROLL_SPEED} from '../utils/Utils';
 import scrollTo from "scroll-to";
 
 
@@ -55,7 +55,9 @@ class ToolbarComponent extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.sectionNum !== this.props.sectionNum){
-      this.state.seconds = nextProps.sectionTime;
+      this.setState({
+        seconds: nextProps.sectionTime
+      });
     }
   }
 
@@ -230,9 +232,9 @@ class ToolbarComponent extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    allQuestionsAnswered : state.questionsOnAPage.allQuestionsAnswered,
-    sectionNum: state.questionsOnAPage.section,
-    sectionTime: state.questionsOnAPage.time
+    allQuestionsAnswered : state.QuestionsOnAPage.allQuestionsAnswered,
+    sectionNum: state.QuestionsOnAPage.section,
+    sectionTime: state.QuestionsOnAPage.time
   }
 }
 
