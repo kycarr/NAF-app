@@ -8,7 +8,7 @@ import {
   SHORT_ANSWER,
   ESSAY,
   MULTIPLE_ANSWER
-} from '../utils/Utils';
+} from '../constants';
 import scrollTo from 'scroll-to';
 import TextField from 'material-ui/TextField';
 import Waypoint from 'react-waypoint';

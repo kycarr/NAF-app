@@ -14,7 +14,7 @@ import '../styles/App.css';
 import TAF_Logo_Small from '../images/TAF_Logo_Small.png';
 import NAF_Logo_Small from '../images/NAF_Logo_Small.png';
 import NAF_Icon_User from '../images/NAF_Icon_User.png';
-import {TAF_SYMBOL} from '../utils/Utils';
+import {TAF_SYMBOL} from '../constants';
 
 const buttonStyle = {
   textTransform: 'none',

@@ -13,7 +13,7 @@ import prevPage from "../images/NAF_Icon_CircleLeft.png";
 import warning from '../images/NAF_Icon_Warning.png';
 
 import '../styles/App.css';
-import {NUM_QUESTIONS_ON_A_PAGE, SCROLL_SPEED} from '../utils/Utils';
+import {NUM_QUESTIONS_ON_A_PAGE, SCROLL_SPEED} from '../constants';
 import {goToPage, goToSection, resetToDefaultState} from '../actions';
 
 import scrollTo from "scroll-to";

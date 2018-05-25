@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import reducers from './reducers';
-import {createStore} from 'redux';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-
+import configureStore from './store/configureStore' 
 import './styles/index.css';
 import InstructionsPage from './components/InstructionsPage';
 import App from './components/App';
 import LoginPage from './components/LoginPage';
-import RegisterServiceWorker from './utils/RegisterServiceWorker';
+import registerServiceWorker from './utils/registerServiceWorker';
+const store = configureStore();
+
 
 ReactDOM.render(
-  <Provider store={createStore(reducers)}>
+  <Provider store={store}>
     <BrowserRouter>
       <div>
         <Switch>
@@ -25,4 +25,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-RegisterServiceWorker();
+registerServiceWorker();

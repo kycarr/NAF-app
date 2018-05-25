@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import imgBookmarkOn from '../images/NAF_Icon_BookmarkOn.png';
 import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
-import {TOOLBAR_HEIGHT, SCROLL_SPEED} from '../utils/Utils';
+import {TOOLBAR_HEIGHT, SCROLL_SPEED} from '../constants';
 import {connect} from 'react-redux';
 import {changeBookmark} from '../actions'
 import scrollToElement from "scroll-to-element";

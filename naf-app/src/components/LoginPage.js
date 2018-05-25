@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions';
 import Button from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
@@ -8,7 +10,9 @@ import {Link} from "react-router-dom";
 import InsertCard from "../images/NAF_Icon_SlideCard.png";
 import NAFLogo from "../images/NAF_Logo_Large.png";
 import TAFLogo from "../images/TAF_Logo_Large.png";
-import {TAF_SYMBOL} from '../utils/Utils';
+import {TAF_SYMBOL} from '../constants';
+import { PropTypes } from 'react';
+import loginUser from '../utils/utils';
 
 const buttonStyle = {
   textTransform: 'none',
@@ -21,6 +25,18 @@ const loginButtonStyle = {
   fontSize: '18px',
 };
 
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actionCreators, dispatch);
+}
+
+function mapStateToProps(state) {
+  return {
+    userid: state.auth.id
+  };
+}
+
+
 class LoginPage extends Component {
   constructor() {
     super();
@@ -28,6 +44,8 @@ class LoginPage extends Component {
       open: false
     };
     this.togglePopup = this.togglePopup.bind(this);
+    this.loginTrigger = this.loginTrigger.bind(this);
+
   }
 
   togglePopup() {
@@ -36,14 +54,32 @@ class LoginPage extends Component {
     });
   }
 
+  loginTrigger() {
+    this.props.loginUser("hahaha","okokokok");
+  }
+
+/*
+
+        <Button 
+          label="OK" 
+          primary={true} 
+          labelStyle={loginButtonStyle}
+          onClick={this.loginTrigger}
+          data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading"
+
+        />
+
+*/
    render() {
     const buttons = [
       <Button label="CANCEL" primary={true} onClick={this.togglePopup} labelStyle={loginButtonStyle} />,
       <Link to={`/instructionsPage`}>
-        <Button 
+              <Button 
           label="OK" 
           primary={true} 
-          labelStyle={loginButtonStyle} 
+          labelStyle={loginButtonStyle}
+          onClick={this.loginTrigger}
+
         />
       </Link>
     ];
@@ -119,5 +155,4 @@ class LoginPage extends Component {
     );
   }
 }
-
-export default LoginPage;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

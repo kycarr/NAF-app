@@ -1,11 +1,16 @@
-export const OPTION_SELECTED = "option_selected";
-export const GO_TO_PAGE = "goToPage";
-export const GO_TO_SECTION = "goToSection";
-export const QUESTION_ANSWERED = "question_answered";
-export const SET_TO_DEFAULT = "set_to_default";
-export const CHANGE_BOOKMARK = "change_bookmark";
-export const LINE_NUMBER = "lineNumber";
-export const RESET_TIMER_TIME = "reset_timer_time";
+import { parseJSON } from '../utils/utils';
+import { login } from '../utils/httpFunctions';
+import {
+  OPTION_SELECTED,
+  GO_TO_PAGE,
+  GO_TO_SECTION,
+  QUESTION_ANSWERED,
+  SET_TO_DEFAULT,
+  CHANGE_BOOKMARK,
+  LINE_NUMBER,
+  LOGIN_USER_REQUEST,
+  RECEIVE_USER_INFO
+} from '../constants';
 
 export function optionSelected(questionId, option) {
   return {
@@ -50,9 +55,35 @@ export function resetToDefaultState() {
 
 export function WayPointSection(lineNumber) {
 
-   console.log("lineNumber: " + lineNumber);
+  console.log("lineNumber: " + lineNumber);
   return {
     type: LINE_NUMBER,
     payload: lineNumber
   }
 }
+
+export function loginUser(username, password) {
+  console.log('login');
+    return function (dispatch) {
+        dispatch((username, password) => {
+            type: LOGIN_USER_REQUEST
+        });
+        return login(username, password)
+          .then(parseJSON)
+          .then(response => {
+            dispatch(receiveUserInfo(response));
+          })
+          .catch(error => {
+            console.log(error);
+          });
+    };
+}
+
+export function receiveUserInfo(response) {
+  console.log("receiveUserInfo: " + response);
+  return {
+    type: RECEIVE_USER_INFO,
+    payload: { id: response }
+  }
+}
+

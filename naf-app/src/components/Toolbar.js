@@ -14,7 +14,7 @@ import eye from '../images/NAF_Icon_EyeOn.png';
 import closeEye from '../images/NAF_Icon_EyeOff.png';
 import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
 import warning from '../images/NAF_Icon_Warning.png';
-import {MIN_TIME, TOTAL_TIME, SCROLL_SPEED} from '../utils/Utils';
+import {MIN_TIME, TOTAL_TIME, SCROLL_SPEED} from '../constants';
 import scrollTo from "scroll-to";
 
 
