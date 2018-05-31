@@ -1,5 +1,5 @@
 import { parseJSON } from '../utils/utils';
-import { login } from '../utils/httpFunctions';
+import { login, getQuestions } from '../utils/httpFunctions';
 import {
   OPTION_SELECTED,
   GO_TO_PAGE,
@@ -9,7 +9,9 @@ import {
   CHANGE_BOOKMARK,
   LINE_NUMBER,
   LOGIN_USER_REQUEST,
-  RECEIVE_USER_INFO
+  RECEIVE_USER_INFO,
+  FETCH_QUESTIONS_REQUEST,
+  RECEIVE_USER_QUESTIONS
 } from '../constants';
 
 export function optionSelected(questionId, option) {
@@ -43,13 +45,13 @@ export function questionAnswered(questionId, answer) {
 export function changeBookmark(questionId) {
   return {
     type: CHANGE_BOOKMARK,
-    payload: {questionId: questionId},
+    payload: {questionId: questionId}
   }
 }
 
 export function resetToDefaultState() {
   return {
-    type: SET_TO_DEFAULT,
+    type: SET_TO_DEFAULT
   }
 }
 
@@ -65,7 +67,7 @@ export function WayPointSection(lineNumber) {
 export function loginUser(username, password) {
   console.log('login');
     return function (dispatch) {
-        dispatch((username, password) => {
+        dispatch(() => {
             type: LOGIN_USER_REQUEST
         });
         return login(username, password)
@@ -83,7 +85,29 @@ export function receiveUserInfo(response) {
   console.log("receiveUserInfo: " + response);
   return {
     type: RECEIVE_USER_INFO,
-    payload: { id: response }
+    payload: { res: response }
   }
 }
 
+export function fetchQuestions(userId) {
+  return function(dispatch) {
+    dispatch(() => {
+      type: FETCH_QUESTIONS_REQUEST
+    });
+    return getQuestions(userId)
+      .then(parseJSON)
+      .then(response => {
+        dispatch(receiveQuestions(response));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+}
+
+export function receiveQuestions(questions) {
+  return {
+    type: RECEIVE_USER_QUESTIONS,
+    payload: { questions: questions } 
+  }
+}

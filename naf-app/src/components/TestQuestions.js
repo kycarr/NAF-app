@@ -155,6 +155,10 @@ class TestQuestions extends Component {
   }
 
   render() {
+    console.log(this.props.isFetchingQuestions);
+    if(this.props.isFetchingQuestions) {
+      return (<div>  Loading... </div>);
+    }
     let totalPageNum = Math.ceil(this.props.allQuestions.length / NUM_QUESTIONS_ON_A_PAGE);
     let pageNum = this.props.pageNumber;
     let pageNumArray = [];
@@ -191,7 +195,8 @@ function mapStateToProps(state) {
   return {
     allQuestions: state.QuestionsOnAPage.questionsArray,
     allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered,
-    pageNumber: state.QuestionsOnAPage.page
+    pageNumber: state.QuestionsOnAPage.page,
+    isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions
   }
 }
 

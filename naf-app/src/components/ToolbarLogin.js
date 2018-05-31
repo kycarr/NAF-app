@@ -21,7 +21,11 @@ const buttonStyle = {
   fontSize: '18px'
 };
 
-export default class ToolbarComponent extends Component {
+export default class ToolbarLoginComponent extends Component {
+
+	constructor(props) {
+		super(props);
+	}
 
 	render() {
 		return (
@@ -35,7 +39,7 @@ export default class ToolbarComponent extends Component {
 				</ToolbarGroup>
 				<ToolbarGroup>
 					<div className="toolbar-text">
-						John Smith
+						{this.props.firstname} {this.props.lastname}
 					</div>
 					<img className="icon-user" src={NAF_Icon_User} alt="NAF_Logo" />
 					<Link to={`/`}>

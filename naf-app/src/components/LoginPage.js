@@ -41,11 +41,27 @@ class LoginPage extends Component {
   constructor() {
     super();
     this.state = {
-      open: false
+      open: false,
+      username: "",
+      password: ""
     };
     this.togglePopup = this.togglePopup.bind(this);
     this.loginTrigger = this.loginTrigger.bind(this);
+    this.setUsername = this.setUsername.bind(this);
+    this.setPassword = this.setPassword.bind(this);
+  }
 
+
+  setUsername(e) {
+    this.setState({
+      username: e.target.value
+    });
+  }
+
+  setPassword(e) {
+    this.setState({
+      password: e.target.value
+    });
   }
 
   togglePopup() {
@@ -55,7 +71,7 @@ class LoginPage extends Component {
   }
 
   loginTrigger() {
-    this.props.loginUser("hahaha","okokokok");
+    this.props.loginUser(this.state.username, this.state.password);
   }
 
 /*
@@ -139,7 +155,8 @@ class LoginPage extends Component {
               margin="dense"
               id="name"
               floatingLabelText="User Name"
-              type="username"
+              type="text"
+              onChange={this.setUsername}
               fullWidth
             />
             <TextField
@@ -147,6 +164,7 @@ class LoginPage extends Component {
               id="password"
               floatingLabelText="Password"
               type="password"
+              onChange={this.setPassword}
               fullWidth
             />
           </Dialog>

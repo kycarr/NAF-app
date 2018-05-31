@@ -88,6 +88,9 @@ class NavbarComponent extends Component {
 
 
   render() {
+    if(this.props.isFetchingQuestions) {
+      return (<MuiThemeProvider> <div> </div> </MuiThemeProvider>);
+    }
     const nextSectionOrFinishButton = this.props.sectionNum === this.props.totalSectionNum - 1 ?
       <Link to={'/'}>
       <FlatButton label="Finish Test" primary={true} labelStyle={loginButtonStyle} onClick={this.onClickFinishTest}/>
@@ -102,6 +105,7 @@ class NavbarComponent extends Component {
     let totalPageNum = Math.ceil(this.props.allQuestions.length / NUM_QUESTIONS_ON_A_PAGE);
     let pageNum = this.props.pageNumber;
     let lineNum = pageNum * NUM_QUESTIONS_ON_A_PAGE + 1;
+    console.log(this.props.allQuestions);
     let questions = this.props.allQuestions.slice(pageNum * NUM_QUESTIONS_ON_A_PAGE, pageNum * NUM_QUESTIONS_ON_A_PAGE + NUM_QUESTIONS_ON_A_PAGE);
     let pageNumArray = [];
     for (let i = 0; i < totalPageNum; i++) {
@@ -169,7 +173,8 @@ function mapStateToProps(state) {
     sectionNum: state.QuestionsOnAPage.section,
     pageNumber: state.QuestionsOnAPage.page,
     totalSectionNum : state.QuestionsOnAPage.totalSections,
-    allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered
+    allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered,
+    isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions
   }
 }
 

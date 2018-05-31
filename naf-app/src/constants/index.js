@@ -26,3 +26,5 @@ export const LINE_NUMBER = "lineNumber";
 export const RESET_TIMER_TIME = "reset_timer_time";
 export const LOGIN_USER_REQUEST = "LOGIN_USER_REQUEST";
 export const RECEIVE_USER_INFO = "RECEIVE_USER_INFO";
+export const RECEIVE_USER_QUESTIONS = "RECEIVE_USER_QUESTIONS";
+export const FETCH_QUESTIONS_REQUEST = "FETCH_QUESTIONS_REQUEST";

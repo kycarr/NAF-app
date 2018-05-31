@@ -6,7 +6,7 @@ import {
 
 
 const initialState = {
-	id: -1,
+	res: {},
     isAuthenticating: false
 };
 
@@ -14,6 +14,8 @@ const initialState = {
 export default createReducer(initialState, {
 	[RECEIVE_USER_INFO]: (state, payload) => 
 		Object.assign({}, state, {
-			id: payload.id
+			res: payload.res,
+			firstname: payload.res.firstname,
+			lastname: payload.res.lastname
 		}),
 });
