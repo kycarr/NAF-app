@@ -1,5 +1,5 @@
 import { parseJSON } from '../utils/utils';
-import { login, getQuestions } from '../utils/httpFunctions';
+import { login, getQuestions, saveAnswer, submitAnswer } from '../utils/httpFunctions';
 import {
   OPTION_SELECTED,
   GO_TO_PAGE,
@@ -11,10 +11,14 @@ import {
   LOGIN_USER_REQUEST,
   RECEIVE_USER_INFO,
   FETCH_QUESTIONS_REQUEST,
-  RECEIVE_USER_QUESTIONS
+  RECEIVE_USER_QUESTIONS,
+  RECEIVE_SAVE_ANSWER,
+  SUBMIT_SECTION_ANSWER
 } from '../constants';
 
-export function optionSelected(questionId, option) {
+export function optionSelected(userId, sectionId, questionId, option) {
+  // answerQuestion(userId, sectionId, questionId, option);
+  // console.log(option);
   return {
     type: OPTION_SELECTED,
     payload: {questionId: questionId, option: option}
@@ -109,5 +113,31 @@ export function receiveQuestions(questions) {
   return {
     type: RECEIVE_USER_QUESTIONS,
     payload: { questions: questions } 
+  }
+}
+
+export function submitSectionAnswers(userId, sectionId, timeLeft) {
+  return function(dispatch) {
+    dispatch(() => {
+        type: SUBMIT_SECTION_ANSWER
+    });
+    return submitAnswer(userId, sectionId, timeLeft)
+      .then(parseJSON)
+      .then(() => {
+        dispatch(goToSection(sectionId + 1));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+}
+
+export function receiveSaveAnswer(response) {
+  return {
+    type: RECEIVE_SAVE_ANSWER,
+    payload: { 
+      success: response.success,
+      questionId: response.questionId
+     } 
   }
 }

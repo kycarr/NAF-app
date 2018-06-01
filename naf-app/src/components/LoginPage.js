@@ -6,13 +6,11 @@ import * as actionCreators from '../actions';
 import Button from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
-import {Link} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import InsertCard from "../images/NAF_Icon_SlideCard.png";
 import NAFLogo from "../images/NAF_Logo_Large.png";
 import TAFLogo from "../images/TAF_Logo_Large.png";
 import {TAF_SYMBOL} from '../constants';
-import { PropTypes } from 'react';
-import loginUser from '../utils/utils';
 
 const buttonStyle = {
   textTransform: 'none',
@@ -32,7 +30,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    userid: state.auth.id
+    userid: state.auth.id,
+    isAuthenticated: state.QuestionsOnAPage.isAuthenticated
   };
 }
 
@@ -87,17 +86,21 @@ class LoginPage extends Component {
 
 */
    render() {
+    if(this.props.isAuthenticated){
+      return (
+      <Redirect to={`/instructionsPage`}>
+      </Redirect>
+      );
+    }
+
     const buttons = [
       <Button label="CANCEL" primary={true} onClick={this.togglePopup} labelStyle={loginButtonStyle} />,
-      <Link to={`/instructionsPage`}>
               <Button 
           label="OK" 
           primary={true} 
           labelStyle={loginButtonStyle}
           onClick={this.loginTrigger}
-
         />
-      </Link>
     ];
 
     return (

@@ -144,7 +144,7 @@ class ToolbarComponent extends React.Component {
     ];
 
     return (
-      <MuiThemeProvider>
+      <div>
         <Toolbar className="toolbar">
           <ToolbarGroup className="col-lg-1">
           </ToolbarGroup>
@@ -155,7 +155,7 @@ class ToolbarComponent extends React.Component {
             {this.state.showTimer ?
               <div className="toolbar-fixed-width-div">
                 <span className="toolbar-title">Time Remaining :</span>
-                <div className={this.state.seconds < MIN_TIME ? "toolbar-timer-min-time" : "toolbar-timer"}>
+                <div className={this.state.seconds < MIN_TIME ? "toolbar-timer-min-time" : "toolbar-timer"} id="toolbar-time">
                   {this.state.time.h >= 10 ? "" : "0"}{this.state.time.h}:{this.state.time.m >= 10 ? "" : "0"}{this.state.time.m}:{this.state.time.s >= 10 ? "" : "0"}{this.state.time.s}</div>
               </div>
               : <div className="toolbar-fixed-width-div"></div>}
@@ -225,7 +225,7 @@ class ToolbarComponent extends React.Component {
               <span>Your time is over. All your work has been automatically saved and submitted.<br/><br/></span> 
           </p>
         </Dialog>
-      </MuiThemeProvider>
+    </div>
     )
   }
 }

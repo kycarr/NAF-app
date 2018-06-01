@@ -33,7 +33,7 @@ class TestQuestions extends Component {
     if (null != imageURL) {
       return (
       <div>
-        <a data-fancybox="gallery" href={imageURL}><img className="image-type" src={imageURL} alt="Test Loading"/></a>
+        <a data-fancybox="gallery" ><img className="image-type" src={require("../images/nimitz3.jpg")} alt="Test Loading"/></a>
       </div>
       )
     }
@@ -70,7 +70,7 @@ class TestQuestions extends Component {
           return  (
               <Waypoint
                 onEnter = {function(props) {
-                console.log('onEnter ' + lineNum);
+                // console.log('onEnter ' + lineNum);
                   onWayPointChild(lineNum-1);
                 }}
               />);
@@ -83,25 +83,25 @@ class TestQuestions extends Component {
       case MULTI_CHOICE:
         return question.optionList.map((option) => {
           return  <div key={question.id + option.option} className={option.selected ? "test-option-selected" : "test-option-unselected"} 
-                    onClick={() => this.props.optionSelected(question.id, option)}>
+                    onClick={() => this.props.optionSelected(this.props.userId, this.props.sectionNumber, question.id, option)}>
                     {option.option}
                   </div>
         });
       case SHORT_ANSWER:
         return (
-          <TextField style={{backgroundColor : 'rgba(256,256,256,0.4)', border: '2px solid rgba(256,256,256,0.7)'}} 
+          <TextField id={'TextField' + question.id} style={{backgroundColor : 'rgba(256,256,256,0.4)', border: '2px solid rgba(256,256,256,0.7)'}} 
           textareaStyle={{padding : '0px 15px', margin: '6px 0px'}} className="text-field" rows={2} rowsMax={4} multiLine={true} 
           underlineStyle={{display: 'none'}}  inputStyle={{ textAlign: 'center' }}
           hintStyle={{ width: 'inherit', textAlign: 'left', margin: '0px 15px', marginBottom: '26px' }}
-          fullWidth={true} hintText="Type your answer here" value={question.answer} onChange={(event) => TestQuestions.onAnswerChanged.bind(this)(question.id, event.target.value)}/>
+          fullWidth={true} hintText={ question.answered ? "Type your answer here" : question.answer } onBlur={(event) => TestQuestions.onAnswerChanged.bind(this)(question.id, event.target.value)}/>
         );
       case ESSAY:
         return (
-          <TextField style={{backgroundColor : 'rgba(256,256,256,0.4)', border: '2px solid rgba(256,256,256,0.7)'}} 
+          <TextField id={'TextField' + question.id} style={{backgroundColor : 'rgba(256,256,256,0.4)', border: '2px solid rgba(256,256,256,0.7)'}} 
           textareaStyle={{padding : '0px 15px', margin: '6px 0px'}} className="text-field" rows={4} rowsMax={25} multiLine={true}
           underlineStyle={{display: 'none'}} inputStyle={{ textAlign: 'center', verticalAlign: 'text-top'}}
           hintStyle={{ width: 'inherit', textAlign: 'left', margin: '0px 15px', marginBottom: '74px'}}
-          fullWidth={true} hintText="Type your answer here" value={question.answer} onChange={(event) => TestQuestions.onAnswerChanged.bind(this)(question.id, event.target.value)}/>
+          fullWidth={true} hintText={ question.answered ? "Type your answer here" : question.answer } onBlur={(event) => TestQuestions.onAnswerChanged.bind(this)(question.id, event.target.value)} />
         );
       default:
         break;
@@ -119,8 +119,8 @@ class TestQuestions extends Component {
           <div className="test-question-num"> {lineNum++} </div>
           <div className="test-question-question"> {question.question}</div>
           {question.type === MULTI_CHOICE && question.choiceType === MULTIPLE_ANSWER ? <div className="test-question-filler">Select all that apply.</div> : null}
-          {TestQuestions.renderVideo(question.videoURL)}
-          {TestQuestions.renderImage(question.imageURL)}
+          {question.videoURL !== undefined ? TestQuestions.renderVideo(question.videoURL) : null}
+          {question.imageURL !== undefined ? TestQuestions.renderImage(question.imageURL) : null}
           {this.renderQuestion.bind(this)(question)}
           {this.WayPoint.bind(this)(lineNum)}
         </div>
@@ -155,7 +155,6 @@ class TestQuestions extends Component {
   }
 
   render() {
-    console.log(this.props.isFetchingQuestions);
     if(this.props.isFetchingQuestions) {
       return (<div>  Loading... </div>);
     }
@@ -196,7 +195,9 @@ function mapStateToProps(state) {
     allQuestions: state.QuestionsOnAPage.questionsArray,
     allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered,
     pageNumber: state.QuestionsOnAPage.page,
-    isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions
+    isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions,
+    sectionNumber: state.QuestionsOnAPage.section,
+    userId: state.auth.userId
   }
 }
 

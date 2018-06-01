@@ -6,10 +6,13 @@ import {OPTION_SELECTED,
   RESET_TIMER_TIME,
   CHANGE_BOOKMARK,
   RECEIVE_USER_QUESTIONS,
-  FETCH_QUESTIONS_REQUEST
+  FETCH_QUESTIONS_REQUEST,
+  RECEIVE_USER_INFO,
+  SUBMIT_SECTION_ANSWER
 } from '../constants';
 import {ESSAY, MULTI_CHOICE, MULTIPLE_ANSWER, SHORT_ANSWER, SINGLE_ANSWER} from '../constants';
 import image from '../images/nimitz3.jpg';
+import { saveAnswer, saveResponse } from '../utils/httpFunctions';
 
 // import imageFlowChart from '../images/FlowChartExample.png';
 
@@ -22,28 +25,46 @@ const initState = {
   allQuestionsAnswered: false,
   totalSections: 0,
   questionsArray: {},
-  isFetchingQuestions: true
+  isFetchingQuestions: true,
+  qArray: {},
+  userId: "",
+  isSubmitingAnswer: false,
+  isAuthenticated: false
 };
 
 export default function (state = initState, action) {
   switch (action.type) {
     case OPTION_SELECTED:
       return optionSelected(state, action);
+    case RECEIVE_USER_INFO:
+      return {
+        userId: action.payload.res.id,
+        isFetchingQuestions: true,
+        isAuthenticated: true
+      };
 
     case GO_TO_PAGE:
       return {
+        userId: state.userId,
         page: action.payload,
         section: state.section,
+        totalSections: state.totalSections,
         allQuestionsAnswered: state.allQuestionsAnswered,
-        totalSections: state.qArray.length,
-        questionsArray: state.questionsArray
+        questionsArray: state.questionsArray,
+        qArray: state.qArray,
+        time: state.time
       };
 
     case GO_TO_SECTION:
       return {
+        isSubmitingAnswer: false,
+        userId: state.userId,
         page: 0,
         section: action.payload,
+        totalSections: state.totalSections,
         time: sectionTimes[action.payload],
+        qArray: state.qArray,
+        allQuestionsAnswered: state.allQuestionsAnswered,
         questionsArray: state.qArray[action.payload]
       };
 
@@ -59,6 +80,7 @@ export default function (state = initState, action) {
         page: 0,
         section: 0,
         time: sectionTimes[0],
+        userId: state.userId,
         allQuestionsAnswered: false,
         totalSections: action.payload.questions.length,
         questionsArray: action.payload.questions[0],
@@ -69,6 +91,18 @@ export default function (state = initState, action) {
     case CHANGE_BOOKMARK:
       return changeBookmark(state, action);
 
+    case SUBMIT_SECTION_ANSWER:
+      return {
+        userId: state.userId,
+        page: state.page,
+        section: state.section,
+        totalSections: state.totalSections,
+        allQuestionsAnswered: state.allQuestionsAnswered,
+        questionsArray: state.questionsArray,
+        qArray: state.qArray,
+        time: state.time,
+        isSubmitingAnswer: true
+      };
     default:
       return state;
   }
@@ -97,13 +131,27 @@ function optionSelected(state, action) {
     }
     return question;
   });
+  optionSave(state.userId, 
+                  state.section, 
+                  action.payload.questionId, 
+                  nextQuestionsArray[action.payload.questionId - 1].optionList
+  );
+
   return {
     page: state.page,
     section: state.section,
     allQuestionsAnswered: numAnsweredQuestions === nextQuestionsArray.length,
-    totalSections: state.qArray.length,
-    questionsArray: nextQuestionsArray
+    questionsArray: nextQuestionsArray,
+    userId: state.userId,
+    totalSections: state.totalSections,
+    qArray: state.qArray
   };
+}
+function optionSave(userId, sectionId, questionId, answer) {
+    saveAnswer(userId, sectionId, questionId, answer)
+      .catch(error => {
+        console.log(error);
+      });
 }
 
 function questionAnswered(state, action) {
@@ -113,6 +161,7 @@ function questionAnswered(state, action) {
     if (question.id === action.payload.questionId) {
       question.answer = action.payload.answer;
       question.answered = question.answer !== "";
+      responseSave(state.userId, state.section, question.id, {answer: question.answer, answered: question.answered});
     }
     if (question.answered) {
       numAnsweredQuestions++;
@@ -123,9 +172,18 @@ function questionAnswered(state, action) {
     page: state.page,
     section: state.section,
     allQuestionsAnswered: numAnsweredQuestions === nextQuestionsArray.length,
-    totalSections: state.qArray.length,
-    questionsArray: nextQuestionsArray
+    questionsArray: nextQuestionsArray,
+    totalSections: state.totalSections,
+    qArray: state.qArray,
+    userId: state.userId
   };
+}
+
+function responseSave(userId, sectionId, questionId, answer) {
+  saveResponse(userId, sectionId, questionId, answer)
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 function changeBookmark(state, action) {
@@ -137,10 +195,11 @@ function changeBookmark(state, action) {
     return question;
   });
   return {
+    userId: state.userId,
     page: state.page,
     section: state.section,
     allQuestionsAnswered: state.allQuestionsAnswered,
-    totalSections: state.qArray.length,
-    questionsArray: nextQuestionsArray
+    questionsArray: nextQuestionsArray,
+    qArray: state.qArray
   };
 }

@@ -14,7 +14,7 @@ import warning from '../images/NAF_Icon_Warning.png';
 
 import '../styles/App.css';
 import {NUM_QUESTIONS_ON_A_PAGE, SCROLL_SPEED} from '../constants';
-import {goToPage, goToSection, resetToDefaultState} from '../actions';
+import {goToPage, goToSection, resetToDefaultState, submitSectionAnswers} from '../actions';
 
 import scrollTo from "scroll-to";
 
@@ -32,10 +32,16 @@ class NavbarComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {openWarning: false};
+    this.state = {openWarning: false, timerTime: 0};
     this.togglePopupWarning = this.togglePopupWarning.bind(this);
     this.onClickNextSection = this.onClickNextSection.bind(this);
     this.onClickFinishTest = this.onClickFinishTest.bind(this);
+  }
+
+  static getToolbarTimer() {
+    let time = document.getElementById("toolbar-time").innerText;
+    console.log(time);
+    return time;
   }
 
   togglePopupWarning() {
@@ -70,7 +76,8 @@ class NavbarComponent extends Component {
 
   onClickNextSection() {
     if (this.props.sectionNum < this.props.totalSectionNum) {
-      this.props.goToSection(this.props.sectionNum + 1);
+      this.props.submitSectionAnswers(this.props.userId, this.props.sectionNum, NavbarComponent.getToolbarTimer());
+      // this.props.goToSection(this.props.sectionNum + 1);
       this.togglePopupWarning()
       scrollTo(0, 0, {
         duration: SCROLL_SPEED
@@ -89,7 +96,7 @@ class NavbarComponent extends Component {
 
   render() {
     if(this.props.isFetchingQuestions) {
-      return (<MuiThemeProvider> <div> </div> </MuiThemeProvider>);
+      return (<div> </div>);
     }
     const nextSectionOrFinishButton = this.props.sectionNum === this.props.totalSectionNum - 1 ?
       <Link to={'/'}>
@@ -105,14 +112,13 @@ class NavbarComponent extends Component {
     let totalPageNum = Math.ceil(this.props.allQuestions.length / NUM_QUESTIONS_ON_A_PAGE);
     let pageNum = this.props.pageNumber;
     let lineNum = pageNum * NUM_QUESTIONS_ON_A_PAGE + 1;
-    console.log(this.props.allQuestions);
     let questions = this.props.allQuestions.slice(pageNum * NUM_QUESTIONS_ON_A_PAGE, pageNum * NUM_QUESTIONS_ON_A_PAGE + NUM_QUESTIONS_ON_A_PAGE);
     let pageNumArray = [];
     for (let i = 0; i < totalPageNum; i++) {
       pageNumArray.push(i);
     }
     return (
-      <MuiThemeProvider>
+      <div>
       <div className="nav-component">
         <div className="nav-header">
           <span style={{fontSize: '22px'}}>Navigation</span><br></br>
@@ -155,14 +161,14 @@ class NavbarComponent extends Component {
         autoScrollBodyContent={true}
       >
         <img className="image-warning" src={warning} alt="warning"/>
+        <div className="dialog-title">Warning</div>
         <p className="dialog-text">
-          <div className="dialog-title">Warning</div>
           {this.props.allQuestionsAnswered ?
             <span>You have completed this section. If you proceed, you will not be able to return to this section. <br /><br /></span> :
             <span><b>You have unanswered questions.</b> If you submit, you will not be able to return to this section. Any unanswered questions will be graded as incomplete.<br /><br /></span>}
         </p>
       </Dialog>
-      </MuiThemeProvider>
+      </div>
     )
   }
 }
@@ -174,10 +180,11 @@ function mapStateToProps(state) {
     pageNumber: state.QuestionsOnAPage.page,
     totalSectionNum : state.QuestionsOnAPage.totalSections,
     allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered,
-    isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions
+    isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions,
+    userId: state.auth.userId
   }
 }
 
 
 
-export default connect(mapStateToProps, {goToPage, goToSection, resetToDefaultState})(NavbarComponent);
+export default connect(mapStateToProps, {goToPage, goToSection, resetToDefaultState, submitSectionAnswers})(NavbarComponent);

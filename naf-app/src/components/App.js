@@ -16,7 +16,7 @@ export default class App extends Component {
         this.onWayPoint = this.onWayPoint.bind(this);
     }
     onWayPoint(arg){
-            console.log('We pass argument from Child to Parent: ' + arg);
+            // console.log('We pass argument from Child to Parent: ' + arg);
             this.setState({lineNumber:arg});
     }
     render() {

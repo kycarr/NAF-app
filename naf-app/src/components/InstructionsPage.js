@@ -9,7 +9,7 @@ import '../styles/App.css';
 import eye from '../images/NAF_Icon_EyeOn.png';
 import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
 import ToolbarLoginComponent from './ToolbarLogin';
-import {resetToDefaultState, fetchQuestions} from '../actions'
+import { fetchQuestions } from '../actions'
 
 
 const buttonStyle = {
@@ -44,7 +44,7 @@ class Instructions extends Component {
 						          All your work is automatically saved and submitted when the timer stops the test. <br />
 						        </p>
 						        <Link to={`/testPage`}>
-					            	<FlatButton className="instructions-button" label="Start Test" labelStyle={buttonStyle} onClick={this.props.fetchQuestions}/>
+					            	<FlatButton className="instructions-button" label="Start Test" labelStyle={buttonStyle} onClick={() => this.props.fetchQuestions()}/>
 					            </Link>
 				            </div>
                         </div>
