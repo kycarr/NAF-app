@@ -1,6 +1,5 @@
 import { createReducer } from '../utils/utils';
 import {
-  LOGIN_USER_REQUEST,
   RECEIVE_USER_INFO
 } from '../constants/index';
 

@@ -46,3 +46,8 @@ export function submitAnswer(userId, sectionId, timeLeft) {
 	});
 }
 
+export function finishTest(userId) {
+	return axios.post('http://localhost:8888/api/finishTest', {
+		userId
+	});
+}

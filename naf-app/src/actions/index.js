@@ -1,5 +1,5 @@
 import { parseJSON } from '../utils/utils';
-import { login, getQuestions, saveAnswer, submitAnswer } from '../utils/httpFunctions';
+import { login, getQuestions, submitAnswer, finishTest } from '../utils/httpFunctions';
 import {
   OPTION_SELECTED,
   GO_TO_PAGE,
@@ -13,7 +13,7 @@ import {
   FETCH_QUESTIONS_REQUEST,
   RECEIVE_USER_QUESTIONS,
   RECEIVE_SAVE_ANSWER,
-  SUBMIT_SECTION_ANSWER
+  SUBMIT_SECTION_ANSWER,
 } from '../constants';
 
 export function optionSelected(userId, sectionId, questionId, option) {
@@ -140,4 +140,28 @@ export function receiveSaveAnswer(response) {
       questionId: response.questionId
      } 
   }
+}
+
+  
+  export function sendTestFinishAction(userId, sectionId, timeLeft){
+    sendTestFinish(userId, sectionId, timeLeft);
+    return {
+      type: SET_TO_DEFAULT
+    }
+  }
+
+async function sendTestFinish(userId, sectionId, timeLeft) {
+  let response;
+  try {
+      response = await parseJSON(submitAnswer(userId, sectionId, timeLeft));
+      console.log(response);
+  } catch(err) {
+      console.log(err);
+    }
+  try {
+    response = await parseJSON(finishTest(userId, sectionId, timeLeft));
+  } catch(err) {
+      console.log(err);
+    }
+  return response;
 }

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import FlatButton from 'material-ui/FlatButton';
 import NavbarQuestion from './NavbarQuestions';
@@ -14,8 +13,7 @@ import warning from '../images/NAF_Icon_Warning.png';
 
 import '../styles/App.css';
 import {NUM_QUESTIONS_ON_A_PAGE, SCROLL_SPEED} from '../constants';
-import {goToPage, goToSection, resetToDefaultState, submitSectionAnswers} from '../actions';
-
+import {goToPage, goToSection, resetToDefaultState, submitSectionAnswers, sendTestFinishAction} from '../actions';
 import scrollTo from "scroll-to";
 
 const buttonStyle = {
@@ -86,7 +84,8 @@ class NavbarComponent extends Component {
   }
 
   onClickFinishTest() {
-    this.props.resetToDefaultState();
+    this.props.sendTestFinishAction(this.props.userId, this.props.sectionNum, NavbarComponent.getToolbarTimer());
+    // this.props.resetToDefaultState();
     this.togglePopupWarning();
     scrollTo(0, 0, {
       duration: SCROLL_SPEED
@@ -187,4 +186,4 @@ function mapStateToProps(state) {
 
 
 
-export default connect(mapStateToProps, {goToPage, goToSection, resetToDefaultState, submitSectionAnswers})(NavbarComponent);
+export default connect(mapStateToProps, {sendTestFinishAction, goToPage, goToSection, resetToDefaultState, submitSectionAnswers})(NavbarComponent);

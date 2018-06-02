@@ -23,9 +23,6 @@ const buttonStyle = {
 
 export default class ToolbarLoginComponent extends Component {
 
-	constructor(props) {
-		super(props);
-	}
 
 	render() {
 		return (
