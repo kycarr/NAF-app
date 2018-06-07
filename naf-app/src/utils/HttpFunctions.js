@@ -6,13 +6,11 @@ export function login(username, password) {
          username,
          password
 	});
-	
 }
 
 export function getQuestions(userId) {
-	console.log(userId);
 	return axios.post('http://localhost:8888/api/questions', {
-		userId
+		 userId
 	});
 }
 
@@ -29,8 +27,8 @@ export function saveAnswer(userId, sectionId, questionId, answer) {
 
 export function saveResponse(userId, sectionId, questionId, response) {
 	  console.log("userID: " + userId);
-  console.log("question ID: " + questionId);
-  console.log("sectionId: " + sectionId);
+  	  console.log("question ID: " + questionId);
+  	  console.log("sectionId: " + sectionId);
 	return axios.post('http://localhost:8888/api/questionResponseStore', {
 		userId,
 		sectionId,
@@ -40,7 +38,7 @@ export function saveResponse(userId, sectionId, questionId, response) {
 }
 
 export function submitAnswer(userId, sectionId, timeLeft) {
-	return axios.post('http://localhost:8888/api/submit', {
+	return axios.post('http://localhost:8888/api/submitSection', {
 		userId,
 		sectionId,
 		timeLeft

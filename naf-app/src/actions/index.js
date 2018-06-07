@@ -94,6 +94,7 @@ export function receiveUserInfo(response) {
 }
 
 export function fetchQuestions(userId) {
+
   return function(dispatch) {
     dispatch(() => {
       type: FETCH_QUESTIONS_REQUEST

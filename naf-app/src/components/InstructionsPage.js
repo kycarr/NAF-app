@@ -44,7 +44,7 @@ class Instructions extends Component {
 						          All your work is automatically saved and submitted when the timer stops the test. <br />
 						        </p>
 						        <Link to={`/testPage`}>
-					            	<FlatButton className="instructions-button" label="Start Test" labelStyle={buttonStyle} onClick={() => this.props.fetchQuestions()}/>
+					            	<FlatButton className="instructions-button" label="Start Test" labelStyle={buttonStyle} onClick={() => this.props.fetchQuestions(this.props.userId)}/>
 					            </Link>
 				            </div>
                         </div>
@@ -60,7 +60,8 @@ class Instructions extends Component {
 function mapStateToProps(state) {
   return {
     firstname: state.auth.firstname,
-    lastname: state.auth.lastname
+    lastname: state.auth.lastname,
+    userId: state.auth.userId
   }
 }
 

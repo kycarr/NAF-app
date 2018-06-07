@@ -130,8 +130,7 @@ class NavbarComponent extends Component {
                 return <NavbarQuestion key={question.id} question={question} lineNum={lineNum++} 
                         bookmarked={question.bookmarked} answered={question.answered} 
                         wayPointNum={this.props.lineNumber}/>
-              }
-            )}
+            })}
           </div>
           <div className="nav-button-page">
             <img src={prevPage} className={pageNum === 0 ? "page-navigation-inactive" : "page-navigation-active"}
