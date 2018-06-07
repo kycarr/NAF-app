@@ -9,6 +9,9 @@ exports.instructor_info = function(req, res, next) {
 			console.log("err" + err);
 			return handleError(err);
 		}
+		else if(!instructor) {
+			res.send("instructor of id '" + id + "' is not found");
+		}
 		else{
 			console.log("getting info of: " + instructor.name);
 			console.log(instructor);

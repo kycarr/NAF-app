@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/naf_db');
+mongoose.connect('mongodb://localhost:27017/naf-db');
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, "MongoDB connection error"));
 

@@ -10,24 +10,18 @@ chai.request('http://localhost:8080')
     console.log(responses.text);
   });
 
-
-
-
 chai.request('http://localhost:8080')
-  .post('/report/createInstructor')
+  .post('/report/createTestResult')
   .send({
-    'firstName': 'Fred',
-    'lastName': 'Wong',
-    'classNames': ["Class A", "Class B"]
+    'className': 'Class 3',
+    'testName': 'FC - Module 06',
   })
   .then(responses => {
     console.log(responses.text);
   });
-
 chai.request('http://localhost:8080')
-  .get('/report/getInstructorInfo')
-  .query({id: "5b198a2a4618fd3fc7d9ee37"})
+  .get('/report/fetchTestResult')
+  .query({id: "5b19a97fd22ed345ed0e68fd"})
   .then(responses => {
     console.log(responses.text);
   });
-
