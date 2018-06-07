@@ -3,17 +3,13 @@ var Schema = mongoose.Schema;
 
 var InstructorSchema = new Schema({
 
-    firstName: {
+    name: {
         type: String,
         required: true
     },
-    lastName: {
-        type: String,
-        required: true
-    },
-    class_id: {
-        type: [],
-    }
+    class_names: [{
+        type: String
+    }]
 
 });
 
@@ -26,6 +22,6 @@ InstructorSchema.pre('save', function(next) {
 
 // InstructorSchema.update()
 
-var Instructor = mongoose.model('Instructors', InstructorSchema);
+var Instructor = mongoose.model('instructors', InstructorSchema);
 
 module.exports = Instructor;
