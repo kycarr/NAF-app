@@ -19,6 +19,7 @@ chai.request('http://localhost:8080')
   .then(responses => {
     console.log(responses.text);
   });
+  
 chai.request('http://localhost:8080')
   .get('/report/fetchTestResult')
   .query({id: "5b19a97fd22ed345ed0e68fd"})

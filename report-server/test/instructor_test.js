@@ -10,9 +10,6 @@ chai.request('http://localhost:8080')
     console.log(responses.text);
   });
 
-
-
-
 chai.request('http://localhost:8080')
   .post('/report/createInstructor')
   .send({

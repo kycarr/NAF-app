@@ -46,6 +46,4 @@ exports.createTestResult = function(req, res) {
 			});
 		}
 	});
-
-
 }

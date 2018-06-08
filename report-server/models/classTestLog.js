@@ -4,9 +4,13 @@ var ObjectId = Schema.Types.ObjectId
 
 var classTestLogSchema = new Schema({
 
-    traineeName: String,
+    trainee_id: ObjectId,
 
-    traineeId: ObjectId,
+	className: String,
+
+	testName: String,
+
+    traineeName: String,
 
     timeStarted: String,
 
@@ -16,9 +20,12 @@ var classTestLogSchema = new Schema({
 
     totalScore: Number,
 
-    Result: String,
+    result: String,
 
-    Topics: []
+    topics: [{
+    	name: String,
+    	score: Number
+    }]
 });
 
 

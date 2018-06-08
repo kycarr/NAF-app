@@ -40,7 +40,11 @@ var testResultSchema = new Schema({
     classTestLog: {
         type: ObjectId,
         ref: 'classTestLog'
-    }
+    },
+    topics: [{
+        name: String,
+        scoreAggregate: Number
+    }]
 });
 
 
