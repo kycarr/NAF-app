@@ -26,7 +26,7 @@ router.post('/report/createInstructor', instructorController.create_instructor);
 
 router.get('/report/fetchTestResult', testResultController.fetchTestResult);
 
-router.post('/report/createTestResult', classTestLogController.createClassTestLog);
+router.post('/report/createTestResult', testResultController.createTestResult);
 
 router.get('/report/fetchClassTestLog', classTestLogController.fetchClassTestLog);
 

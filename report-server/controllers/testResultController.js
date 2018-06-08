@@ -25,6 +25,13 @@ exports.createTestResult = function(req, res) {
 	let myId = mongoose.Types.ObjectId();
 	let className = req.body.className;
 	let testName = req.body.testName;
+	let dateCompleted = req.body.dateCompleted;
+	let numFinished = req.body.numFinished;
+	let numIncomplete = req.body.numIncomplete;
+	let numNotStart = req.body.numNotStart;
+	let numAveragePercent = req.body.numAveragePercent;
+	let numPassPercent = req.body.numPassPercent;
+	let topics = req.body.topics;
 	testResult.findOne({ $and:[ {className: className}, {testName: testName} ] }, function(err, result) {
 		if(err){
 			console.log(err);
@@ -34,7 +41,8 @@ exports.createTestResult = function(req, res) {
 			res.send("success, Test Result for class: " + className + " test: " + testName + " already exists");
 		}
 		else {
-			testResult.create({_id: myId, className: className, testName: testName}, function(err) {
+			testResult.create({_id: myId, className, testName, dateCompleted, numFinished, numIncomplete,
+			numNotStart, numAveragePercent, numPassPercent, topics}, function(err) {
 				if(err){
 					console.log(err);
 					res.send("error");

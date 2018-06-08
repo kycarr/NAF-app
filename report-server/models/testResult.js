@@ -43,7 +43,8 @@ var testResultSchema = new Schema({
     },
     topics: [{
         name: String,
-        scoreAggregate: Number
+        pass: Number,
+        fail: Number
     }]
 });
 

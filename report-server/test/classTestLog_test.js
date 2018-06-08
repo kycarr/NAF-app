@@ -37,7 +37,7 @@ chai.request('http://localhost:8080')
   .send({
     'testName': 'FC - Module 06',
     'className': 'Class 3',
-    'trainee_id': '5b19a97fd22ed345ed0e78fe'
+    'trainee_id': '5b1af9d62c47bc689e89eb74'
   })
   .then(responses => {
     console.log(responses.text);
