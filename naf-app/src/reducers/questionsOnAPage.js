@@ -29,7 +29,8 @@ const initState = {
   qArray: {},
   userId: "",
   isSubmitingAnswer: false,
-  isAuthenticated: false
+  isAuthenticated: false,
+  answerArray: []
 };
 
 

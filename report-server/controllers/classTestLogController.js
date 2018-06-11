@@ -1,42 +1,43 @@
 const mongoose = require ('mongoose');
 const async = require('async');
 var classTestLog = require('../models/classTestLog');
+"use strict";
 
-exports.fetchClassTestLog = function(req, res) {
+export default async function fetchClassTestLog(req, res) {
 	var id = mongoose.Types.ObjectId(req.query['id']);
-	var className = req.query['className'];
-	var testName = req.query['testName'];
-	console.log(req.query['id']);
-	if(req.query['id'] !== undefined) {
-		classTestLog.find({'_id' : id}, function(err, result) {
-			if(err){
-				console.log("err" + err);
-				return handleError(err);
-			}
-			else if(!result) {
-				res.send("Class test Log of id '" + id + "' is not found");
-			}
-			else{
-				console.log(result);
-				res.json(result);
-			}
-		});
-	}
-	else if(typeof className !== undefined && typeof testName !== undefined) {
-		classTestLog.find({ $and: [ { className : className}, {testName: testName} ] }, function(err, result) {
-			if(err){
-				console.log("err" + err);
-				return handleError(err);
-			}
-			else if(!result) {
-				res.send("Class test log of class name '" + className + "' is not found");
-			}
-			else{
-				console.log(result);
-				res.json(result);
-			}
-		});
-	}
+		var className = req.query['className'];
+		var testName = req.query['testName'];
+		console.log(req.query['id']);
+		if(req.query['id'] !== undefined) {
+			classTestLog.find({'_id' : id}, function(err, result) {
+				if(err){
+					console.log("err" + err);
+					return handleError(err);
+				}
+				else if(!result) {
+					res.send("Class test Log of id '" + id + "' is not found");
+				}
+				else{
+					console.log(result);
+					res.json(result);
+				}
+			});
+		}
+		else if(typeof className !== undefined && typeof testName !== undefined) {
+			classTestLog.find({ $and: [ { className : className}, {testName: testName} ] }, function(err, result) {
+				if(err){
+					console.log("err" + err);
+					return handleError(err);
+				}
+				else if(!result) {
+					res.send("Class test log of class name '" + className + "' is not found");
+				}
+				else{
+					console.log(result);
+					res.json(result);
+				}
+			});
+		}
 
 }
 

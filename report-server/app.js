@@ -2,13 +2,15 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+require('babel-polyfill');
+require("babel-core/register");
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/naf-db');
+mongoose.connect('mongodb://localhost:27017/naf_db');
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, "MongoDB connection error"));
 

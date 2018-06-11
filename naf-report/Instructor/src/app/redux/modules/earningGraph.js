@@ -122,6 +122,7 @@ function fetchEarningGraphData() {
     dispatch(requestEarningGraphData());
     if (appConfig.DEV_MODE) {
       // DEV ONLY
+
       fetchMockEarningGraphData()
         .then(
           data => dispatch(receivedEarningGraphData(data))
