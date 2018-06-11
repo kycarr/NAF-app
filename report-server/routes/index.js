@@ -3,6 +3,7 @@ const router = express.Router();
 var instructorController = require('../controllers/instructorController');
 var testResultController = require('../controllers/testResultController');
 var classTestLogController = require('../controllers/classTestLogController');
+var studentAnswersController = require('../controllers/studentAnswersController');
 
 const PORT = process.env.PORT || 8080;
 
@@ -31,5 +32,7 @@ router.post('/report/createTestResult', testResultController.createTestResult);
 router.get('/report/fetchClassTestLog', classTestLogController.fetchClassTestLog);
 
 router.post('/report/createClassTestLog', classTestLogController.createClassTestLog);
+
+router.post('/student/fetchStudentAnswers', studentAnswersController.fetchStudentAnswers);
 
 module.exports=router;
