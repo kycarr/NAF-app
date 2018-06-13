@@ -101,7 +101,7 @@ router.post('/api/login', test_controller.login);
 
 router.post('/api/questions', test_controller.get_questions_for_test);
 
-router.get('/api/questionAnswerStore', test_controller.post_options_answers);
+router.post('/api/questionAnswerStore', test_controller.post_options_answers);
 
 router.post('/api/questionResponseStore', test_controller.post_essay_answers); 
 

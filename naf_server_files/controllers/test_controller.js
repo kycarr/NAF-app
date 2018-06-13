@@ -66,27 +66,35 @@ exports.get_questions_for_test = async (req,res) => {
 exports.post_options_answers = async (req,res) => {
 
  console.log("Inside questionsAnswerStore route");
-  // console.log(req.query);
-  let userId = req.query.userId;
-  let sectionId = req.query.sectionId;
-  let questionId = req.query.questionId;
-  let answer = req.query.answer;
+  console.log(req.body);
+  let userId = req.body.userId;
+  let sectionId = req.body.sectionId;
+  let questionId = req.body.questionId;
+  let answer = req.body.answer;
+
+  console.log(userId)
+  console.log(sectionId)
+  console.log(questionId)
+  console.log(answer)
 
  // extract the answer
   let answers=[];
   answer.forEach((element) => {
-    element = JSON.parse(element);
     if(element['selected'] === true) {
       answers.push(element.option);
     }
   });
 
- //check the answer database for the sectionId and questionId
+  console.log( answers );
+
+ // //check the answer database for the sectionId and questionId
 
  const section = await Section.findOne({sectionId: Number.parseInt(sectionId)}).populate('items');
  const item = section.items.find(item => item.id === Number.parseInt(questionId));
 
  const answerFromDB = await Answer.findOne({section: section, item: item});
+
+ console.log(answerFromDB);
 
  if(!answerFromDB){
 
@@ -104,6 +112,8 @@ exports.post_options_answers = async (req,res) => {
     await Answer.findOneAndUpdate({section: section._id, item: item._id}, { $set: {answers: answers} });
 
  }
+
+ res.status(200).json({msg: `Answer posted for section ${sectionId} and question ${questionId}`});
 
 }
 
@@ -158,15 +168,12 @@ exports.submit_section = async (req,res) => {
     console.log("sectionId: " + sectionId);
     console.log("time left: " + timeLeft);
 
+
     const section = await Section.findOne({sectionId: sectionId});
     section.user = userId;
     await section.save();
-    
-    res.status(200).end('Submit data received: userId, sectionId, timeLeft');
-  
-    // { userId: 'f4390370-6a82-11e8-bc4e-2b89d624eb28',
-    // sectionId: 0,
-    // timeLeft: '00:12:53' }
+
+    res.status(200).json({msg: 'Submit data received: userId, sectionId, timeLeft'});
 }
 
 exports.finish_test = async (req,res) => {
@@ -176,27 +183,6 @@ exports.finish_test = async (req,res) => {
 
   let userId = req.body.userId;
   console.log(userId + "has finished the test");
-
-
-  // const items = await Item.find();
-  // const answerResponse = {};
-  // for(let i=0; i<items.length;i++) {
-
-  //  const currentItem = items[i];
-  //   let currentAnswer = await Answer.find({item: currentItem._id});
-    
-  //  if(currentAnswer === undefined || currentAnswer.length === 0) {
-  //     console.log('no answer provided');
-  //     currentAnswer ='' ;
-  //   } else {
-  //     currentAnswer = currentAnswer[0].answers;
-  //   }
-
-  //  let correctAnswer = currentItem.correctAnswer;
-  //   answerResponse[i] = [currentAnswer, correctAnswer];
-  // }
-  // console.log(answerResponse);
-  // // res.json(answerResponse)
   
   res.status(200).end('Success Finish');
 

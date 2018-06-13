@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/naf_db');
+mongoose.connect('mongodb://yubowang:12345ict@173.212.211.214/naf_db');
 let db = mongoose.connection;
 db
 .once('open',() => {

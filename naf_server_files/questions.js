@@ -275,14 +275,6 @@ let qArray = [
           {option: "No", selected: false}],
         correctAnswer: "Yes"
     },
-    // {
-    //   id: 6,
-    //   type: FLOW_CHART,
-    //   imageURL: imageFlowChart,
-    //   answered: false,
-    //   answer: "",
-    //   question: "Why do you want to join the Navy?"
-    // },
   ]
 ];
 

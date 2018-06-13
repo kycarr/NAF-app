@@ -20,7 +20,10 @@ const SectionSchema = new Schema({
             ref: 'Item'
         }    
     ],
-    userId: String
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 //virtual prop for converting time

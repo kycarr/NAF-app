@@ -4,15 +4,10 @@ var chai = require('chai')
 chai.use(chaiHttp);
 
 
-chai.request('http://localhost:8888')
-  .get('/')
-  .then(responses => {
-    console.log(responses.text);
-  });
 
-  chai.request('http://localhost:8888')
+  chai.request('http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080')
   .get('/student/fetchStudentAnswers')
-  .query({user_id: "5b1fb6c3c026e269b612b4d3"})
+  .query({user_id: "5b2001254e342d20e3dcb3c7"})
   .then(responses => {
     console.log(responses.text);
   });

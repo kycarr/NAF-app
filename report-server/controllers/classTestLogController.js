@@ -1,9 +1,8 @@
 const mongoose = require ('mongoose');
-const async = require('async');
 var classTestLog = require('../models/classTestLog');
 "use strict";
 
-export default async function fetchClassTestLog(req, res) {
+exports.fetchClassTestLog = function(req, res) {
 	var id = mongoose.Types.ObjectId(req.query['id']);
 		var className = req.query['className'];
 		var testName = req.query['testName'];
@@ -43,6 +42,7 @@ export default async function fetchClassTestLog(req, res) {
 
 
 //if the first name and last name matches then there is a duplicate
+
 exports.createClassTestLog = function(req, res) {
 	let myId = mongoose.Types.ObjectId();
 	let traineeId = req.body.trainee_id;

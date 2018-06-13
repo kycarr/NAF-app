@@ -1,5 +1,4 @@
 const mongoose = require ('mongoose');
-const async = require('async');
 var testResult = require('../models/testResult');
 
 exports.fetchTestResult = function(req, res) {

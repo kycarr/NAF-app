@@ -21,51 +21,18 @@ router.post('/api/questions', (req,res)=>{
     res.json(qArray);
 });
 
-// router.get('/report/getInstructorInfo', instructorController.instructor_info);
+router.get('/report/getInstructorInfo', instructorController.instructor_info);
 
-// router.post('/report/createInstructor', instructorController.create_instructor);
+router.post('/report/createInstructor', instructorController.create_instructor);
 
-// router.get('/report/fetchTestResult', testResultController.fetchTestResult);
+router.get('/report/fetchTestResult', testResultController.fetchTestResult);
 
-// router.post('/report/createTestResult', testResultController.createTestResult);
+router.post('/report/createTestResult', testResultController.createTestResult);
 
-// router.get('/report/fetchClassTestLog', classTestLogController.fetchClassTestLog);
+router.get('/report/fetchClassTestLog', classTestLogController.fetchClassTestLog);
 
-// router.post('/report/createClassTestLog', classTestLogController.createClassTestLog);
+router.post('/report/createClassTestLog', classTestLogController.createClassTestLog);
 
 router.get('/student/fetchStudentAnswers', studentAnswersController.fetchStudentAnswers);
 
-// router.get('/student/fetchStudentAnswers',  function (req, res) {
-//   try {
-// 	var user_id = req.query['user_id'];
-//   	var answerResponse = {};
-//   	console.log(user_id);
-// 	const item_ids = await section.find({ 'userId': user_id }, {'items': 1});
-// 	console.log(items_ids);
-// 	for(let k = 0; k < item_ids.length; k++) {
-// 		let item_id_list = item_ids[k];
-// 		for(let j = 0; j < item_id_list.length; j++) {
-// 			console.log(item_id_list[j]);
-// 		    	let currentAnswer = await Answer.find({item: item_id_list[j]});
-			    
-// 			   if(currentAnswer === undefined || currentAnswer.length === 0) {
-// 			      console.log('no answer provided');
-// 			      currentAnswer ='' ;
-// 			    } else {
-// 			      currentAnswer = currentAnswer[0].answers;
-// 			    }
-
-// 			   let correctAnswer = currentItem.correctAnswer;
-// 			    answerResponse[j] = [currentAnswer, correctAnswer];
-// 		}
-// 	}
-//   	console.log(answerResponse);
-//   	res.json(answerResponse);
-//   } catch (e) {
-//     //this will eventually be handled by your error handling middleware
-//     next(e) 
-//   }
-// });
-
-router.get('/student/fetchStudentAnswers', studentAnswersController.fetchTest);
 module.exports=router;

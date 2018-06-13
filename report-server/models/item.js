@@ -9,6 +9,10 @@ const ItemSchema = new Schema({
     sectionId: {
         type: Number
     },
+    section: {
+        type: Schema.Types.ObjectId,
+        ref: 'Section'
+    },
     type: {
         type: String,
     },
