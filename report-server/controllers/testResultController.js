@@ -1,5 +1,5 @@
 const mongoose = require ('mongoose');
-var testResult = require('../models/testResult');
+var testResult = require('../models/TestResult');
 
 exports.fetchTestResult = function(req, res) {
 	var id = mongoose.Types.ObjectId(req.query['id']);

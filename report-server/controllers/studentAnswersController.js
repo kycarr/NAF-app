@@ -1,7 +1,10 @@
 const mongoose = require ('mongoose');
 
-//loading Models
+const User = require('../models/User');
 const Answer = require('../models/Answer');
+const Session = require('../models/Session');
+const Module = require('../models/Module');
+const Test = require('../models/Test');
 const Section = require('../models/Section');
 const Item = require('../models/Item');
 
@@ -30,9 +33,13 @@ exports.fetchStudentAnswers = async (req,res) => {
         } else {
           currentAnswer = currentAnswer[0].answers;
         }
-
+       let type = currentItem.type;
+       if(type == "Multiple_choice") {
+          type = currentItem.choiceType;
+       }
        let correctAnswer = currentItem.correctAnswer;
-        answerResponse[i] = [currentAnswer, correctAnswer];
+       let topic_id = currentItem.topicId;
+          answerResponse[i] = [currentAnswer, correctAnswer, type, topic_id];
       }
       console.log(answerResponse);
       res.json(answerResponse);

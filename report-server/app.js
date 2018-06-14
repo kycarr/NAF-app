@@ -31,7 +31,7 @@ mongoose
   .catch(error => console.log(error));
 
 */
-const indexRoutes = require("./routes/api/index");
+const indexRoutes = require("./routes/index");
 app.use("/",indexRoutes)
 
 const PORT = process.env.PORT || 8080;

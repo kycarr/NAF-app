@@ -1,6 +1,5 @@
 const mongoose = require ('mongoose');
-var classTestLog = require('../models/classTestLog');
-"use strict";
+const classTestLog = require('../models/ClassTestLog');
 
 exports.fetchClassTestLog = function(req, res) {
 	var id = mongoose.Types.ObjectId(req.query['id']);

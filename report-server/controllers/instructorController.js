@@ -1,5 +1,5 @@
 const mongoose = require ('mongoose');
-var instructor_instance = require('../models/Instructor');
+const instructor_instance = require('../models/Instructor');
 
 exports.instructor_info = function(req, res, next) {
 	var id = mongoose.Types.ObjectId(req.query['id']);

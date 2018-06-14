@@ -1,27 +1,20 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-var InstructorSchema = new Schema({
+const InstructorSchema = new Schema({
 
-    name: {
-        type: String,
-        required: true
-    },
-    class_names: [{
-        type: String
-    }]
+	name: {
+		type: String
+	},
+	assignment: {
+		type: Schema.Types.ObjectId,
+		ref: 'Assignment'
+	},
+	classes: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Class'
+	}]
 
 });
 
-
-InstructorSchema.pre('save', function(next) {
-    if(!this.isNew) return next();
-    else
-        next();
-})
-
-// InstructorSchema.update()
-
-var Instructor = mongoose.model('instructors', InstructorSchema);
-
-module.exports = Instructor;
+module.exports = mongoose.model('Instructor', InstructorSchema);
