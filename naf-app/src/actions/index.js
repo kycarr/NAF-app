@@ -14,6 +14,7 @@ import {
   RECEIVE_USER_QUESTIONS,
   RECEIVE_SAVE_ANSWER,
   SUBMIT_SECTION_ANSWER,
+  GO_TO_REVIEW_TEST_PAGE
 } from '../constants';
 
 export function optionSelected(userId, sectionId, questionId, option) {
@@ -39,6 +40,12 @@ export function goToSection(sectionNumber) {
   }
 }
 
+export function goToReviewTestPage(url) {
+  return {
+    type: GO_TO_REVIEW_TEST_PAGE,
+    payload: url
+  }
+}
 export function questionAnswered(questionId, answer) {
   return {
     type: QUESTION_ANSWERED,
@@ -142,14 +149,25 @@ export function receiveSaveAnswer(response) {
      } 
   }
 }
-
+/*
   
-  export function sendTestFinishAction(userId, sectionId, timeLeft){
-    sendTestFinish(userId, sectionId, timeLeft);
-    return {
-      type: SET_TO_DEFAULT
-    }
+export function sendTestFinishAction(userId, sectionId, timeLeft){
+  sendTestFinish(userId, sectionId, timeLeft);
+  return {
+    type: SET_TO_DEFAULT
   }
+}
+*/
+
+export function sendTestFinishAction(userId, sectionId, timeLeft){
+  let response = sendTestFinish(userId, sectionId, timeLeft);
+  return function(dispatch) {
+    () => {
+      dispatch(goToReviewTestPage(response));
+    };
+  };
+}
+
 
 async function sendTestFinish(userId, sectionId, timeLeft) {
   let response;

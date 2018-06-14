@@ -98,7 +98,7 @@ class NavbarComponent extends Component {
       return (<div> </div>);
     }
     const nextSectionOrFinishButton = this.props.sectionNum === this.props.totalSectionNum - 1 ?
-      <Link to={'/'}>
+      <Link to={'/reviewTestPage'}>
       <FlatButton label="Finish Test" primary={true} labelStyle={loginButtonStyle} onClick={this.onClickFinishTest}/>
       </Link> :
       <FlatButton label="Go to Next Section" primary={true} labelStyle={loginButtonStyle} onClick={this.onClickNextSection}/>;

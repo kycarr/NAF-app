@@ -7,7 +7,8 @@ import {OPTION_SELECTED,
   RECEIVE_USER_QUESTIONS,
   FETCH_QUESTIONS_REQUEST,
   RECEIVE_USER_INFO,
-  SUBMIT_SECTION_ANSWER
+  SUBMIT_SECTION_ANSWER,
+  GO_TO_REVIEW_TEST_PAGE
 } from '../constants';
 import {ESSAY, MULTI_CHOICE, MULTIPLE_ANSWER, SHORT_ANSWER, SINGLE_ANSWER} from '../constants';
 import image from '../images/nimitz3.jpg';
@@ -30,7 +31,8 @@ const initState = {
   userId: "",
   isSubmitingAnswer: false,
   isAuthenticated: false,
-  answerArray: []
+  answerArray: [],
+  resultUrl: ""
 };
 
 
@@ -89,7 +91,13 @@ export default createReducer(initState, {
     }),
 
   [SET_TO_DEFAULT]: (state, payload) =>
-    Object.assign({}, state, initState)
+    Object.assign({}, state, initState),
+
+  [GO_TO_REVIEW_TEST_PAGE]: (state, payload) =>
+    Object.assign({}, state, {
+      resultUrl: payload.url,
+      isAuthenticated: false
+    })
 });
 
 function optionSelected(state, payload) {

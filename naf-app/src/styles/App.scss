@@ -111,6 +111,34 @@ button {
   font-weight: 700 !important;
   border-radius: 8px !important;
 }
+/* ----------------REVIEWTEST-PAGE ----------------- */
+
+.reviewtest-box {
+  /*background-color: #FFFFFF !important;*/
+  background-color: rgba(256, 256, 256, 0.4) !important;
+  color: #000000 !important;
+  border-radius: 8px !important;
+  padding: 20px 20px !important;
+  margin: 100px 20vw 20px 20vw !important;
+  text-align: center !important;
+}
+
+.reviewtest-button {
+  display: inline-block !important;
+  text-align: center !important;
+  margin: 20px auto !important;
+  color: #FFFFFF !important;
+  background-color: #53646C !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+}
+
+.dialog-text-center {
+  color: #000000 !important; 
+  font-family: 'Work Sans', sans-serif !important;
+  font-size: 16px !important;
+  margin: 15px 30px !important;
+}
 
 /* ---------------- TOOLBAR-LOGIN ----------------- */
 

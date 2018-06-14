@@ -54,12 +54,17 @@ exports.get_questions_for_test = async (req,res) => {
    let questionsResponse = [];
 
    const items = await Item.find();
-   const sectionOneQuestions = items.filter(item => item.sectionId === 0);
-   const sectionTwoQuestions = items.filter(item => item.sectionId === 1);
-
+   let sectionOneQuestions = items.filter(item => item.sectionId === 0);
+   let sectionTwoQuestions = items.filter(item => item.sectionId === 1);
+   sectionOneQuestions.sort(function (a, b) {
+      return a.id > b.id ? 1 : -1;
+   });
+    sectionTwoQuestions.sort(function (a, b) {
+      return a.id > b.id ? 1 : -1;
+   })
    questionsResponse.push(sectionOneQuestions);
    questionsResponse.push(sectionTwoQuestions);
-
+   console.log(questionsResponse);
    res.json(questionsResponse);
 }
 

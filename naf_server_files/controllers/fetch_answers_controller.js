@@ -31,7 +31,8 @@ exports.fetchStudentAnswers = async (req,res) => {
         type = currentItem.choiceType;
        }
        let correctAnswer = currentItem.correctAnswer;
-        answerResponse[i] = [currentAnswer, correctAnswer, type];
+       let topic_id = currentItem.topicId;
+        answerResponse[i] = [currentAnswer, correctAnswer, type, topic_id];
       }
       console.log(answerResponse);
       res.json(answerResponse);

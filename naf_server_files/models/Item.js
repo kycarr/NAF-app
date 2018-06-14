@@ -19,7 +19,9 @@ const ItemSchema = new Schema({
     choiceType: {
         type: String,
     },
-    answered: Boolean,
+    topicId: {
+        type: Number
+    },
     question: {
         type: String,
     },

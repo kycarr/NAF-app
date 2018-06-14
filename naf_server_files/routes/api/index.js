@@ -47,16 +47,16 @@ const populateDB = async (test) => {
 const createDB = async () => {
 
 
-    const user = await User.findOne({username: 'anirudhm', password: '123456'});
+    const user = await User.findOne({username: 'testuser', password: '123456'});
 
     if(!user) {
 
       console.log('user does not exist');
 
       const newUser = new User({
-        username: 'anirudhm',
+        username: 'testuser',
         password: '123456',
-        name: 'Anirudh Mittal'
+        name: 'Test User'
       });
 
       await newUser.save();

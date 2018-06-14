@@ -29,8 +29,8 @@ mongoose
   .connect(db)
   .then(() => console.log("Mongo DB Connected"))
   .catch(error => console.log(error));
-*/
 
+*/
 const indexRoutes = require("./routes/api/index");
 app.use("/",indexRoutes)
 
