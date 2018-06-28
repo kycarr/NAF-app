@@ -1,18 +1,14 @@
-
-const PORT = process.env.PORT || 8888;
+const PORT = process.env.PORT || 8080;
 
 //loading Models
 const User = require('../models/User');
 const Answer = require('../models/Answer');
-const Session = require('../models/Session');
 const Module = require('../models/Module');
 const Test = require('../models/Test');
 const Section = require('../models/Section');
 const Item = require('../models/Item');
-
-
-//loading qArray
-const qArray = require('../questions');
+const Session = require('../models/Session');
+const Task = require('../models/Task');
 
 exports.index = (req,res) => {
     console.log('Server is running');
@@ -25,64 +21,78 @@ exports.login = async (req,res) => {
     console.log(req.body);
     const username = req.body.username;
     const password = req.body.password;
-
     const user = await User.findOne( {
       username: username,
       password: password
     });
-
-    if(!user) {
-      res.status(404).json({error: 'User not found'});
-    }
-
     console.log(user);
-
-
+    if(!user) {
+      res.json({loginFailed: true});
+    }
+    console.log(user);
+    
     res.status(200).json({
       id: user._id,
-      firstname: "Anirudh",
-      lastname: "Mittal",
-      username: req.body.username
+      firstname: "Test",
+      lastname: "User",
+      username: req.body.username,
+      loginFailed: false
     });
 }
 
 exports.get_questions_for_test = async (req,res) => {
-    console.log("Inside questions route");
-    console.log(req.body);
-    let userId = req.body.userId;
-
-   let questionsResponse = [];
-
+   console.log("Inside questions route");
+   console.log(req.body);
+   let userId = req.body.userId;
    const items = await Item.find();
-   let sectionOneQuestions = items.filter(item => item.sectionId === 0);
-   let sectionTwoQuestions = items.filter(item => item.sectionId === 1);
-   sectionOneQuestions.sort(function (a, b) {
-      return a.id > b.id ? 1 : -1;
+   const sections = await Section.find();
+   const numberOfSections = sections.length;
+   let questionsResponse = [];
+   for(let i=0 ; i<numberOfSections; i++) 
+   {
+      let sectionQuestions = items.filter(item => item.sectionId === i);
+      sectionQuestions.sort(function(a,b){
+        return a.id > b.id ? 1: -1;
+      });
+      questionsResponse.push(sectionQuestions);
+   }
+
+    //create a new task
+    const test = await Test.findOne({testName: "Test One"});
+    console.log('TEST: ', test);
+    const task = new Task({
+      test: test._id
+    });
+    await task.save();
+   
+   //create a new session and associate a task to it
+    const session = new Session({
+      user: userId,
+      task: task
+    });
+    await session.save();
+
+    //assign the session to the user
+    const user = await User.findById(userId);
+    user.sessions.push(session);
+    await user.save();
+
+   res.status(200).json({
+    questionsResponse: questionsResponse,
+    sessionId: session._id,
+    taskId: task._id
    });
-    sectionTwoQuestions.sort(function (a, b) {
-      return a.id > b.id ? 1 : -1;
-   })
-   questionsResponse.push(sectionOneQuestions);
-   questionsResponse.push(sectionTwoQuestions);
-   console.log(questionsResponse);
-   res.json(questionsResponse);
 }
 
 exports.post_options_answers = async (req,res) => {
-
- console.log("Inside questionsAnswerStore route");
-  console.log(req.body);
+  console.log("Inside questionsAnswerStore route");
+ 
   let userId = req.body.userId;
   let sectionId = req.body.sectionId;
   let questionId = req.body.questionId;
+  let sessionId = req.body.sessionId;
+  let taskId = req.body.taskId;
   let answer = req.body.answer;
-
-  console.log(userId)
-  console.log(sectionId)
-  console.log(questionId)
-  console.log(answer)
-
- // extract the answer
   let answers=[];
   answer.forEach((element) => {
     if(element['selected'] === true) {
@@ -90,23 +100,40 @@ exports.post_options_answers = async (req,res) => {
     }
   });
 
-  console.log( answers );
-
- // //check the answer database for the sectionId and questionId
-
+ //check the answer database for the sectionId  questionId  taskId  sessionId
  const section = await Section.findOne({sectionId: Number.parseInt(sectionId)}).populate('items');
  const item = section.items.find(item => item.id === Number.parseInt(questionId));
+ console.log('Correct: ', item.correctAnswer.trim());
+ const session = await Session.findById(sessionId);
+ const task = await Task.findById(taskId);
+ const correctAnswers = item.correctAnswer.trim().split(',');
+ let pass = true;
 
- const answerFromDB = await Answer.findOne({section: section, item: item});
+ if(correctAnswers.length !== answers.length)
+ {
+    pass = false;
+    console.log('here is the issue');
 
- console.log(answerFromDB);
-
+ } else {
+    for(let i =0; i<correctAnswers.length; i++) {
+      console.log(answers);
+      console.log(correctAnswers[i]);
+      if(!answers.includes(correctAnswers[i])){
+        pass = false;
+        console.log('here is the problem');
+        break;
+      }
+    }
+ }
+ const answerFromDB = await Answer.findOne({section: section, item: item, session: session, task: task});
  if(!answerFromDB){
-
    const answerObject = {
       answers: answers,
       section: section._id,
-      item: item._id
+      item: item._id,
+      session: session._id,
+      task: task._id,
+      pass: pass
     };
     Answer.create(answerObject)
     .then(answer => console.log('SUCCESS ANSWER STORED'))
@@ -114,10 +141,8 @@ exports.post_options_answers = async (req,res) => {
 
  } else {
     console.log('answer present');
-    await Answer.findOneAndUpdate({section: section._id, item: item._id}, { $set: {answers: answers} });
-
+    await Answer.findOneAndUpdate({section: section._id, item: item._id, session: session._id, task: task._id}, { $set: {answers: answers, pass: pass} });
  }
-
  res.status(200).json({msg: `Answer posted for section ${sectionId} and question ${questionId}`});
 
 }
@@ -129,66 +154,67 @@ exports.post_essay_answers = async (req,res) => {
     let userId = req.body.userId;
     let sectionId = req.body.sectionId;
     let questionId = req.body.questionId;
+    let sessionId = req.body.sessionId;
+    let taskId = req.body.taskId;
     let answer = req.body.response;
-  
-   console.log(answer.answer);
+
     let answers = [];
     answers.push(answer.answer);
 
-
-   const section = await Section.findOne({sectionId: Number.parseInt(sectionId)}).populate('items');
+    const section = await Section.findOne({sectionId: Number.parseInt(sectionId)}).populate('items');
     const item = section.items.find(item => item.id === Number.parseInt(questionId));
+    const session = await Session.findById(sessionId);
+    const task = await Task.findById(taskId);
+    const answerFromDB = await Answer.findOne({section: section, item: item, session: session, task: task});
+    const correctAnswers = item.correctAnswer.trim().split(',');
+    let pass = true;
 
-   const answerFromDB = await Answer.findOne({section: section, item: item});
-
+    if(correctAnswers.length !== answers.length){
+      pass = false; 
+     }
+     else
+     {
+        for(let i =0; i<correctAnswers.length; i++) {
+          if(!answers.includes(correctAnswers[i])){
+            pass = false;
+            break;
+          }
+        }
+     }     
    if(!answerFromDB) {
-
      const answerObject = {
         answers: answers,
         section: section._id,
-        item: item._id
+        item: item._id,
+        session: session._id,
+        task: task._id,
+        pass:pass
       };
-
       Answer.create(answerObject)
         .then(answer => console.log('SUCCESS ANSWER STORED'))
         .catch(err => console.log('ANSWER NOT STORED. ERROR: ' + err));
     } else {
-
         console.log('answer present');
-          await Answer.findOneAndUpdate({section: section._id, item: item._id}, { $set: {answers: answers} });
+        await Answer.findOneAndUpdate({section: section._id, item: item._id, session: session._id, task: task._id}, { $set: {answers: answers, pass: pass} });
     }
-
- 
 }
 
 exports.submit_section = async (req,res) => {
-
     console.log("Inside submit section route");
     console.log(req.body);
     let userId = req.body.userId;
     let sectionId = req.body.sectionId;
     let timeLeft = req.body.timeLeft;
-    console.log('Submit data');
-    console.log("userID: " + userId);
-    console.log("sectionId: " + sectionId);
-    console.log("time left: " + timeLeft);
-
-
     const section = await Section.findOne({sectionId: sectionId});
     section.user = userId;
     await section.save();
-
     res.status(200).json({msg: 'Submit data received: userId, sectionId, timeLeft'});
 }
 
 exports.finish_test = async (req,res) => {
-
   console.log("Inside finishTest route");
   console.log(req.body);
-
   let userId = req.body.userId;
-  console.log(userId + "has finished the test");
-  
+  console.log(userId + "has finished the test"); 
   res.status(200).end('Success Finish');
-
 }

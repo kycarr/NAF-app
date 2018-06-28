@@ -1,21 +1,23 @@
 const mongoose = require ('mongoose');
-const PORT = process.env.PORT || 8888;
+const PORT = process.env.PORT || 8080;
 
 //loading Models
 const User = require('../models/User');
 const Answer = require('../models/Answer');
-const Session = require('../models/Session');
 const Module = require('../models/Module');
 const Test = require('../models/Test');
 const Section = require('../models/Section');
 const Item = require('../models/Item');
-
+const Session = require('../models/Session');
 
 
 exports.fetchStudentAnswers = async (req,res) => {
-      var session = mongoose.Types.ObjectId(req.query['sessionId']);
-      var answersList = await Answer.find({session: session});
-      const items = await Item.find();
+      const sessionId = mongoose.Types.ObjectId(req.query['sessionId']);
+      const session = await Session.findById(sessionId);
+      const task = await Task.findById(session.task);
+
+      let answersList = await Answer.find({session: sessionId});
+      const items = await Item.find({test: task.test});
       const answerResponse = {};
       for(let i=0; i<items.length;i++) {
           const currentItem = items[i];
@@ -41,8 +43,6 @@ exports.fetchStudentAnswers = async (req,res) => {
       console.log(answerResponse);
       res.json(answerResponse);
 }
-
-
 /*
 
 

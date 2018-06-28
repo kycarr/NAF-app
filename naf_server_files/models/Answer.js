@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 const AnswerSchema = new Schema({
 
-	answers: [{
+	answers: 
+		{
 				type: String	
-	}
-	],
+		}
+	,
 	item: {
 		type: Schema.Types.ObjectId,
 		ref:'Item'
@@ -22,6 +23,14 @@ const AnswerSchema = new Schema({
 	section: {
 		type: Schema.Types.ObjectId,
 		ref: 'Section'
+	},
+	session: {
+		type: Schema.Types.ObjectId,
+		ref: 'Session'
+	},
+	pass: {
+		type: Boolean,
+		default: false
 	}
 
 });

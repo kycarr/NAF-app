@@ -17,10 +17,10 @@ const TaskSchema = new Schema({
 	score: {
 		type: Number
 	},
-	session: {
-		type: Schema.Types.ObjectId,
-		ref: 'Session'
-	},
+	// session: {
+	// 	type: Schema.Types.ObjectId,
+	// 	ref: 'Session'
+	// },
 	answerId: {
 		type: Schema.Types.ObjectId,
 		ref: 'Answer'

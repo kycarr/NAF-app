@@ -20,7 +20,7 @@ let qArray = [
         {option: "Radio and wire", selected: false},
         {option: "Active and passive", selected: false},
         {option: "Simplex and duplex", selected: false}],
-      correctAnswer: 'Radio and wire'
+      correctAnswer: ['Radio and wire']
     },
     {
       id: 2,
@@ -33,7 +33,7 @@ let qArray = [
         option: "Ohms",
         selected: false
       }, {option: "Microhenrys", selected: false}],
-      correctAnswer: 'Microhenrys'
+      correctAnswer: ['Microhenrys']
     },
     {
       id: 3,
@@ -46,7 +46,7 @@ let qArray = [
         {option: "UHF", selected: false},
         {option: "Line-of-sight", selected: false},
         {option: "SATCOM", selected: false}],
-      correctAnswer: 'HF'
+      correctAnswer: ['HF','UHF']
     },
     {
       id: 4,
@@ -59,7 +59,7 @@ let qArray = [
         {option: "Pulse generator", selected: false},
         {option: "Power reduction", selected: false},
         {option: "Power amplifier", selected: false}],
-      correctAnswer: 'Power amplifier'
+      correctAnswer: ['Power amplifier', 'Pulse generator']
     },
     {
       id: 5,
@@ -72,7 +72,7 @@ let qArray = [
         {option: "A11", selected: false},
         {option: "A21", selected: false},
         {option: "A10", selected: false}],
-      correctAnswer: 'A12'
+      correctAnswer: ['A12','A11']
     },
     {
       id: 6,
@@ -85,7 +85,7 @@ let qArray = [
         {option: "Speaker", selected: false},
         {option: "Pulse-generator", selected: false},
         {option: "Toner", selected: false}],
-      correctAnswer: 'Microphone'
+      correctAnswer: ['Microphone','Speaker']
     },
     {
       id: 7,
@@ -98,7 +98,7 @@ let qArray = [
         {option: "Cathode", selected: false},
         {option: "Diode", selected: false},
         {option: "Triode", selected: false}],
-      correctAnswer: 'Cathode'
+      correctAnswer: ['Cathode']
     },
     {
       id: 8,
@@ -107,7 +107,7 @@ let qArray = [
       question: "One cycle is equal to how many degrees of rotation of a conductor in a magnetic field?",
       topicId: 2,
       bookmarked: false,
-      correctAnswer: '360°',
+      correctAnswer: ['360°'],
       optionList: [{option: "90°", selected: false},
         {option: "180°", selected: false},
         {option: "270°", selected: false},
@@ -125,7 +125,7 @@ let qArray = [
         {option: "A6", selected: false},
         {option: "6CR", selected: false},
         {option: "CR3", selected: false}],
-      correctAnswer: 'A6'
+      correctAnswer: ['A6','1A']
     },
     {
       id: 10,
@@ -138,7 +138,7 @@ let qArray = [
         {option: "3-30 GHz", selected: false},
         {option: "300 MHZ - 3GHz", selected: false},
         {option: "30-300 MHz", selected: false}],
-      correctAnswer: "300 MHZ - 3GHz"
+      correctAnswer: ["300 MHZ - 3GHz"]
     },
     {
       id: 11,
@@ -151,7 +151,7 @@ let qArray = [
         {option: "Frequency-diversity", selected: false},
         {option: "Space-diversity", selected: false},
         {option: "Modulation-diversity", selected: false}],
-      correctAnswer: "Space-diversity"
+      correctAnswer: ["Space-diversity"]
     },
     {
       id: 12,
@@ -164,7 +164,7 @@ let qArray = [
         {option: "Extractor", selected: false},
         {option: "Toner", selected: false},
         {option: "Modulator", selected: false}],
-      correctAnswer: "Extractor"
+      correctAnswer: ["Extractor"]
     },
     {
       id: 13,
@@ -177,7 +177,7 @@ let qArray = [
         {option: "Amplification", selected: false},
         {option: "Noise", selected: false},
         {option: "Fidelity", selected: false}],
-      correctAnswer: "Noise"
+      correctAnswer: ["Noise"]
     },
     {
       id: 14,
@@ -190,7 +190,7 @@ let qArray = [
         {option: "Selects the strong and rejects the weak", selected: false},
         {option: "Attenuates the strong and amplifies the weak", selected: false},
         {option: "Rejects the strong and selects the weak", selected: false}],
-      correctAnswer: "Attenuates the strong and amplifies the weak"
+      correctAnswer: ["Attenuates the strong and amplifies the weak"]
     },
     {
       id: 15,
@@ -203,7 +203,7 @@ let qArray = [
         {option: "Start and stop", selected: false},
         {option: "Hack and slash", selected: false},
         {option: "Space and mark", selected: false}],
-      correctAnswer: "Space and mark"
+      correctAnswer: ["Space and mark"]
     }],
 
   [
@@ -219,7 +219,7 @@ let qArray = [
         {option: "February", selected: false},
         {option: "March", selected: false},
         {option: "April", selected: false}],
-      correctAnswer: "April"
+      correctAnswer: ["April"]
     },
     {
       id: 2,
@@ -233,7 +233,7 @@ let qArray = [
         {option: "Gerald R. Ford-class", selected: false},
         {option: "Lexington-class", selected: false},
         {option: "Kitty Hawk-class", selected: false}],
-      correctAnswer: "Kitty Hawk-class"
+      correctAnswer: ["Kitty Hawk-class"]
     },
     {
       id: 3,
@@ -242,7 +242,7 @@ let qArray = [
       bookmarked: false,
       answer: "",
       question: "When using frequencies above 30 megahertz, you are normally limited to using what range?",
-      correctAnswer: "ESSAY"
+      correctAnswer: ["ESSAY"]
     },
     {
       id: 4,
@@ -253,7 +253,7 @@ let qArray = [
       bookmarked: false,
       optionList: [{option: "True", selected: false},
         {option: "False", selected: false}],
-      correctAnswer: "ESSAY"
+      correctAnswer: ["True"]
     },
     {
       id: 5,
@@ -262,7 +262,7 @@ let qArray = [
       bookmarked: false,
       answer: "",
       question: "Why do you want to join the Navy?",
-      correctAnswer: "ESSAY"
+      correctAnswer: ["ESSAY"]
     },
     {
       id: 6,
@@ -273,8 +273,8 @@ let qArray = [
       bookmarked: false,
       optionList: [{option: "Yes", selected: false},
         {option: "No", selected: false}],
-      correctAnswer: "Yes"
-    },
+      correctAnswer: ["Yes"]
+    }
   ]
 ];
 

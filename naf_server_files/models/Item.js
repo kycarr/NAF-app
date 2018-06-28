@@ -19,6 +19,10 @@ const ItemSchema = new Schema({
     choiceType: {
         type: String,
     },
+    // topic: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Topic'
+    // },
     topicId: {
         type: Number
     },
@@ -44,6 +48,10 @@ const ItemSchema = new Schema({
     },
     bookmarked: {
         type: Boolean
+    },
+    test: {
+        type: Schema.Types.ObjectId,
+        ref: 'Test'
     }
 
 });
