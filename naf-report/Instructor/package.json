@@ -148,6 +148,7 @@
     "react-calendar-heatmap": "^1.6.3",
     "react-chartist": "^0.13.1",
     "react-collapse": "^4.0.3",
+    "react-collapsible": "^2.2.0",
     "react-d3-basic": "^1.6.11",
     "react-dom": "^16.2.0",
     "react-height": "^3.0.0",

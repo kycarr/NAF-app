@@ -13,26 +13,30 @@ const Item = require('../models/Item');
 
 
 exports.fetchStudentAnswers = async (req,res) => {
-    const items = await Item.find();
+      var session = mongoose.Types.ObjectId(req.query['sessionId']);
+      var answersList = await Answer.find({session: session});
+      const items = await Item.find();
       const answerResponse = {};
       for(let i=0; i<items.length;i++) {
-
-       const currentItem = items[i];
-        let currentAnswer = await Answer.find({item: currentItem._id});
-        
-       if(currentAnswer === undefined || currentAnswer.length === 0) {
-          console.log('no answer provided');
-          currentAnswer ='' ;
-        } else {
-          currentAnswer = currentAnswer[0].answers;
-        }
-       let type = currentItem.type;
-       if(type == "Multiple_choice") {
-        type = currentItem.choiceType;
-       }
-       let correctAnswer = currentItem.correctAnswer;
-       let topic_id = currentItem.topicId;
-        answerResponse[i] = [currentAnswer, correctAnswer, type, topic_id];
+          const currentItem = items[i];
+          let currentAnswer = answersList.find(element => {
+              if(element.item === currentItem._id) {
+                return element;
+              }
+          });
+          if(currentAnswer === undefined || currentAnswer.length === 0) {
+              console.log('no answer provided');
+              currentAnswer ='' ;
+          } else {
+              currentAnswer = currentAnswer[0].answers;
+          }
+          let type = currentItem.type;
+          if(type == "Multiple_choice") {
+              type = currentItem.choiceType;
+          }
+          let correctAnswer = currentItem.correctAnswer;
+          let topic_id = currentItem.topicId;
+          answerResponse[i] = [currentAnswer, correctAnswer, type, topic_id];
       }
       console.log(answerResponse);
       res.json(answerResponse);
