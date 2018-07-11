@@ -24,7 +24,12 @@ const TaskSchema = new Schema({
 	answerId: {
 		type: Schema.Types.ObjectId,
 		ref: 'Answer'
-	}
+	},
+	date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
 
 	
 

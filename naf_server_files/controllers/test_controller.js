@@ -33,10 +33,8 @@ exports.login = async (req,res) => {
     
     res.status(200).json({
       id: user._id,
-      firstname: "Test",
-      lastname: "User",
-      username: req.body.username,
-      loginFailed: false
+      name: user.name,
+      username: req.body.username
     });
 }
 
@@ -77,6 +75,7 @@ exports.get_questions_for_test = async (req,res) => {
     user.sessions.push(session);
     await user.save();
 
+   //return the session ID from here
    res.status(200).json({
     questionsResponse: questionsResponse,
     sessionId: session._id,

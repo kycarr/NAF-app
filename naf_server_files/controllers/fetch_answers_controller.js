@@ -9,36 +9,59 @@ const Test = require('../models/Test');
 const Section = require('../models/Section');
 const Item = require('../models/Item');
 const Session = require('../models/Session');
+const Task = require('../models/Task');
+const Topic = require('../models/Topic');
 
 
 exports.fetchStudentAnswers = async (req,res) => {
+
+      console.log('Inside the student fetch answers route');
       const sessionId = mongoose.Types.ObjectId(req.query['sessionId']);
       const session = await Session.findById(sessionId);
+      console.log(sessionId);
       const task = await Task.findById(session.task);
 
-      let answersList = await Answer.find({session: sessionId});
+      let answersList = await Answer.find({session: sessionId, task: session.task});
+      
       const items = await Item.find({test: task.test});
+      
       const answerResponse = {};
       for(let i=0; i<items.length;i++) {
+          
           const currentItem = items[i];
-          let currentAnswer = answersList.find(element => {
-              if(element.item === currentItem._id) {
-                return element;
-              }
-          });
+          const topic = await Topic.findOne({id: currentItem.topicId});
+          
+          let currentAnswer = answersList.filter(element => element.item.toString() === currentItem._id.toString());
+          let pass = false;
+          console.log('CurrentAnswer', currentAnswer);
+
           if(currentAnswer === undefined || currentAnswer.length === 0) {
               console.log('no answer provided');
               currentAnswer ='' ;
           } else {
+              pass = currentAnswer[0].pass;
               currentAnswer = currentAnswer[0].answers;
+
           }
           let type = currentItem.type;
           if(type == "Multiple_choice") {
               type = currentItem.choiceType;
           }
-          let correctAnswer = currentItem.correctAnswer;
-          let topic_id = currentItem.topicId;
-          answerResponse[i] = [currentAnswer, correctAnswer, type, topic_id];
+          const correctAnswer = currentItem.correctAnswer;
+          const topic_id = currentItem.topicId;
+          const topicName = topic.name;
+          const questionText = currentItem.question;
+          const object = {
+            'question' : questionText,
+            'userProvidedAnswer' : currentAnswer,
+            'correctAnswer' : correctAnswer,
+            'type': type,
+            'topicName': topicName,
+            'pass': pass
+
+          } 
+          // answerResponse[i] = [currentAnswer, correctAnswer, type, topic_id];
+          answerResponse[i] = object;
       }
       console.log(answerResponse);
       res.json(answerResponse);
