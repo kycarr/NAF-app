@@ -14,7 +14,7 @@ import {
   RECEIVE_USER_QUESTIONS,
   RECEIVE_SAVE_ANSWER,
   SUBMIT_SECTION_ANSWER,
-  GO_TO_REVIEW_TEST_PAGE
+  GO_TO_REVIEW_TEST_PAGE,
 } from '../constants';
 
 export function optionSelected(userId, sectionId, questionId, option) {
@@ -117,10 +117,14 @@ export function fetchQuestions(userId) {
   };
 }
 
-export function receiveQuestions(questions) {
+export function receiveQuestions(response) {
+  console.log(response.questionsResponse);
   return {
     type: RECEIVE_USER_QUESTIONS,
-    payload: { questions: questions } 
+    payload: { questions: response.questionsResponse,
+              sessionId: response.sessionId,
+              taskId: response.taskId
+    } 
   }
 }
 

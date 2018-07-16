@@ -17,15 +17,19 @@ exports.fetchStudentAnswers = async (req,res) => {
 
       console.log('Inside the student fetch answers route');
       const sessionId = mongoose.Types.ObjectId(req.query['sessionId']);
-      const session = await Session.findById(sessionId);
+      const session = await Session.findById(sessionId).populate('user');
       console.log(sessionId);
       const task = await Task.findById(session.task);
-
       let answersList = await Answer.find({session: sessionId, task: session.task});
       
       const items = await Item.find({test: task.test});
       
       const answerResponse = {};
+
+      answerResponse['user'] = session.user.name;
+      answerResponse['testDate'] = task.date;
+      answerResponse['questionResponses'] = {};
+
       for(let i=0; i<items.length;i++) {
           
           const currentItem = items[i];
@@ -61,7 +65,7 @@ exports.fetchStudentAnswers = async (req,res) => {
 
           } 
           // answerResponse[i] = [currentAnswer, correctAnswer, type, topic_id];
-          answerResponse[i] = object;
+          answerResponse['questionResponses'][i] = object;
       }
       console.log(answerResponse);
       res.json(answerResponse);

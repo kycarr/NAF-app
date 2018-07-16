@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ModuleButton from './ModuleButton';
-
 const divStyle = {
 	marginLeft: 20
 };
@@ -20,8 +19,8 @@ export default class ModuleList extends React.Component {
 					style={{marginBottom: '5px'}}>
 					<div style={divStyle}>
 						{this.props.modules.map((module) =>
-						<ModuleButton key={module.id} index={module._id} name={module.name} 
-						selected={module.selected} chooseModule={this.props.chooseModule} />
+						<ModuleButton key={module.id} name={module.name} 
+						currentModule={this.props.currentModule} selectModule={this.props.selectModule} />
 						)}
 					</div>
 				</div>
@@ -36,10 +35,10 @@ ModuleList.propTypes = {
 		PropTypes.shape({
 			id: PropTypes.string,
 			name: PropTypes.string,
-			selected: PropTypes.bool
 		})
 	),
-	chooseModule: PropTypes.func
+	currentModule: PropTypes.string,
+	selectModule: PropTypes.func
 }
 
 

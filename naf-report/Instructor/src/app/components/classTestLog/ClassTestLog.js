@@ -12,22 +12,22 @@ import {
 
 const headers = ['Class', 'Test Name', 'Date Completed', 'Average Score', '# Pass', '# Attempts', '# Finished', '#Incomplete','# Not Start',''];
 const content = [
-  [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 30  , 3 , 1 , 12  , 2 , 1],
       [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 30  , 3 , 1 , 12  , 2 , 1],
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 35  , 4 , 3 , 6 , 7 , 1],
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 40  , 5 , 1 , 4 , 3 , 1],
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 45  , 6 , 3 , 3 , 5 , 1],
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 48  , 7 , 1 , 6 , 8 , 1],
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 51  , 7 , 4 , 3 , 9 , 1],
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 66  , 9 , 1 , 6 , 4 , 1],
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 69  , 10  , 5 , 4 , 11  , 1]
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 70  , 3 , 1 , 6 , 6 , 1],
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 72  , 12  , 2 , 3 , 1 , 1],
-      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 80  , 13  , 1 , 8 , 5 , 1]
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 30  , 3 , 1 , 12  , 2 , 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 35  , 4 , 3 ,  6 ,  7 , 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 40  , 5 , 1 ,  4 ,  3 , 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 45  , 6 , 3 ,  3 ,  5 , 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 48  , 7 , 1 ,  6 ,  8 , 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 51  , 7 , 4 ,  3 ,  9 , 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 66  , 9 , 1 ,  6 ,  4 , 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 69  , 10, 5 ,  4 ,  11, 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 70  , 3 , 1 ,  6 ,  6 , 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 72  , 12, 2 ,  3 ,  1 , 1],
+      [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 80  , 13, 1 ,  8 ,  5 , 1]
 
 ];
 
-const WorkProgress = () => (
+const ClassTestLog = () => (
   <WorkProgressPanel>
     <Table>
       <TableHeader>
@@ -36,7 +36,7 @@ const WorkProgress = () => (
             (header, headerIdx) => {
               return (
                 <TableCol key={headerIdx}>
-                  {header}
+                 <b> {header}</b>
                 </TableCol>
               );
             }
@@ -70,4 +70,4 @@ const WorkProgress = () => (
   </WorkProgressPanel>
 );
 
-export default WorkProgress;
+export default ClassTestLog;

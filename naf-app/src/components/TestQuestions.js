@@ -15,6 +15,7 @@ import Waypoint from 'react-waypoint';
 import Dragula from 'react-dragula';
 import nextPage from "../images/NAF_Icon_CircleRight.png";
 import prevPage from "../images/NAF_Icon_CircleLeft.png";
+import nimitz3 from "../images/nimitz3.jpg";
 
 class TestQuestions extends Component {
 
@@ -33,7 +34,7 @@ class TestQuestions extends Component {
     if (null != imageURL) {
       return (
       <div>
-        <a data-fancybox="gallery" ><img className="image-type" src={require("../images/nimitz3.jpg")} alt="Test Loading"/></a>
+        <a data-fancybox="gallery" ><img className="image-type" src={nimitz3} alt="Test Loading"/></a>
       </div>
       )
     }
@@ -185,6 +186,7 @@ class TestQuestions extends Component {
                onClick={() => this.goToNextPage.bind(this)(pageNum + 1, totalPageNum - 1)}
           />
         </div>
+
       </div>
     );
   }

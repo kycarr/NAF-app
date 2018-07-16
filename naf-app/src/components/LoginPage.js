@@ -12,6 +12,11 @@ import NAFLogo from "../images/NAF_Logo_Large.png";
 import TAFLogo from "../images/TAF_Logo_Large.png";
 import {TAF_SYMBOL} from '../constants';
 
+/*
+
+
+
+            */
 const buttonStyle = {
   textTransform: 'none',
   fontSize: '18px',
@@ -31,7 +36,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     userid: state.auth.id,
-    isAuthenticated: state.QuestionsOnAPage.isAuthenticated
+    isAuthenticated: state.QuestionsOnAPage.isAuthenticated,
+    loginFailed: state.auth.loginFailed
+
   };
 }
 
@@ -170,6 +177,9 @@ class LoginPage extends Component {
               onChange={this.setPassword}
               fullWidth
             />
+            <p style={{color: 'red', font: 2}}>
+              {this.props.loginFailed ?  "name or password wrong!" : ""}
+            </p>
           </Dialog>
         </div>
       </MuiThemeProvider>

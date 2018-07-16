@@ -15,7 +15,6 @@ import '../styles/App.css';
 import {NUM_QUESTIONS_ON_A_PAGE, SCROLL_SPEED} from '../constants';
 import {goToPage, goToSection, resetToDefaultState, submitSectionAnswers, sendTestFinishAction} from '../actions';
 import scrollTo from "scroll-to";
-
 const buttonStyle = {
   textTransform: 'none',
   fontSize: '18px'
@@ -121,10 +120,10 @@ class NavbarComponent extends Component {
       <div className="nav-component">
         <div className="nav-header">
           <span style={{fontSize: '22px'}}>Navigation</span><br></br>
-          <span style={{fontSize: '14px'}}>Section {this.props.sectionNum + 1} <br/> Page {this.props.pageNumber + 1}</span>
+          <span style={{fontSize: '14px'}}>Section {this.props.sectionNum + 1} / {this.props.totalSectionNum} <br/> Page {this.props.pageNumber + 1} / {totalPageNum} </span>
         </div>
         <div className="nav-questions">
-          <FlatButton className="nav-button" onClick={this.togglePopupWarning} label="Submit Section" id="submitBtn" labelStyle={buttonStyle}/>
+          <FlatButton className="nav-button" onClick={this.togglePopupWarning} label= {this.props.sectionNum + 1 === this.props.totalSectionNum ? "Finish Test" : "Submit Section"} id="submitBtn" labelStyle={buttonStyle}/>
           <div className="nav-qlist">
             {questions.map((question) => {
                 return <NavbarQuestion key={question.id} question={question} lineNum={lineNum++} 

@@ -29,6 +29,8 @@ const initState = {
   isFetchingQuestions: true,
   qArray: {},
   userId: "",
+  sessionId: "",
+  taskId: "",
   isSubmitingAnswer: false,
   isAuthenticated: false,
   answerArray: [],
@@ -43,7 +45,7 @@ export default createReducer(initState, {
     Object.assign({}, state, {
       userId: payload.res.id,
       isFetchingQuestions: true,
-      isAuthenticated: true
+      isAuthenticated: !payload.res.loginFailed
     }),
 
   [OPTION_SELECTED]: (state, payload) => 
@@ -80,6 +82,8 @@ export default createReducer(initState, {
       totalSections: payload.questions.length,
       questionsArray: payload.questions[0],
       qArray: payload.questions,
+      sessionId: payload.sessionId,
+      taskId: payload.taskId,
       isFetchingQuestions: false
     }),
   [CHANGE_BOOKMARK]: (state, payload) => 
@@ -124,6 +128,8 @@ function optionSelected(state, payload) {
     return question;
   });
   optionSave(state.userId, 
+                  state.taskId,
+                  state.sessionId,
                   state.section, 
                   payload.questionId, 
                   nextQuestionsArray[payload.questionId - 1].optionList
@@ -134,8 +140,8 @@ function optionSelected(state, payload) {
       questionsArray: nextQuestionsArray,
   });
 }
-function optionSave(userId, sectionId, questionId, answer) {
-    saveAnswer(userId, sectionId, questionId, answer)
+function optionSave(userId, taskId, sessionId, sectionId, questionId, answer) {
+    saveAnswer(userId, taskId, sessionId, sectionId, questionId, answer)
       .catch(error => {
         console.log(error);
       });
@@ -148,7 +154,7 @@ function questionAnswered(state, payload) {
     if (question.id === payload.questionId) {
       question.answer = payload.answer;
       question.answered = question.answer !== "";
-      responseSave(state.userId, state.section, question.id, {answer: question.answer, answered: question.answered});
+      responseSave(state.userId, state.taskId, state.sessionId, state.section, question.id, {answer: question.answer, answered: question.answered});
     }
     if (question.answered) {
       numAnsweredQuestions++;
@@ -161,8 +167,8 @@ function questionAnswered(state, payload) {
   });
 }
 
-function responseSave(userId, sectionId, questionId, answer) {
-  saveResponse(userId, sectionId, questionId, answer)
+function responseSave(userId, taskId, sessionId, sectionId, questionId, answer) {
+  saveResponse(userId, taskId, sessionId, sectionId, questionId, answer)
     .catch(error => {
       console.log(error);
     });

@@ -137,7 +137,6 @@
   cursor: pointer;
   font-size: 13px;
     text-align: center;
-    margin-left:20px;
 }
 .bycollapse-title {
   float:left;
@@ -192,6 +191,7 @@ body, html {
 .horiz-scroll {
 	overflow-x: scroll; width:98%;
 	margin-left:10px;
+//  margin-bottom:50px;
 }
 .horiz-scroll-module{
 	width:2920px; display:block; overflow: hidden;
@@ -370,7 +370,7 @@ body, html {
   width:100%;
 }
 .collapsible-paragraph {
-  margin:12px;
+  margin:30px;
   padding:10px;
   background-color:#eeecec;
    border-radius: 5px;

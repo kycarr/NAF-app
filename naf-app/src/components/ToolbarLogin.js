@@ -27,23 +27,23 @@ export default class ToolbarLoginComponent extends Component {
 	render() {
 		return (
 			<MuiThemeProvider>
-			<Toolbar className="toolbar">
-				<ToolbarGroup>
-					<img className="app-logo-small" src={TAF_SYMBOL ? TAF_Logo_Small : NAF_Logo_Small} alt="app_Logo" />
-					<div className="toolbar-text">
-						Rate : FC
-					</div>
-				</ToolbarGroup>
-				<ToolbarGroup>
-					<div className="toolbar-text">
-						{this.props.firstname} {this.props.lastname}
-					</div>
-					<img className="icon-user" src={NAF_Icon_User} alt="NAF_Logo" />
-					<Link to={`/`}>
-				    	<FlatButton className="logout-button" label="Logout" labelStyle={buttonStyle} onClick={this.props.resetToDefaultState}/>
-				    </Link>
-				</ToolbarGroup>
-			</Toolbar>
+  			<Toolbar className="toolbar">
+  				<ToolbarGroup>
+  					<img className="app-logo-small" src={TAF_SYMBOL ? TAF_Logo_Small : NAF_Logo_Small} alt="app_Logo" />
+  					<div className="toolbar-text">
+  						Rate : FC
+  					</div>
+  				</ToolbarGroup>
+  				<ToolbarGroup>
+  					<div className="toolbar-text">
+  						{this.props.name}
+  					</div>
+  					<img className="icon-user" src={NAF_Icon_User} alt="NAF_Logo" />
+  					<Link to={`/`}>
+  				    	<FlatButton className="logout-button" label="Logout" labelStyle={buttonStyle} onClick={this.props.resetToDefaultState}/>
+  				    </Link>
+  				</ToolbarGroup>
+  			</Toolbar>
 			</MuiThemeProvider>
 		)
 	}

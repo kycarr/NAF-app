@@ -6,6 +6,9 @@ const TestSchema = new Schema({
     testName: {
         type: String
     },
+    module: {
+        type: String
+    },
     date: {
         type: Date,
         required: true,

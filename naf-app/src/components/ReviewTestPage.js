@@ -51,7 +51,8 @@ function mapStateToProps(state) {
   return {
     firstname: state.auth.firstname,
     lastname: state.auth.lastname,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    sessionId: state.QuestionsOnAPage.sessionId
   }
 }
 

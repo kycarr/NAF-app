@@ -11,7 +11,7 @@ class ModuleButton extends React.Component {
 
 	render() {
 		return (
-		<div className="topmodule" style={{backgroundColor: this.props.selected ? '#427d90' : 'gray'}} >
+		<div className="topmodule" style={{backgroundColor: this.props.currentModule === this.props.name ? '#427d90' : 'gray'}} >
 			 <div className="sm-st-info" onClick = 
 			 {this.clickFunction} >
 			 	<span>{this.props.name}</span>
@@ -21,8 +21,7 @@ class ModuleButton extends React.Component {
 	}
 
 	clickFunction() {
-
-		this.props.chooseModule(this.props.id);
+		this.props.selectModule(this.props.name);
 	}
 
 }
@@ -30,11 +29,10 @@ class ModuleButton extends React.Component {
 
 
 ModuleButton.propTypes = {
-	index: PropTypes.number,
 	id: PropTypes.number,
 	name: PropTypes.string,
-	selected: PropTypes.bool,
-	chooseModule: PropTypes.func
+	currentModule: PropTypes.string,
+	selectModule: PropTypes.func
 };
 
 export default ModuleButton;

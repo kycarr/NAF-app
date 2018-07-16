@@ -78,7 +78,8 @@ const createDB = async () => {
         console.log('test does not exist');
         //seed the database with the test
         const newTest = new Test({
-          testName: 'Test One'
+          testName: 'Test One',
+          module: 'FC-Module 01'
         });
         newTest.save()
         .then(newtest => {populateDB(newTest)})

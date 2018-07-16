@@ -1,34 +1,40 @@
 import axios from 'axios';
 
+// http://localhost:8080
+// http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080
+
+const URL = 'http://localhost:8080';
+//const URL ='http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080';
 
 export function login(username, password) {
-	return axios.post('http://localhost:8080/api/login', {
+	return axios.post(`${URL}/api/login`, {
          username,
          password
 	});
 }
 
 export function getQuestions(userId) {
-	return axios.post('http://localhost:8080/api/questions', {
+	return axios.post(`${URL}/api/questions`, {
 		 userId
 	});
 }
 
-export function saveAnswer(userId, sectionId, questionId, answer) {
-	return axios.post('http://localhost:8080/api/questionAnswerStore', {
+export function saveAnswer(userId, taskId, sessionId, sectionId, questionId, answer) {
+	return axios.post(`${URL}/api/questionAnswerStore`, {
 			userId,
+			taskId,
+			sessionId,
 			sectionId,
 			questionId,
 			answer
 	});
 }
 
-export function saveResponse(userId, sectionId, questionId, response) {
-	  console.log("userID: " + userId);
-  	  console.log("question ID: " + questionId);
-  	  console.log("sectionId: " + sectionId);
-	return axios.post('http://localhost:8080/api/questionResponseStore', {
+export function saveResponse(userId, taskId, sessionId, sectionId, questionId, response) {
+	return axios.post(`${URL}/api/questionResponseStore`, {
 		userId,
+		taskId,
+		sessionId,
 		sectionId,
 		questionId,
 		response
@@ -36,7 +42,8 @@ export function saveResponse(userId, sectionId, questionId, response) {
 }
 
 export function submitAnswer(userId, sectionId, timeLeft) {
-	return axios.post('http://localhost:8080/api/submitSection', {
+	console.log("submit Section");
+	return axios.post(`${URL}/api/submitSection`, {
 		userId,
 		sectionId,
 		timeLeft
@@ -44,7 +51,8 @@ export function submitAnswer(userId, sectionId, timeLeft) {
 }
 
 export function finishTest(userId) {
-	return axios.post('http://localhost:8080/api/finishTest', {
+	return axios.post(`${URL}/api/finishTest`, {
 		userId
 	});
 }
+

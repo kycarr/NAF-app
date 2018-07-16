@@ -11,7 +11,8 @@ import {
 	Notifications,
 	WorkProgress,
 	ClassTestLog,
-	ModuleList
+	ModuleList,
+	RequirementsWrapper
 } from '../../components';
 import ReactDOM from 'react-dom';
 import ChartistGraph from 'react-chartist';
@@ -96,7 +97,8 @@ class Home extends React.Component {
 			enterHome: PropTypes.func,
 			leaveHome: PropTypes.func,
 			fetchEarningGraphDataIfNeeded:  PropTypes.func,
-			fetchTeamMatesDataIfNeeded:     PropTypes.func
+			fetchTeamMatesDataIfNeeded:     PropTypes.func,
+			chooseModule: PropTypes.func
 		})
 	}; 
 	constructor(props, context) {
@@ -104,7 +106,8 @@ class Home extends React.Component {
 
 		this.handleSelect = this.handleSelect.bind(this);
 		this.customTitleForValue = this.customTitleForValue.bind(this);
-
+		this.reloadHeat = this.reloadHeat.bind(this);
+		this.selectModule = this.selectModule.bind(this);
 		this.state = {
 			key: 1,
 			heatData:null,
@@ -160,6 +163,17 @@ class Home extends React.Component {
 		this.setState({ key, data, options });
 		document.querySelector('.ct-chart').__chartist__.update();
 	}
+
+	selectModule(module) {
+		const {
+			actions: {
+				chooseModule
+			}
+		} = this.props;
+		chooseModule(module);
+		this.reloadHeat();
+	}
+
 	reloadHeat() {
 			this.setState({heatData:null});
 	}
@@ -239,32 +253,8 @@ class Home extends React.Component {
 							<div className="collapsible-paragraph">
 								 <WorkProgress />
 							</div>
-							</Collapsible>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          .'
-							<Collapsible trigger={
-										<div className='collapsible-icon-second'>
-											<div className='bycollapse-title'>
-												<i className='fa fa-caret-right-collpase'></i>Requirements Not Met
-											</div> 
-										<div className='bycollapse-button'><span>By Trainee</span></div>
-										<div className='bycollapse-button-trainee'><span>By Topic</span>
-										</div><br/></div>}>
-							 <div className="collapsible-paragraph">
-							 <p><span>Topic 01</span></p>
-							 <p><span className="topicTitle">Major Requirements(11)</span></p>
-							 <p><span className="topicDescription">Bob Smith, James Mason, Henry McFarlene, Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton</span></p>
-							 <p><span className="topicTitle">Minor Requirements(8)</span></p>
-							 <p><span className="topicDescription">Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton</span></p>
-							 <p><span className="topicTitle">Critical Errors(1)</span></p>
-							 <p><span className="topicDescription">Timmothy Alberton</span></p>
-							 <p><span>Topic 02</span></p>
-							 <p><span className="topicTitle">Major Requirements(11)</span></p>
-							 <p><span className="topicDescription">Bob Smith, James Mason, Henry McFarlene, Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton</span></p>
-							 <p><span className="topicTitle">Minor Requirements(8)</span></p>
-							 <p><span className="topicDescription">Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton</span></p>
-							 <p><span className="topicTitle">Critical Errors(1)</span></p>
-							 <p><span className="topicDescription">Timmothy Alberton</span></p>
-							 </div>
-							</Collapsible>
+							</Collapsible>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+							<RequirementsWrapper />
 						</div>     
 					</div>
 				</TabPanel>
@@ -276,7 +266,7 @@ class Home extends React.Component {
 						className=" col-md-12 row horiz-model-inside"
 						style={{marginBottom: '5px'}}>
 						<div>
-							<ModuleList modules={modules} />
+							<ModuleList modules={modules} selectModule={this.selectModule} currentModule={this.props.currentModule}/>
 						</div>
 					 </div>
 					</div>
@@ -295,16 +285,18 @@ class Home extends React.Component {
 						</div>
 						</div>
 					</div>
+					<div style={{marginTop : '50px'}}>
+						<div className="row collapsible-row">
+							<div className="col-md-12">
+	 							<Collapsible open trigger={<span className='collapsible-icon'><i className='fa fa-caret-right-collpase'></i>Class Test Log</span>}>
+								<div className="collapsible-paragraph">
+									<ClassTestLog />
+								</div>
+								</Collapsible>
+							</div>
 
-					<div className="row">
-						<div className="col-md-12">
-						 <div className="heatmap-div-table">
-							<WorkProgress />
 						</div>
-						</div>
-
 					</div>
-
 				</TabPanel>
 				</Tabs>
 			</AnimatedView>

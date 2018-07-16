@@ -3,6 +3,8 @@ import React from 'react';
 
 import TestQuestions from './TestQuestions';
 import '../styles/App.css';
+import SubmitBottomButton from './SubmitBottomButton';
+
 export default class TestComponent extends React.Component {
 
     
@@ -12,6 +14,7 @@ export default class TestComponent extends React.Component {
             <div className="test-component">
                 <div className="test-questions">
                     <TestQuestions onWayPointChild={this.props.onWayPoint.bind(this)} />
+                    <SubmitBottomButton />
                 </div>
             </div>
         )

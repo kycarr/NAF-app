@@ -23,7 +23,7 @@ class Instructions extends Component {
             <div className="InstructionsPage">
                 <MuiThemeProvider>
                     <div>
-                        <ToolbarLoginComponent firstname={this.props.firstname} lastname={this.props.lastname}/>
+                        <ToolbarLoginComponent name={this.props.name} />
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         	<div className="instructions-box">
                                 <p className="instructions-text">
@@ -59,8 +59,7 @@ class Instructions extends Component {
 
 function mapStateToProps(state) {
   return {
-    firstname: state.auth.firstname,
-    lastname: state.auth.lastname,
+    name: state.auth.name,
     userId: state.auth.userId
   }
 }
