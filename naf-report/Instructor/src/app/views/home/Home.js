@@ -12,7 +12,8 @@ import {
 	WorkProgress,
 	ClassTestLog,
 	ModuleList,
-	RequirementsWrapper
+	RequirementsWrapper,
+	MostRecentWrapper
 } from '../../components';
 import ReactDOM from 'react-dom';
 import ChartistGraph from 'react-chartist';
@@ -108,31 +109,32 @@ class Home extends React.Component {
 		this.customTitleForValue = this.customTitleForValue.bind(this);
 		this.reloadHeat = this.reloadHeat.bind(this);
 		this.selectModule = this.selectModule.bind(this);
+		this.openNewTab = this.openNewTab.bind(this);
 		this.state = {
 			key: 1,
 			heatData:null,
 			data: {
-			labels: ['Topic 9', 'Topic 7', 'Topic 4', 'Topic 1'],
-			series: [
-				[-12, -10, -7, -5],
-				[3, 5, 8, 10]
-			]
+				labels: ['Topic 9', 'Topic 7', 'Topic 4', 'Topic 1'],
+				series: [
+					[-12, -10, -7, -5],
+					[3, 5, 8, 10]
+				]
 			},
 			options : {
 				seriesBarDistance: 0,
 				reverseData: true,
 				horizontalBars: true,
 				axisX: {
-					 offset: 70,
-		onlyInteger: true,
-		labelInterpolationFnc: function(value) {
-			return value ;
-		}
-
-	},
+				 offset: 70,
+				 onlyInteger: true,
+				labelInterpolationFnc: function(value) {
+					return Math.abs(value) ;
+					}
+				},
 				height: '350px'
 			}
 		};
+		this.state.tabs = [];
 	}
 	componentWillMount() {
 		const { actions: { enterHome } } = this.props;
@@ -164,6 +166,12 @@ class Home extends React.Component {
 		document.querySelector('.ct-chart').__chartist__.update();
 	}
 
+	openNewTab(testname) {
+		this.setState(prevState => ({
+			tabs: [...prevState.tabs, {id: Math.random()}]
+		}));
+	}
+
 	selectModule(module) {
 		const {
 			actions: {
@@ -188,7 +196,6 @@ class Home extends React.Component {
 			earningGraphLabels,
 			earningGraphDatasets
 		} = this.props;
-		
 		const randomValues = generateRandomValues(2000);
 		const xLabels = new Array(44).fill(0).map((_, i) => `Topic ${i+1}`);
 		const yLabels = ['Class 9', 'Class 10', 'Class 13', 'Class 5', 'Class 6', 'Class 7', 'Class 3', 'Class 2', 'Class 8', 'Class 11'];
@@ -199,144 +206,67 @@ class Home extends React.Component {
 		return(
 			<AnimatedView>
 			 <Tabs>
-		<TabList>
-			<Tab>Most Recent</Tab>
-			<Tab>Test History</Tab>
-		</TabList>
+				<TabList>
+					<Tab>Most Recent</Tab>
+					<Tab>Test History</Tab>
+					    {this.state.tabs.map(tab => (
+	      					<Tab>Fc Module 02
+	      					</Tab>
+					    ))}
+				</TabList>
 
 				<TabPanel title="Most Recent">
-					<div
-						className="row"
-						style={{marginBottom: '5px'}}>
-					
-						<h2 className="testhistory-title">Test Results:</h2>
-						<div className="col-md-2 topcard-left">
-						 <div className="sm-st-info"><div>Class Name</div><span className="testname">Class 3</span></div>
-						</div>
-						<div className="col-md-3 topcard">
-							<div className="sm-st-info"><div>Test Name</div><span className="right-align-2">FC - Module 06</span></div>
-						</div>
-						<div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div>Date Completed</div><span className="right-align-3">04/11/2018</span></div>
-						</div>
-						<div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div># Finished</div><span className="right-align-4">10</span></div>
-						</div>
-							 <div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div># Incomplete</div><span className="right-align-5">4</span></div>
-						</div>
-							 <div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div># Not Start</div><span className="right-align-6">1</span></div>
-						</div>
-							 <div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div>Average %</div><span className="right-align-7">50%</span></div>
-						</div>
-							 <div className="col-md-1 topcard-right">
-							 <div className="sm-st-info"><div>Pass %</div><span className="right-align-8">53%</span></div>
-						</div>
-					</div>
-
-					<div className="row">
-					<Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i>Topics</div> </div>}>
-			 
-						<div className="col-md-10 horizontalbar-div">
-						 <ChartistGraph className={'ct-octave'} data={this.state.data} options={this.state.options} type={'Bar'} redraw={'true'} responsive={'true'}/>
-					 
-					
-						</div>
-					</Collapsible>     
-					</div>
-
-					<div className="row collapsible-row">
-						<div className="col-md-12">
-							<Collapsible trigger={<span className='collapsible-icon'><i className='fa fa-caret-right-collpase'></i>Trainee</span>}>
-							<div className="collapsible-paragraph">
-								 <WorkProgress />
-							</div>
-							</Collapsible>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-							<RequirementsWrapper />
-						</div>     
-					</div>
+					<MostRecentWrapper />
 				</TabPanel>
-				<TabPanel title="Test History">
-				<h2 className="testhistory-title">Test History:</h2>
+					<TabPanel title="Test History">
+						<h2 className="testhistory-title">Test History:</h2>
 
-				<div className="horiz-scroll-module">
- 					<div
-						className=" col-md-12 row horiz-model-inside"
-						style={{marginBottom: '5px'}}>
-						<div>
-							<ModuleList modules={modules} selectModule={this.selectModule} currentModule={this.props.currentModule}/>
-						</div>
-					 </div>
-					</div>
-
-					<div className="row">
-						<div className="col-md-12">
-						<div className="horiz-scroll">
-						 <div className="heatmap-div">
-				<HeatMap
-							xLabels={xLabels}
-							yLabels={yLabels}
-							data={data}
-							background={'green'}
-						/>
-						</div>
-						</div>
-						</div>
-					</div>
-					<div style={{marginTop : '50px'}}>
-						<div className="row collapsible-row">
-							<div className="col-md-12">
-	 							<Collapsible open trigger={<span className='collapsible-icon'><i className='fa fa-caret-right-collpase'></i>Class Test Log</span>}>
-								<div className="collapsible-paragraph">
-									<ClassTestLog />
+						<div className="horiz-scroll-module">
+		 					<div
+								className=" col-md-12 row horiz-model-inside"
+								style={{marginBottom: '5px'}}>
+								<div>
+									<ModuleList modules={modules} selectModule={this.selectModule} currentModule={this.props.currentModule}/>
 								</div>
-								</Collapsible>
+							 </div>
 							</div>
 
-						</div>
-					</div>
-				</TabPanel>
+							<div className="row">
+								<div className="col-md-12">
+								<div className="horiz-scroll">
+								 <div className="heatmap-div">
+						<HeatMap
+									xLabels={xLabels}
+									yLabels={yLabels}
+									data={data}
+									background={'green'}
+								/>
+								</div>
+								</div>
+								</div>
+							</div>
+							<div style={{marginTop : '50px'}}>
+								<div className="row collapsible-row">
+									<div className="col-md-12">
+			 							<Collapsible open trigger={<span className='collapsible-icon'><i className='fa fa-caret-right-collpase'></i>Class Test Log</span>}>
+										<div className="collapsible-paragraph">
+											<ClassTestLog openNewTab={this.openNewTab}/>
+										</div>
+										</Collapsible>
+									</div>
+
+								</div>
+							</div>
+					</TabPanel>
+					    {this.state.tabs.map((tab,index) => (
+	      					<TabPanel title="Fc Module 02" key={index}>
+	      						<MostRecentWrapper />
+	      					</TabPanel>
+					    ))}
 				</Tabs>
 			</AnimatedView>
 		);
 	}
 }
-/*
 
-					 	<div className="topmodule-left">
-							 <div className="sm-st-info"onClick = {this.reloadHeat.bind(this)} ><span>Module 01</span></div>
-						</div>
-						<div className="topmodule">
-							 <div className="sm-st-info"onClick = {this.reloadHeat.bind(this)} ><span>Module 02</span></div>
-						</div>
-						 <div className="topmodule">
-							 <div className="sm-st-info" onClick = {this.reloadHeat.bind(this)}><span>Module 03</span></div>
-						</div>
-						<div className="topmodule">
-							 <div className="sm-st-info" onClick = {this.reloadHeat.bind(this)}><span>Module 04</span></div>
-						</div>
-						 <div className="topmodule">
-							 <div className="sm-st-info" onClick = {this.reloadHeat.bind(this)}><span>Module 05</span></div>
-						</div>
-						<div className="topmodule">
-							 <div className="sm-st-info" onClick = {this.reloadHeat.bind(this)}><span>Module 06</span></div>
-						</div>
-						 <div className="topmodule">
-							 <div className="sm-st-info" onClick = {this.reloadHeat.bind(this)}><span>Module 07</span></div>
-						</div>
-						<div className="topmodule">
-							 <div className="sm-st-info" onClick = {this.reloadHeat.bind(this)}><span>Module 08</span></div>
-						</div>
-						 <div className="topmodule">
-							 <div className="sm-st-info" onClick = {this.reloadHeat.bind(this)}><span>Module 09</span></div>
-						</div>
-						<div className="topmodule">
-							 <div className="sm-st-info" onClick = {this.reloadHeat.bind(this)}><span>Module 10</span></div>
-						</div>
-						 <div className="topmodule">
-							 <div className="sm-st-info" onClick = {this.reloadHeat.bind(this)} ><span>Module 11</span></div>
-						</div>
-						*/
 export default Home;

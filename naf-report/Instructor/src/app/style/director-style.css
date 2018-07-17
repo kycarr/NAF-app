@@ -494,7 +494,7 @@ table.text-center th {
   text-align: left;
 }
 .table.align td {
-  text-align: right;
+  text-align: left;
 }
 .text-bold,
 .text-bold.table td,

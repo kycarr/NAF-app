@@ -222,10 +222,10 @@ body, html {
 .table > tbody 
 {
 	tr > td:nth-child(5){
-	padding-left:65px;
+	padding-left:25px;
 	}
 	tr > td:nth-child(4){
-	padding-left:65px;
+	padding-left:25px;
 	}
 }
 .react-tabs__tab-panel {
@@ -390,4 +390,14 @@ body, html {
   font-weight:600;
   text-align:mid;
   margin-left:10px;
+}
+
+#sm-st-info-button {
+  background-color:#427d90;
+  height:30px;
+  border-radius: 15px 15px 15px 15px;
+  color:white;
+  width:80px;
+  cursor: pointer;
+  padding:5px 5px 15px 25px;
 }

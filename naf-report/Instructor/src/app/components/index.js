@@ -65,3 +65,4 @@ export { default as ScrollTop }       from './scrollToTop/ScrollToTop';
 export { default as ModuleList }      from './moduleList/ModuleList';
 export { default as RequirementsNotMet }  from './mostRecent/RequirementsNotMet';
 export { default as RequirementsWrapper }  from './mostRecent/RequirementsWrapper';
+export { default as MostRecentWrapper} from './mostRecent/MostRecentWrapper';

@@ -1,6 +1,7 @@
 // @flow weak
-
 import React              from 'react';
+import PropTypes from 'prop-types';
+
 import WorkProgressPanel  from './workProgressPanel/WorkProgressPanel';
 import {
   Table,
@@ -26,48 +27,58 @@ const content = [
       [ 'Class 3' ,  'Fc - Module 02'   ,  '10/12/2014' , 80  , 13, 1 ,  8 ,  5 , 1]
 
 ];
+export default class ClassTestLog extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+            <WorkProgressPanel>
+            <Table>
+              <TableHeader>
+                {
+                  headers.map(
+                    (header, headerIdx) => {
+                      return (
+                        <TableCol key={headerIdx}>
+                         <b> {header}</b>
+                        </TableCol>
+                      );
+                    }
+                  )
+                }
+              </TableHeader>
+              <TableBody>
+                {
+                  content.map(
+                    (contentRow, contentRowIdx) => {
+                      return (
+                        <TableRow key={contentRowIdx}>
+                          {
+                            contentRow.map(
+                              (contentColumn, contentColumnIdx) => {
+                                return (
+                                  <TableCol key={contentColumnIdx}>
+                                    {contentColumn}
+                                  </TableCol>
+                                );
+                              }
+                            )
+                          }
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.props.openNewTab}>More</div></td>
+                        </TableRow>
+                      );
+                    }
+                  )
+                }
+              </TableBody>
+            </Table>
+          </WorkProgressPanel>
+      );
+  }
 
-const ClassTestLog = () => (
-  <WorkProgressPanel>
-    <Table>
-      <TableHeader>
-        {
-          headers.map(
-            (header, headerIdx) => {
-              return (
-                <TableCol key={headerIdx}>
-                 <b> {header}</b>
-                </TableCol>
-              );
-            }
-          )
-        }
-      </TableHeader>
-      <TableBody>
-        {
-          content.map(
-            (contentRow, contentRowIdx) => {
-              return (
-                <TableRow key={contentRowIdx}>
-                  {
-                    contentRow.map(
-                      (contentColumn, contentColumnIdx) => {
-                        return (
-                          <TableCol key={contentColumnIdx}>
-                            {contentColumn}
-                          </TableCol>
-                        );
-                      }
-                    )
-                  }
-                </TableRow>
-              );
-            }
-          )
-        }
-      </TableBody>
-    </Table>
-  </WorkProgressPanel>
-);
+}
 
-export default ClassTestLog;
+ClassTestLog.propTypes = { 
+  openNewTab: PropTypes.func
+}
