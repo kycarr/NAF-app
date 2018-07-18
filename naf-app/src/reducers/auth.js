@@ -1,4 +1,4 @@
-import { createReducer } from '../utils/utils';
+import { createReducer } from '../utils/Utils';
 import {
   RECEIVE_USER_INFO,
 } from '../constants/index';

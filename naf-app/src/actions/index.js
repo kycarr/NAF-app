@@ -1,5 +1,5 @@
-import { parseJSON } from '../utils/utils';
-import { login, getQuestions, submitAnswer, finishTest } from '../utils/httpFunctions';
+import { parseJSON } from '../utils/Utils';
+import { login, getQuestions, submitAnswer, finishTest } from '../utils/HttpFunctions';
 import {
   OPTION_SELECTED,
   GO_TO_PAGE,

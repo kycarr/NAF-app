@@ -8,7 +8,7 @@ import InstructionsPage from './components/InstructionsPage';
 import App from './components/App';
 import LoginPage from './components/LoginPage';
 import ReviewTestPage from './components/ReviewTestPage';
-import registerServiceWorker from './utils/registerServiceWorker';
+import registerServiceWorker from './utils/RegisterServiceWorker';
 
 const store = configureStore();
 

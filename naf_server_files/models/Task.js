@@ -15,7 +15,7 @@ const TaskSchema = new Schema({
 	// 	ref: 'User'
 	// },
 	score: {
-		type: Number
+		type: String
 	},
 	// session: {
 	// 	type: Schema.Types.ObjectId,
@@ -29,6 +29,9 @@ const TaskSchema = new Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    testResult: {
+    	type: String
     }
 
 	

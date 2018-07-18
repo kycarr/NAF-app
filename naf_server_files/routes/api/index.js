@@ -112,7 +112,11 @@ router.post('/api/finishTest', test_controller.finish_test);
 router.get('/student/fetchStudentAnswers', fetch_answers_controller.fetchStudentAnswers);
 // router.get('/api/getAllAnswerResponse', test_controller.get_all_answer_response);
 
+router.get('/api/student/fetchStudentSessions', fetch_answers_controller.fetchStudentSessions);
+
 router.get('/api/instructor/fetchInstructorData', instructor_controller.fetchInstructorData);
+
+
 
 //export router
 module.exports=router;
