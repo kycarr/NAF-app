@@ -513,8 +513,8 @@ export function leaveProtected(time = moment().format()) {
   };
 }
 
-export const fetchStudentTestAnswers = (userId, sessionId) => dispatch => {
-    userId = encodeURIComponent(userId);
+export const fetchStudentTestAnswers = (sessionId) => dispatch => {
+
     sessionId = encodeURIComponent(sessionId);
     // const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?user_id=${userId}`;
     const URL = `http://localhost:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;

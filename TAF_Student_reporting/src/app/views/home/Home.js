@@ -14,7 +14,12 @@ import {
   ClassTestLog,
   TwitterFeed,
   TodoListDemo,
-  TeamMatesDemo
+  TeamMatesDemo,
+  ScoreTable,
+  TopicsGraph,
+  TestResult,
+  RequirementsNotMet,
+  MostRecentWrapper
 }                         from '../../components';
 import ReactDOM from 'react-dom';
 import ChartistGraph from 'react-chartist';
@@ -122,6 +127,7 @@ class Home extends React.Component {
 
     this.handleSelect = this.handleSelect.bind(this);
     this.customTitleForValue = this.customTitleForValue.bind(this);
+    this.openNewTab = this.openNewTab.bind(this);
 
     this.state = {
         rawData:[],
@@ -150,8 +156,8 @@ class Home extends React.Component {
         plugins: [ ctPointLabels()],
 
         height: '300px'
-      }
-
+      },
+      tabs: []
     };
 
 
@@ -180,7 +186,12 @@ class Home extends React.Component {
 
     fetchEarningGraphDataIfNeeded();
     fetchTeamMatesDataIfNeeded();
-    fetchStudentTestAnswers('5b4d27146fe0fc1caf9b1787','5b4d2d7f6fe0fc1caf9b1804');
+    console.log("RESYLKTS IUD", window.location.search.split('=')[1]);
+    console.log(window.location);
+    // fetchStudentTestAnswers('5b2001254e342d20e3dcb3c7','5b4cf0e8312e1dafc4ee37d6');
+    fetchStudentTestAnswers(window.location.search.split('=')[1]);
+
+    // fetchStudentTestAnswers('5b2001254e342d20e3dcb3c7',localStorage.getItem('resultsId'));
   }
 
   componentWillUnmount() {
@@ -204,6 +215,13 @@ class Home extends React.Component {
   customTitleForValue(value) {
     return value ? `You're hovering over ${value.date.toDateString()} with value ${value.count}` : null;
   }
+
+  openNewTab(testname) {
+    this.setState(prevState => ({
+      tabs: [...prevState.tabs, {id: Math.random()}]
+    }));
+  }
+  
   render() {
 
     //console.log('params', this.props.match.params.id);
@@ -259,15 +277,18 @@ class Home extends React.Component {
       }
     }
 
-    console.log('topicValue', topicValue);
-    console.log('topicsScoreP',topicsScoreP);
-
     for(let key in topicValue) {
       if(!(key in topicsScoreP)){
         topicsScoreP[key]=0;   //this is for topics that might have zero score
       }
     }
 
+    console.log('topicValue asjdhoasdho', topicValue);
+    console.log('topicsScoreP',topicsScoreP);
+
+    console.log('RESUTLS ID IN RENDER', localStorage.getItem('resultsId'));
+    // localStorage.removeItem('resultsId');
+    console.log('RESUTLS ID IN RENDER', localStorage.getItem('resultsId'));
 
 
     for(let key in topicsScoreP) {
@@ -286,10 +307,10 @@ class Home extends React.Component {
     this.state.data.series[0]=topicValue;
     this.state.data.labels=topicLabel;
 
-    console.log('topicValue', topicValue);
-    console.log('topicLabel', topicLabel);
+    // console.log('topicValue', topicValue);
+    // console.log('topicLabel', topicLabel);
 
-    let totalScore = correctness.length>1 ?Math.round(100*totalPass/correctness.length,1):0;
+    let totalScore = correctness.length>1 ? Math.round(100*totalPass/correctness.length,1):0;
 
     let requirementsNotMetObject = {
       'Major' : [],
@@ -304,52 +325,6 @@ class Home extends React.Component {
           requirementsNotMetObject['Minor'].push(' ' + topicLabel[i]);
         }
     }
-
-    {/*
-    let rows = [];
-    let majorString='';
-
-    let j = 0;
-    let topics='';
-    let topicsTitle='';
-    for (let i = 0; i < topicValue.length; i++) {
-
-      console.log(topicValue[i]);
-        if(topicValue[i]<30)
-        {
-          if(topicLabel[i] !== undefined) {
-            if(majorString.length===0) {
-              topicsTitle = 'Needs Major Remediation:';
-            }
-
-            topics += topicLabel[i];
-            if(i<topicValue.length-2) {
-              topics += ', ';
-            }
-          }
-
-        }
-    }
-    rows.push(<div><h4>{topicsTitle}</h4></div>);
-    rows.push(<div><br/>{topics}</div>);
-    topicsTitle='';
-    topics='';
-    for (let i = 0; i < topicValue.length; i++) {
-        if(topicValue[i]>30&&topicValue[i]<60)
-        {
-          if(majorString.length===0) {
-            topicsTitle = 'Needs Minor Remediation:';
-          }
-          topics += topicLabel[i];
-          if(i+1<topicValue.length) {
-            topics += ', ';
-          }
-
-        }
-    }
-    rows.push(<div><h4>{topicsTitle}</h4></div>);
-    rows.push(<div><br/>{topics}</div>);
-    */}
 
     const tableHeadersMostRecent = ['Class Avg', '#Questions', '#Points', 'Weight'];
     const tableContentMostRecent = [
@@ -381,123 +356,16 @@ class Home extends React.Component {
     <TabList>
       <Tab>Most Recent</Tab>
       <Tab>Test History</Tab>
+          {this.state.tabs.map(tab => (
+                <Tab>Fc Module 02
+                </Tab>
+          ))}
     </TabList>
     <TabPanel title="Most Recent">
-          <div
-            className="row"
-            style={{marginBottom: '5px'}}>
-            <h2 className="testhistory-title">Test Results:</h2>
-            <div className="col-md-3 topcard-left">
-              <div className="sm-st-info"><div>Test Name</div><span className="testname">FC - Module 06</span></div>
-            </div>
-            <div className="col-md-2 topcard">
-               <div className="sm-st-info"><div>Test Score</div><span className="right-align-3">{totalPass}/{correctness.length}</span></div>
-            </div>
-            <div className="col-md-2 topcard">
-               <div className="sm-st-info"><div >Test %</div><span className="right-align-4">{totalScore} %</span></div>
-            </div>
-               <div className="col-md-2 topcard">
-               <div className="sm-st-info"><div>Test Result</div><span className="right-align-3">{totalScore>60?'PASS':'FAIL'}</span></div>
-            </div>
-               <div className="col-md-2 topcard-right">
-               <div className="sm-st-info"><div>Class Rank</div><span className="right-align-3">2/15</span></div>
-            </div>
-
-          </div>
-
-          <div className="row" >
-            <div className="col-md-12">
-            <Collapsible
-                open
-                trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i><span style={headingStyle} >Topics: </span> </div> </div>}
-            >
-
-            <div className="col-md-7 horizontalbar-div"  >
-              <span style={graphLabelName} > Name </span>
-              <span style={graphLabelResults} >Results </span>
-              <hr style={hrStyle} />
-              <ChartistGraph className={'ct-octave'} data={this.state.data} options={this.state.options} type={'Bar'} redraw={'true'} responsive={'true'} />
-            </div>
-            <div className="col-md-4 horizontalbar-div">
-
-            {/* <WorkProgress content = {tableContentMostRecent} headers = {tableHeadersMostRecent} /> */}
-
-
-              <table className="table table-hover table-topic">
-                <thead>
-                  <tr>
-                    <td><span style={tableHeadFontStyle}>Class Avg</span></td>
-                    <td><span style={tableHeadFontStyle}># Questions</span></td>
-                    <td><span style={tableHeadFontStyle}># Points</span></td>
-                    <td><span style={tableHeadFontStyle}>Weight</span></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>4</td>
-                  </tr>
-                </tbody>
-              </table>
-
-            </div>
-
-            </Collapsible>
-          </div>
-        </div>
-
-
-      <div className="row">
-            <div className="col-md-12">
-              <Collapsible
-                  open
-                  trigger={<div className='collapsible-icon-second'><div  className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i> <span style={headingStyle} > Requirements Not Met: </span></div> </div>}
-              >
-                <div className="collapsible-paragraph ">
-                    {/*rows*/}
-                     <p><span className="topicTitle"><h4><strong>Needs Major Remediation:</strong></h4></span></p>
-                     <p><span className="topicDescription" style={{'marginLeft':'3em'}}>{requirementsNotMetObject['Major'].length > 0 ? '-' + requirementsNotMetObject['Major'] : null }</span></p>
-                     <p><span className="topicTitle"><h4><strong>Needs Minor Remediation:</strong></h4></span></p>
-                     <p><span className="topicDescription" style={{'marginLeft':'3em'}}> {requirementsNotMetObject['Minor'].length > 0 ? '-' + requirementsNotMetObject['Minor'] : null }</span></p>
-                     <p><span className="topicTitle"><h4><strong>Critical Question Errors:</strong></h4></span></p>
-                     <p><span className="topicDescription" style={{'marginLeft':'3em'}}>{requirementsNotMetObject['Critical'].length > 0 ? '-' + requirementsNotMetObject['Critical'] : null }</span></p>
-                </div>
-              </Collapsible>
-            </div>
-      </div>
-
+           <MostRecentWrapper rawData={rawData} totalPass={totalPass} correctness={correctness} 
+           totalScore={totalScore} requirementsNotMetObject={requirementsNotMetObject}
+           data={this.state.data}
+           />
     </TabPanel>
 
          <TabPanel title="Test History">
@@ -513,7 +381,7 @@ class Home extends React.Component {
                   <thead>
                     <tr>
 
-                      <td style={tableHeadFontStyle}  >Test Name</td>
+                      <td style={tableHeadFontStyle} >Test Name</td>
                       <td style={tableHeadFontStyle} >Date Completed</td>
                       <td style={tableHeadFontStyle} >Attempt &nbsp; #</td>
                       <td style={tableHeadFontStyle} >Total Score</td>
@@ -529,7 +397,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -537,7 +405,7 @@ class Home extends React.Component {
                       <td className="text-align-left" className="text-align-left">11/20/2014</td>
                       <td className="text-align-right">4</td><td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -546,7 +414,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -555,7 +423,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -564,7 +432,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -573,7 +441,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -582,7 +450,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -591,7 +459,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -600,7 +468,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -609,7 +477,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -617,7 +485,7 @@ class Home extends React.Component {
                       <td className="text-align-left" className="text-align-left">11/20/2014</td>
                       <td className="text-align-right">4</td><td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -626,7 +494,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -635,7 +503,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                     <tr>
 
@@ -644,7 +512,7 @@ class Home extends React.Component {
                       <td className="text-align-right">4</td>
                       <td className="text-align-right">0</td>
                       <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button">More</div></td>
+                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
                     </tr>
                   </tbody>
               </table>
@@ -653,6 +521,14 @@ class Home extends React.Component {
           </Collapsible>
 
        </TabPanel>
+              {this.state.tabs.map((tab,index) => (
+                  <TabPanel title="Fc Module 02" key={index}>
+                     <MostRecentWrapper rawData={rawData} totalPass={totalPass} correctness={correctness} 
+                       totalScore={totalScore} requirementsNotMetObject={requirementsNotMetObject}
+                       data={this.state.data}
+                     />
+                  </TabPanel>
+              ))}
         </Tabs>
       </AnimatedView>
     );
