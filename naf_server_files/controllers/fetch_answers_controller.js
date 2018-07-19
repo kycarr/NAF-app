@@ -175,7 +175,6 @@ exports.fetchStudentAnswers = async (req,res) => {
 }
 
 exports.fetchStudentSessions = async(req,res) => {
-
   console.log('Inside the fetch student sessions route');
   const userId = mongoose.Types.ObjectId(req.query['userId']);
 
@@ -205,8 +204,10 @@ exports.fetchStudentSessions = async(req,res) => {
     console.log(currentTask);
     const currentTestName = currentTask.test.testName;
     if(!(currentTestName in responseObject)) 
-      responseObject[currentTestName] = { attempts: 1, date: new Date(currentTask.date), testScore: currentTask.score, testResult: currentTask.testResult  };
+      responseObject[currentTestName] = {testName: "Test One", attempts: 1, date: new Date(currentTask.date), testScore: currentTask.score, testResult: currentTask.testResult  };
     else {
+      responseObject[currentTestName]['testName'] = currentTestName;
+
       responseObject[currentTestName]['attempts']+=1;
       responseObject[currentTestName]['date'] = new Date(currentTask.date);
       //responseObject[currentTestName]['session'] = session._id;
