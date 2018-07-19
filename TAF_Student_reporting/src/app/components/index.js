@@ -66,3 +66,4 @@ export { default as MostRecentWrapper} from './mostRecent/MostRecentWrapper';
 export { default as ScoreTable }  from './mostRecent/ScoreTable';
 export { default as TopicsGraph }  from './mostRecent/TopicsGraph';
 export { default as TestResult }  from './mostRecent/TestResult';
+export { default as TestLog } from './testLog/TestLog';

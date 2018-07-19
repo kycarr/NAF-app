@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
   return {
     currentView:  state.views.currentView,
     answersList: state.views.answersList,
-
+    testLogData: state.views.testLogData,
     earningGraphIsFetching: state.earningGraph.isFetching,
     earningGraphLabels:     state.earningGraph.labels,
     earningGraphDatasets:   state.earningGraph.datasets,
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchEarningGraphDataIfNeeded:  actions.fetchEarningGraphDataIfNeeded,
         fetchTeamMatesDataIfNeeded:     actions.fetchTeamMatesDataIfNeeded,
         fetchUserTestInfoDataIfNeeded : actions.fetchUserTestInfoDataIfNeeded,
-
+        fetchStudentSessions: actions.fetchStudentSessions,
         fetchStudentTestAnswers: actions.fetchStudentTestAnswers
       },
       dispatch)

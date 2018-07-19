@@ -48,6 +48,7 @@ const ENTER_PROTECTED_VIEW = 'ENTER_PROTECTED_VIEW';
 const LEAVE_PROTECTED_VIEW = 'LEAVE_PROTECTED_VIEW';
 
 const GET_STUDENT_TEST_ANSWERS = 'GET_STUDENT_TEST_ANSWERS';
+const GET_STUDENT_TEST_SESSIONS = 'GET_STUDENT_TEST_SESSIONS';
 const GET_ERRORS = 'GET_ERRORS';
 
 
@@ -127,8 +128,13 @@ export default function views(state = initialState, action) {
     return {
       ...state,
       answersList: action.payload
-    }
-
+    };
+  case GET_STUDENT_TEST_SESSIONS:
+    console.log(action.payload);
+    return {
+      ...state,
+      testLogData: action.payload
+    };
   default:
     return state;
   }
@@ -527,6 +533,31 @@ export const fetchStudentTestAnswers = (sessionId) => dispatch => {
           console.log('result',result);
           dispatch({
             type: GET_STUDENT_TEST_ANSWERS,
+            payload: result.data
+          })
+        }
+      )
+      .catch(error =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.data
+        })
+      );
+}
+
+
+export const fetchStudentSessions = (userId) => dispatch => {
+      userId = encodeURIComponent(userId);
+    // const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?user_id=${userId}`;
+    const URL = `http://localhost:8080/student/fetchStudentSessions?userId=${userId}`;
+    console.log(URL);
+
+    axios
+      .get(URL)
+      .then(result =>{
+          console.log('?????????');
+          dispatch({
+            type: GET_STUDENT_TEST_SESSIONS,
             payload: result.data
           })
         }

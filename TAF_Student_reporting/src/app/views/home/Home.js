@@ -19,7 +19,8 @@ import {
   TopicsGraph,
   TestResult,
   RequirementsNotMet,
-  MostRecentWrapper
+  MostRecentWrapper,
+  TestLog
 }                         from '../../components';
 import ReactDOM from 'react-dom';
 import ChartistGraph from 'react-chartist';
@@ -131,6 +132,7 @@ class Home extends React.Component {
 
     this.state = {
         rawData:[],
+        testLogData: {},
         key: 1,
         data: {
           labels: [],
@@ -170,8 +172,22 @@ class Home extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
+    const {
+      actions: {
+        fetchStudentSessions
+      }
+    } = this.props;
     if(nextProps.answersList) {
       this.setState({rawData: nextProps.answersList});
+      if(!nextProps.testLogData) {
+          fetchStudentSessions(nextProps.answersList.userId);
+
+      }
+    }
+    if(nextProps.testLogData) {
+      console.log("==============");
+
+      this.setState({testLogData: nextProps.testLogData});
     }
   }
 
@@ -180,7 +196,7 @@ class Home extends React.Component {
       actions: {
         fetchEarningGraphDataIfNeeded,
         fetchTeamMatesDataIfNeeded,
-        fetchStudentTestAnswers
+        fetchStudentTestAnswers,
       }
     } = this.props;
 
@@ -372,153 +388,8 @@ class Home extends React.Component {
 
 
           {/* WORK PROGRESS TAG MODIFICATION TO SHOW THE TABLE   <WorkProgress headers={tableheaders} content={tablecontent}  /> */}
+          <TestLog testLogData={this.state.testLogData} openNewTab={this.openNewTab}/>
 
-          <Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i><span style={headingStyle} >Test Log: </span></div></div>}>
-            <div className="col-md-12">
-              <div className="panel-body table-responsive test-log-student">
-
-                <table className="table table-hover">
-                  <thead>
-                    <tr>
-
-                      <td style={tableHeadFontStyle} >Test Name</td>
-                      <td style={tableHeadFontStyle} >Date Completed</td>
-                      <td style={tableHeadFontStyle} >Attempt &nbsp; #</td>
-                      <td style={tableHeadFontStyle} >Total Score</td>
-                      <td style={tableHeadFontStyle} >Result</td>
-                      <td style={tableHeadFontStyle}></td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td><td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td><td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                    <tr>
-
-                      <td className="text-align-left">FC - Module 02</td>
-                      <td className="text-align-left" className="text-align-left">11/20/2014</td>
-                      <td className="text-align-right">4</td>
-                      <td className="text-align-right">0</td>
-                      <td className="text-align-left">FAIL</td>
-                      <td className="text-align-left"><div id="sm-st-info-button" onClick={this.openNewTab}>More</div></td>
-                    </tr>
-                  </tbody>
-              </table>
-              </div>
-            </div>
-          </Collapsible>
 
        </TabPanel>
               {this.state.tabs.map((tab,index) => (
