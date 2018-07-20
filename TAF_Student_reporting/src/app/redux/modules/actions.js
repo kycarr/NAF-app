@@ -72,5 +72,6 @@ export {
   enterPagination,
   leavePagination,
   fetchStudentTestAnswers,
-  fetchStudentSessions
+  fetchStudentSessions,
+  fetchStudentWithSession
 }                                     from './views';

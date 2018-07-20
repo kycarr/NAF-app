@@ -32,7 +32,7 @@ class TopicsGraph extends React.Component {
           fullWidth: true,
           chartPadding: {
           right: 50
-        },
+           },
         seriesBarDistance: 0,
         reverseData: true,
         horizontalBars: true,
@@ -59,7 +59,7 @@ class TopicsGraph extends React.Component {
               <span style={graphLabelName} > Name </span>
               <span style={graphLabelResults} >Results </span>
               <hr style={hrStyle} />
-              <ChartistGraph className={'ct-octave'} 
+              <ChartistGraph className={'ct-octave ct-chart-bar'} 
                 data={this.props.data} options={this.state.options} 
                 type={'Bar'} redraw={'true'} responsive={'true'} 
               />

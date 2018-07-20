@@ -41,9 +41,15 @@ exports.login = async (req,res) => {
 exports.get_questions_for_test = async (req,res) => {
    console.log("Inside questions route");
    console.log(req.body);
-   let userId = req.body.userId;
-   const items = await Item.find();
-   const sections = await Section.find();
+   let { userId, testParamName } = req.body;
+
+    const test = await Test.findOne({testName: testParamName});
+    console.log('TEST: ', test);
+
+
+
+   const items = await Item.find({test: test._id});
+   const sections = await Section.find({test: test._id});
    const numberOfSections = sections.length;
    let questionsResponse = [];
    for(let i=0 ; i<numberOfSections; i++) 
@@ -56,8 +62,7 @@ exports.get_questions_for_test = async (req,res) => {
    }
 
     //create a new task
-    const test = await Test.findOne({testName: "Test One"});
-    console.log('TEST: ', test);
+  
     const task = new Task({
       test: test._id
     });
@@ -99,13 +104,22 @@ exports.post_options_answers = async (req,res) => {
     }
   });
 
+  // console.log('TaskId', taskId);
+  const task = await Task.findById(taskId);
+
  //check the answer database for the sectionId  questionId  taskId  sessionId
- const section = await Section.findOne({sectionId: Number.parseInt(sectionId)}).populate('items');
+ const section = await Section.findOne({test: task.test, sectionId: Number.parseInt(sectionId)}).populate('items');
  const item = section.items.find(item => item.id === Number.parseInt(questionId));
+ console.log(item);
+
  console.log('Correct: ', item.correctAnswer.trim());
  const session = await Session.findById(sessionId);
- const task = await Task.findById(taskId);
+ // const task = await Task.findById(taskId);
  const correctAnswers = item.correctAnswer.trim().split(',');
+
+ console.log('User Provided answer', answers);
+ console.log('Correct answers', correctAnswers);
+ console.log('CorrectAnswer', item.correctAnswer);
  let pass = true;
 
  if(correctAnswers.length !== answers.length)
@@ -160,10 +174,11 @@ exports.post_essay_answers = async (req,res) => {
     let answers = [];
     answers.push(answer.answer);
 
-    const section = await Section.findOne({sectionId: Number.parseInt(sectionId)}).populate('items');
+    const task = await Task.findById(taskId);
+    const section = await Section.findOne({test: task.test, sectionId: Number.parseInt(sectionId)}).populate('items');
     const item = section.items.find(item => item.id === Number.parseInt(questionId));
     const session = await Session.findById(sessionId);
-    const task = await Task.findById(taskId);
+    
     const answerFromDB = await Answer.findOne({section: section, item: item, session: session, task: task});
     const correctAnswers = item.correctAnswer.trim().split(',');
     let pass = true;

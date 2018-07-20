@@ -13,10 +13,6 @@ class TestLog extends React.Component {
   }
 
   render() {
-    console.log("????????????");
-    console.log(this.props.testLogData);
-    console.log("???????????");
-    var logData = this.props.testLogData;
 
     return (
           <Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i><span style={headingStyle} >Test Log: </span></div></div>}>
@@ -37,15 +33,18 @@ class TestLog extends React.Component {
                   </thead>
                   <tbody>
                     {
-                        Object.keys(logData).map(key => {
+                        Object.keys(this.props.testLogData).map(key => {
 
-                            var testLog = logData[key];
-                            return (<TestLogRow testName={testLog['testName']}
+                            var testLog = this.props.testLogData[key];
+                            return (<TestLogRow 
+                            key={Math.random()}
+                            testName={testLog['testName']}
                             dateCompleted={testLog['date']}
                             attempts={testLog['attempts']}
                             date={testLog['date']}
                             highestScore={testLog['testScore']}
                             testResult={testLog['testResult']}
+                            session={testLog['session']}
                             openNewTab={this.props.openNewTab}
                             />);
                         })

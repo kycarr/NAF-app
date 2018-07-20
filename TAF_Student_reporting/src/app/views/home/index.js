@@ -8,8 +8,10 @@ import Home                    from './Home';
 
 const mapStateToProps = (state) => {
   return {
+    tabs: state.views.tabs,
     currentView:  state.views.currentView,
     answersList: state.views.answersList,
+    resultsList: state.views.resultsList,
     testLogData: state.views.testLogData,
     earningGraphIsFetching: state.earningGraph.isFetching,
     earningGraphLabels:     state.earningGraph.labels,
@@ -31,7 +33,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchTeamMatesDataIfNeeded:     actions.fetchTeamMatesDataIfNeeded,
         fetchUserTestInfoDataIfNeeded : actions.fetchUserTestInfoDataIfNeeded,
         fetchStudentSessions: actions.fetchStudentSessions,
-        fetchStudentTestAnswers: actions.fetchStudentTestAnswers
+        fetchStudentTestAnswers: actions.fetchStudentTestAnswers,
+        fetchStudentWithSession: actions.fetchStudentWithSession
       },
       dispatch)
   };

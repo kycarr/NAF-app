@@ -16,17 +16,28 @@ const Topic = require('../../models/Topic');
 
 
 //data for seeding database
-const qArray = require('../../questions');
-const topicsArray = require('../../topics');
+const qArray1 = require('../../questions');
+const qArray2 = require('../../newQuestions');
+const topicsArray1 = require('../../topics');
+const topicsArray2 = require('../../newTopics');
 
 
-const populateDB = async (test) => {
+
+
+const populateDB = async (test, qArray, topicsArray) => {
  
   for(let i=0; i<topicsArray.length; i++)
   {
     const newTopic = new Topic(topicsArray[i]);
+    console.log(newTopic.name);
+    //if the topic exists, dont again put it
+    //const findTopic = await Topic.findOne({name: newTopic.name});
+    
+    
     await newTopic.save();
+    
   }
+
   for(let i=0; i<qArray.length; i++)
   {
     const currentSectionItems = qArray[i];
@@ -50,8 +61,9 @@ const populateDB = async (test) => {
     
     test.sections.push(section);
   }
+
   await test.save();
-  console.log('Database seeded successfully with dummy test data');
+  console.log('Database seeded successfully with dummy test data for test: ', test.testName);
 }
 
 const createDB = async () => {
@@ -72,23 +84,43 @@ const createDB = async () => {
     Test.findOne({testName: 'Test One'})
     .then(test => {
       if(test){
-      console.log('Test already exists');
+      console.log('Test One already exists');
       }
       else{
-        console.log('test does not exist');
+        console.log('Test One does not exist');
         //seed the database with the test
         const newTest = new Test({
           testName: 'Test One',
           module: 'FC-Module 01'
         });
         newTest.save()
-        .then(newtest => {populateDB(newTest)})
-        .catch(err => {console.log('New test could not be created. Error: ' + err)});
+        .then(newtest => populateDB(newTest, qArray1, topicsArray1))
+        .catch(err => console.log('New Test One could not be created. Error: ' + err));        
       }
     })
     .catch(err => {
-      console.log('Error finding test: ' + err);
+      console.log('Error finding test one: ' + err);
     })
+
+    Test.findOne({testName: 'Test Two'})
+      .then(test => {
+        if(test) {
+          console.log('Test Two already exists');
+        }
+        else {
+          console.log('Test Two does not exist');
+          const newTest2 = new Test({
+            testName: 'Test Two',
+            module: 'FC-Module 01'
+          });
+          newTest2.save()
+            .then(newTest => populateDB(newTest, qArray2, topicsArray2))
+            .catch(err => console.log('New Test Two could not be created. Error: ' + err));
+        }
+      })
+      .catch(err => console.log('Error finding test two: ' + err));
+
+
 }
 
 //seed the database

@@ -204,13 +204,12 @@ exports.fetchStudentSessions = async(req,res) => {
     console.log(currentTask);
     const currentTestName = currentTask.test.testName;
     if(!(currentTestName in responseObject)) 
-      responseObject[currentTestName] = {testName: "Test One", attempts: 1, date: new Date(currentTask.date), testScore: currentTask.score, testResult: currentTask.testResult  };
+      responseObject[currentTestName] = {testName: currentTestName, attempts: 1, date: new Date(currentTask.date), testScore: currentTask.score, testResult: currentTask.testResult, session: session._id};
     else {
       responseObject[currentTestName]['testName'] = currentTestName;
-
       responseObject[currentTestName]['attempts']+=1;
       responseObject[currentTestName]['date'] = new Date(currentTask.date);
-      //responseObject[currentTestName]['session'] = session._id;
+      responseObject[currentTestName]['session'] = session._id;
       if(currentTask.score != undefined) {
         responseObject[currentTestName]['testScore'] = currentTask.score ;
         responseObject[currentTestName]['testResult'] = currentTask.testResult ;

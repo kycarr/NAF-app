@@ -49,13 +49,16 @@ const LEAVE_PROTECTED_VIEW = 'LEAVE_PROTECTED_VIEW';
 
 const GET_STUDENT_TEST_ANSWERS = 'GET_STUDENT_TEST_ANSWERS';
 const GET_STUDENT_TEST_SESSIONS = 'GET_STUDENT_TEST_SESSIONS';
+const GET_STUDENT_TEST_ANSWERS_WITH_SESSION = 'GET_STUDENT_TEST_ANSWERS_WITH_SESSION';
 const GET_ERRORS = 'GET_ERRORS';
 
 
 const initialState = {
   currentView:  'home',
   enterTime:    null,
-  leaveTime:    null
+  leaveTime:    null,
+  tabs: [],
+  resultsList: []
 };
 
 export default function views(state = initialState, action) {
@@ -130,10 +133,16 @@ export default function views(state = initialState, action) {
       answersList: action.payload
     };
   case GET_STUDENT_TEST_SESSIONS:
-    console.log(action.payload);
     return {
       ...state,
       testLogData: action.payload
+    };
+  case GET_STUDENT_TEST_ANSWERS_WITH_SESSION:
+    console.log(action.payload);
+    return {
+      ...state,
+      resultsList: [...state.resultsList, action.payload],
+      tabs: [...state.tabs, {result: action.payload}]
     };
   default:
     return state;
@@ -522,8 +531,8 @@ export function leaveProtected(time = moment().format()) {
 export const fetchStudentTestAnswers = (sessionId) => dispatch => {
 
     sessionId = encodeURIComponent(sessionId);
-    // const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?user_id=${userId}`;
-    const URL = `http://localhost:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
+    const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
+    // const URL = `http://localhost:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
     console.log(URL);
 
 
@@ -545,17 +554,40 @@ export const fetchStudentTestAnswers = (sessionId) => dispatch => {
       );
 }
 
+export const fetchStudentWithSession = (sessionId) => dispatch => {
+
+    sessionId = encodeURIComponent(sessionId);
+    const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
+    // const URL = `http://localhost:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
+    console.log(URL);
+
+
+    axios
+      .get(URL)
+      .then(result =>{
+          dispatch({
+            type: GET_STUDENT_TEST_ANSWERS_WITH_SESSION,
+            payload: result.data
+          })
+        }
+      )
+      .catch(error =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.data
+        })
+      );
+}
 
 export const fetchStudentSessions = (userId) => dispatch => {
       userId = encodeURIComponent(userId);
-    // const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?user_id=${userId}`;
-    const URL = `http://localhost:8080/student/fetchStudentSessions?userId=${userId}`;
+    const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentSessions?userId=${userId}`;
+    // const URL = `http://localhost:8080/student/fetchStudentSessions?userId=${userId}`;
     console.log(URL);
 
     axios
       .get(URL)
       .then(result =>{
-          console.log('?????????');
           dispatch({
             type: GET_STUDENT_TEST_SESSIONS,
             payload: result.data

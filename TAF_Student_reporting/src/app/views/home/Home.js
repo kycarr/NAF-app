@@ -20,7 +20,8 @@ import {
   TestResult,
   RequirementsNotMet,
   MostRecentWrapper,
-  TestLog
+  TestLog,
+  TabWrapper
 }                         from '../../components';
 import ReactDOM from 'react-dom';
 import ChartistGraph from 'react-chartist';
@@ -159,7 +160,6 @@ class Home extends React.Component {
 
         height: '300px'
       },
-      tabs: []
     };
 
 
@@ -181,12 +181,9 @@ class Home extends React.Component {
       this.setState({rawData: nextProps.answersList});
       if(!nextProps.testLogData) {
           fetchStudentSessions(nextProps.answersList.userId);
-
       }
     }
     if(nextProps.testLogData) {
-      console.log("==============");
-
       this.setState({testLogData: nextProps.testLogData});
     }
   }
@@ -232,10 +229,16 @@ class Home extends React.Component {
     return value ? `You're hovering over ${value.date.toDateString()} with value ${value.count}` : null;
   }
 
-  openNewTab(testname) {
-    this.setState(prevState => ({
-      tabs: [...prevState.tabs, {id: Math.random()}]
-    }));
+  openNewTab(session) {
+    const {
+      actions: {
+        fetchStudentWithSession
+      }
+    } = this.props;
+    fetchStudentWithSession(session);
+    // this.setState(prevState => ({
+    //   tabs: [...prevState.tabs, {id: Math.random()}]
+    // }));
   }
   
   render() {
@@ -264,8 +267,6 @@ class Home extends React.Component {
     let totalPass=0;
     let topicLabel = [];
 
-    console.log('rawData', rawData);
-    console.log(Object.keys(rawData));
 
     if(Object.keys(rawData['questionResponses']).length > 0) {
       for(let key in rawData['questionResponses']) {
@@ -372,16 +373,14 @@ class Home extends React.Component {
     <TabList>
       <Tab>Most Recent</Tab>
       <Tab>Test History</Tab>
-          {this.state.tabs.map(tab => (
+          {this.props.tabs.map(tab => (
                 <Tab>Fc Module 02
                 </Tab>
           ))}
     </TabList>
     <TabPanel title="Most Recent">
-           <MostRecentWrapper rawData={rawData} totalPass={totalPass} correctness={correctness} 
-           totalScore={totalScore} requirementsNotMetObject={requirementsNotMetObject}
-           data={this.state.data}
-           />
+
+           <TabWrapper result={this.props.answersList}/>
     </TabPanel>
 
          <TabPanel title="Test History">
@@ -392,11 +391,9 @@ class Home extends React.Component {
 
 
        </TabPanel>
-              {this.state.tabs.map((tab,index) => (
-                  <TabPanel title="Fc Module 02" key={index}>
-                     <MostRecentWrapper rawData={rawData} totalPass={totalPass} correctness={correctness} 
-                       totalScore={totalScore} requirementsNotMetObject={requirementsNotMetObject}
-                       data={this.state.data}
+              {this.props.tabs.map(ele => (
+                  <TabPanel title="Fc Module 02" >
+                     <TabWrapper result={ele.result}
                      />
                   </TabPanel>
               ))}
