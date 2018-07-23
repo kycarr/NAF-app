@@ -31,24 +31,33 @@ class TopicsGraph extends React.Component {
         options : {
           fullWidth: true,
           chartPadding: {
-          right: 50
+            right: 50
            },
-        seriesBarDistance: 0,
-        reverseData: true,
-        horizontalBars: true,
-        axisX: {
-          onlyInteger: true,
-          high: 100,
-          low: 0,
-          labelInterpolationFnc: function(value,index) {
-              // console.log(index);
-              return value + '%';
+          seriesBarDistance: 5,
+          reverseData: true,
+          horizontalBars: true,
+          axisX: {
+            onlyInteger: true,
+            high: 100,
+            low: 0,
+            labelInterpolationFnc: function(value,index) {
+                // console.log(index);
+                return value + '%';
+            },
           },
+          height: '300px'
         },
-        plugins: [ ctPointLabels()],
 
-        height: '300px'
-      }
+      responsiveOptions: [
+        ['screen and (max-width: 640px)', {
+          seriesBarDistance: 5,
+          axisX: {
+            labelInterpolationFnc: function (value) {
+              return value + '%';
+            }
+          } 
+      }]
+      ]
     };
   }
 
@@ -59,8 +68,8 @@ class TopicsGraph extends React.Component {
               <span style={graphLabelName} > Name </span>
               <span style={graphLabelResults} >Results </span>
               <hr style={hrStyle} />
-              <ChartistGraph className={'ct-octave ct-chart-bar'} 
-                data={this.props.data} options={this.state.options} 
+              <ChartistGraph className={'ct-octave'} 
+                data={this.props.data} options={this.state.options} responsiveOptions={this.state.responsiveOptions} 
                 type={'Bar'} redraw={'true'} responsive={'true'} 
               />
         </div>

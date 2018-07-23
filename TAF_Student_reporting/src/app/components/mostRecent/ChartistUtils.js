@@ -16,7 +16,7 @@ function ctPointLabels(options) {
 
       chart.on('draw', function(data) {
       
-        if(data.type === 'bar') {
+        if(data.type === 'line') {
           data.group.elem('text', {
             x: data.x + options.labelOffset.x,
             y: data.y + options.labelOffset.y,
