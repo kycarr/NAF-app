@@ -14,8 +14,9 @@ const ClassSchema = new Schema({
     module: {
         type: Schema.Types.ObjectId,
         ref: 'Module'
-    }
+    },
 
+    className: String
 });
 
 
