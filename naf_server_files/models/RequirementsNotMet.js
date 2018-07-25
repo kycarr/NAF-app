@@ -9,6 +9,7 @@ var RequirementsNotMetSchema = new Schema({
         major: [String],
         minor: [String],
         critical: [String]
+        test:
     }],
 
     byTrainee: [{
@@ -19,6 +20,7 @@ var RequirementsNotMetSchema = new Schema({
         major: [String],
         minor: [String],
         critical: [String]
+        test
     }]
 });
 

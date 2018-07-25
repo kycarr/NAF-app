@@ -4,11 +4,10 @@ var ObjectId = Schema.Types.ObjectId
 
 var TestResultSchema = new Schema({
 
-    test: {                     
+    class: {                     
         type: Schema.Types.ObjectId,
-        ref: 'Test'
+        ref: 'Class'
     },
-
     className: {
         type: String,
         required: true

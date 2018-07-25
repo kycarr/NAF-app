@@ -20,6 +20,7 @@ const qArray1 = require('../../questions');
 const qArray2 = require('../../newQuestions');
 const topicsArray1 = require('../../topics');
 const topicsArray2 = require('../../newTopics');
+const usersArray = require('../../users');
 
 
 
@@ -68,18 +69,19 @@ const populateDB = async (test, qArray, topicsArray) => {
 
 const createDB = async () => {
 
-    const user = await User.findOne({username: 'testuser', password: '123456'});
-    if(!user) {
-      console.log('user does not exist');
-      const newUser = new User({
-        username: 'testuser',
-        password: '123456',
-        name: 'Test User'
-      });
-      await newUser.save();
-    } else {
-      console.log('user already exists');
+    for(let i=0; i<usersArray.length; i++) {
+      const currentUser = usersArray[i];
+      const user = await User.findOne({username: currentUser.username, password: currentUser.password});
+      if(!user) {
+        console.log(`user ${currentUser.name} does not exist`);
+        const newUser = new User(currentUser);
+        await newUser.save();
+      } else {
+        console.log(`user ${currentUser.name} exists`);
+      }
     }
+
+
     //check if the test already exists
     Test.findOne({testName: 'Test One'})
     .then(test => {

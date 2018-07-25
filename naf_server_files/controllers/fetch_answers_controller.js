@@ -11,93 +11,90 @@ const Item = require('../models/Item');
 const Session = require('../models/Session');
 const Task = require('../models/Task');
 const Topic = require('../models/Topic');
-
-function calculateTestResult(rawData) {
-  console.log('Calculating Test Result');
-    let correctness = [];
-    let topicsScore = [];
-    let topicsScoreP = [];
-    let topicValue = [];
-    let topicsIndex=0;
-    let totalPass=0;
-    let topicLabel = [];
+const StudentReport = require('../models/StudentReport');
 
 
-    if(Object.keys(rawData['questionResponses']).length > 0) {
-      for(let key in rawData['questionResponses']) {
+const calculateTestResult = require('../utils/calculateTestResult');
 
-          if(rawData['questionResponses'][key].pass === true) {
-            correctness[key] = true;
-            totalPass++;
-          }else {
-            correctness[key] = false;
-          }
+exports.fetchStudentAnswers = async(req,res) => {
 
-          if(topicValue[rawData['questionResponses'][key].topicName] === undefined){
-            topicValue[rawData['questionResponses'][key].topicName] = 1;
+      console.log('Inside the student fetch answers route');
+      const sessionId = mongoose.Types.ObjectId(req.query['sessionId']);
+      if(sessionId === undefined || sessionId === null) {
+        res.status(400).json({
+          'ERROR': 'Session Id not defined'
+        });
+      }
+
+      const session = await Session.findById(sessionId).populate('user');
+      
+      if(session === undefined || session === null || session.task === undefined) {
+        res.status(404).json({
+          'ERROR' : 'Data not found'
+        });
+      }
+
+      const studentReport = await StudentReport.findOne({session: sessionId});
+      console.log('Student Report', studentReport);
+      const responseObject = {};
+      responseObject['user'] = studentReport.user;
+      responseObject['testDate'] = studentReport.testDate;
+     
+
+      const task = await Task.findById(session.task).populate('test');
+      const items = await Item.find({test: task.test});
+      let answersList = await Answer.find({session: sessionId, task: session.task});
+      responseObject['questionResponses'] = {};
+
+
+      for(let i=0; i<items.length;i++) {
+          const currentItem = items[i];
+          const topic = await Topic.findOne({id: currentItem.topicId});
+          let currentAnswer = answersList.filter(element => element.item.toString() === currentItem._id.toString());
+          let pass = false;
+
+          if(currentAnswer === undefined || currentAnswer.length === 0) {
+              currentAnswer ='' ;
           } else {
-            topicValue[rawData['questionResponses'][key].topicName] +=1;
+              pass = currentAnswer[0].pass;
+              currentAnswer = currentAnswer[0].answers;
           }
 
-          if(correctness[key] === true) {
-            if(topicsScoreP[rawData['questionResponses'][key].topicName] === undefined) {
-              topicsScoreP[rawData['questionResponses'][key].topicName]=1;
-            }else {
-              topicsScoreP[rawData['questionResponses'][key].topicName] +=1;
-            }
+          let type = currentItem.type;
+          if(type == "Multiple_choice") {
+              type = currentItem.choiceType;
           }
+          const correctAnswer = currentItem.correctAnswer;
+          const topic_id = currentItem.topicId;
+          const topicName = topic.name;
+          const questionText = currentItem.question;
+          const object = {
+            'question' : questionText,
+            'userProvidedAnswer' : currentAnswer,
+            'correctAnswer' : correctAnswer,
+            'type': type,
+            'topicName': topicName,
+            'pass': pass
+
+          } 
+          responseObject['questionResponses'][i] = object;
       }
-    }
 
-    for(let key in topicValue) {
-      if(!(key in topicsScoreP)){
-        topicsScoreP[key]=0;   //this is for topics that might have zero score
-      }
-    }
+      responseObject['userId'] = session.user._id;
+      responseObject['username'] = session.user.username;
+      responseObject['testName'] = studentReport.testName;
 
-    for(let key in topicsScoreP) {
-      console.log(100*(topicsScoreP[key]/topicValue[key]));
-      topicValue.push(100*(topicsScoreP[key]/topicValue[key]));
-      topicLabel.push(key);
-    }
+      const {testName, testScore, testScorePercentage, testResult, requirementsNotMetObject, topicValue, topicLabel} = studentReport;
 
-    let totalScore = correctness.length>1 ? Math.round(100*totalPass/correctness.length,1):0;
+      responseObject['reportingData'] = {testName, testScore, testScorePercentage, testResult, requirementsNotMetObject, topicValue, topicLabel};
 
-    let requirementsNotMetObject = {
-      'Major' : [],
-      'Minor' : [],
-      'Critical' : []
-    };
 
-    for(let i=0; i<topicValue.length; i++) {
-        if(topicValue[i] <= 30) {
-          requirementsNotMetObject['Major'].push(' ' + topicLabel[i]);
-        } else if(topicValue[i] >30 && topicValue[i] <=60) {
-          requirementsNotMetObject['Minor'].push(' ' + topicLabel[i]);
-        }
-    }
 
-    let testScore = `${totalPass}/${correctness.length}`;
-    let testScorePercentage = `${totalScore} %`;
-    let testResult = totalScore>60?'PASS':'FAIL';
- 
-
-    const reportingData = {
-      'testName':rawData.testName,
-      'testScore': testScore,
-      'testScorePercentage': testScorePercentage,
-      'testResult': testResult,
-      'requirementsNotMetObject': requirementsNotMetObject,
-      'topicValue': topicValue,
-      'topicLabel': topicLabel
-    };
-
-    console.log(reportingData);
-
-    return reportingData;
+      res.json(responseObject);
 
 }
 
+/*
 exports.fetchStudentAnswers = async (req,res) => {
 
       console.log('Inside the student fetch answers route');
@@ -118,7 +115,6 @@ exports.fetchStudentAnswers = async (req,res) => {
       }
 
       const task = await Task.findById(session.task).populate('test');
-      console.log(task);
       let answersList = await Answer.find({session: sessionId, task: session.task});
       const items = await Item.find({test: task.test});
       
@@ -174,16 +170,18 @@ exports.fetchStudentAnswers = async (req,res) => {
       res.json(answerResponse);
 }
 
+*/
+
 exports.fetchStudentSessions = async(req,res) => {
   console.log('Inside the fetch student sessions route');
   const userId = mongoose.Types.ObjectId(req.query['userId']);
 
 
-      if(userId === undefined || userId === null) {
-        res.status(400).json({
+  if(userId === undefined || userId === null) {
+      res.status(400).json({
           'ERROR': 'User Id not defined'
-        })
-      }
+      })
+  }
 
   const user = await User.findById(userId).populate('sessions');
 
@@ -193,15 +191,11 @@ exports.fetchStudentSessions = async(req,res) => {
     })
   }
 
-  
   const responseObject = {};
-
-  console.log( user.sessions.length);
 
   for(let i = 0; i<user.sessions.length; i++) {
     const session = user.sessions[i];
     const currentTask = await Task.findById(session.task).populate('test');
-    console.log(currentTask);
     const currentTestName = currentTask.test.testName;
     if(!(currentTestName in responseObject)) 
       responseObject[currentTestName] = {testName: currentTestName, attempts: 1, date: new Date(currentTask.date), testScore: currentTask.score, testResult: currentTask.testResult, session: session._id};

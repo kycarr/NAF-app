@@ -11,6 +11,7 @@ const Item = require('../models/Item');
 const Session = require('../models/Session');
 const Task = require('../models/Task');
 const Topic = require('../models/Topic');
+const StudentReport = require('../models/StudentReport');
 
 
 exports.fetchInstructorData = async (req,res) => {
@@ -49,18 +50,22 @@ exports.fetchInstructorData = async (req,res) => {
 		}
 
 	}
-	// console.log('Pass Object');
-	// console.log(passObject);
-	// console.log('Fail Object');
-	// console.log(failObject);
+	console.log('Pass Object');
+	console.log(passObject);
+	console.log('Fail Object');
+	console.log(failObject);
 
 	const passFailObject = {};
+
 	for(let passObjectKey in passObject) {
-		passFailObject[passObjectKey] = {'pass' : passObject[passObjectKey]}
+		passFailObject[passObjectKey] = {'pass' : passObject[passObjectKey]};
 	}
+
 	for(let failObjectKey in failObject) {
-		passFailObject[failObjectKey]['fail'] = failObject[failObjectKey];
+		passFailObject[failObjectKey] = {...passFailObject[failObjectKey], 'fail': failObject[failObjectKey]};		
 	}
+
+
 
 	for(let key in passFailObject) {
 
@@ -73,20 +78,44 @@ exports.fetchInstructorData = async (req,res) => {
 		}	
 	}
 
+	console.log('passFailObject');
+	console.log(passFailObject);
+
 	const responseJSON = { 'topics': [] };
 	for(let key in passFailObject){
 		// console.log(key);
 		let tempObj = {};
-		tempObj[key] = passFailObject[key];
+		tempObj['label'] = key;
+		tempObj['pass'] = passFailObject[key]['pass'];
+		tempObj['fail'] = passFailObject[key]['fail'];
 		responseJSON['topics'].push(tempObj);
 	}
 
-	responseJSON['testName'] = task.test.testName;
+	
 	const userObject = {
 		'name' : session.user.name,
 		'username' : session.user.username
 	};
 	responseJSON['user'] = userObject;
+
+	const studentReport = await StudentReport.findOne({session: sessionId});
+	const resultsObject = {
+		className: 'Class 1',
+		testName: studentReport.testName,
+		dateCompleted: studentReport.testDate,
+		finished: 10,
+		inComplete: 4,
+		notStart: 1,
+		average: '50%',
+		pass: '53%',
+	};
+
+	responseJSON['results'] = resultsObject;
+
+
+	// responseJSON['reportingData'] = studentReport;
+
+	responseJSON['requirementsNotMetObject'] = studentReport.requirementsNotMetObject;
 	res.json(responseJSON);
 
 	//res.json(passFailObject);
