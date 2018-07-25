@@ -4,7 +4,8 @@ import { appConfig }    from '../../config';
 import {
   earningGraphMockData,
   userInfosMockData,
-  teamMatesMock
+  teamMatesMock,
+  InstructorMockData
 }                       from '../../models';
 
 export const fetchMockEarningGraphData = (
@@ -43,6 +44,22 @@ export const fetchMockTeamMatesData = (
     resolve => {
       setTimeout(
         () => resolve([...teamMatesMock]),
+        timeToWait
+      );
+    }
+  );
+};
+
+export const fetchInstructorMockData = (
+  timeToWait: number = appConfig.FAKE_ASYNC_DELAY
+): Promise<any> => {
+  return new Promise(
+    resolve => {
+      setTimeout(
+        () => resolve({
+          results: InstructorMockData.results,
+          topics: InstructorMockData.topics
+        }),
         timeToWait
       );
     }

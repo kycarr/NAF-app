@@ -43,6 +43,7 @@ class App extends Component {
       leaveHome: PropTypes.func,
       fetchEarningGraphDataIfNeeded: PropTypes.func,
       fetchUserInfoDataIfNeeded:     PropTypes.func,
+      fetchInstructorDataIfNeeded: PropTypes.func,
       openSideMenu:   PropTypes.func,
       closeSideMenu:  PropTypes.func,
       toggleSideMenu: PropTypes.func

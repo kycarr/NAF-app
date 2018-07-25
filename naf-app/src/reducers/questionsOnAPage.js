@@ -12,8 +12,8 @@ import {OPTION_SELECTED,
 } from '../constants';
 import {ESSAY, MULTI_CHOICE, MULTIPLE_ANSWER, SHORT_ANSWER, SINGLE_ANSWER} from '../constants';
 import image from '../images/nimitz3.jpg';
-import { saveAnswer, saveResponse } from '../utils/HttpFunctions';
-import { createReducer } from '../utils/Utils';
+import { saveAnswer, saveResponse } from '../utils/httpFunctions';
+import { createReducer } from '../utils/utils';
 
 // import imageFlowChart from '../images/FlowChartExample.png';
 

@@ -13,10 +13,13 @@ const mapStateToProps = (state) => {
     earningGraphLabels:     state.earningGraph.labels,
     earningGraphDatasets:   state.earningGraph.datasets,
     teamMatesIsFetching:    state.teamMates.isFetching,
-    teamMates:              state.teamMates.data
+    teamMates:              state.teamMates.data,
+    instructorResults:      state.mostRecent.results,
+    instructorTopics:       state.mostRecent.topics
   };
 };
-
+    // instructorResults:      state.mostRecent.results,
+    // instructorTopics:       state.mostRecent.topics
 const mapDispatchToProps = (dispatch) => {
   return {
     actions : bindActionCreators(
@@ -25,7 +28,8 @@ const mapDispatchToProps = (dispatch) => {
         leaveHome: actions.leaveHome,
         chooseModule: actions.chooseModule,
         fetchEarningGraphDataIfNeeded:  actions.fetchEarningGraphDataIfNeeded,
-        fetchTeamMatesDataIfNeeded:     actions.fetchTeamMatesDataIfNeeded
+        fetchTeamMatesDataIfNeeded:     actions.fetchTeamMatesDataIfNeeded,
+        fetchInstructorDataIfNeeded: actions.fetchInstructorDataIfNeeded,
       },
       dispatch)
   };

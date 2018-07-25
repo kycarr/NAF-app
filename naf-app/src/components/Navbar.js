@@ -83,7 +83,8 @@ class NavbarComponent extends Component {
   }
 
   onClickFinishTest() {
-    this.props.sendTestFinishAction(this.props.userId, this.props.sectionNum, NavbarComponent.getToolbarTimer());
+    console.log("????????");
+    this.props.sendTestFinishAction(this.props.userId, this.props.sessionId, this.props.sectionNum, NavbarComponent.getToolbarTimer());
     // this.props.resetToDefaultState();
     this.togglePopupWarning();
     scrollTo(0, 0, {
@@ -178,7 +179,8 @@ function mapStateToProps(state) {
     totalSectionNum : state.QuestionsOnAPage.totalSections,
     allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered,
     isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    sessionId: state.QuestionsOnAPage.sessionId
   }
 }
 

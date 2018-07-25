@@ -19,6 +19,16 @@ import HeatMap from 'react-heatmap-grid';
 import $ from 'jquery';
 import Collapsible from 'react-collapsible';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+const graphLabelName = {
+  'marginLeft' : '22px',
+  'fontWeight' : 'bold',
+  'fontSize' : '1.05em'
+}
+const graphLabelResults = {
+  'marginLeft': '42%',
+  'fontWeight': 'bold',
+  'fontSize': '1.05em'
+}
 
 class MostRecentWrapper extends React.Component {
 
@@ -58,7 +68,7 @@ class MostRecentWrapper extends React.Component {
 						className="row"
 						style={{marginBottom: '5px'}}>
 					
-						<h2 className="testhistory-title">Test Results:</h2>
+						<h2 className="testhistory-title">Most Recent Test Results:</h2>
 						<div className="col-md-2 topcard-left">
 						 <div className="sm-st-info"><div>Class Name</div><span className="testname">Class 3</span></div>
 						</div>
@@ -86,8 +96,11 @@ class MostRecentWrapper extends React.Component {
 					</div>
 
 					<div className="row">
-					<Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i>Topics</div> </div>}>
-			 
+					<Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i>Pass/Fail by Topics</div> </div>}>
+		              	<div style={{marginTop: '40px', marginBottom: '30px'}}>
+		              		<span style={graphLabelName} > Name </span>
+          					<span style={graphLabelResults} >Pass/Fail </span>
+						</div>
 						<div className="col-md-10 horizontalbar-div">
 						 <ChartistGraph className={'ct-octave'} data={this.state.data} options={this.state.options} type={'Bar'} redraw={'true'} responsive={'true'}/>
 					 

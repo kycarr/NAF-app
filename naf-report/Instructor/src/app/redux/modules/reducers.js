@@ -9,6 +9,7 @@ import teamMates            from './teamMates';
 import views                from './views';
 import userAuth             from './userAuth';
 import testHistory			from './testHistory';
+import mostRecent			from './mostRecent';
 export const reducers = {
   testHistory,
   earningGraph,
@@ -16,7 +17,8 @@ export const reducers = {
   userInfos,
   teamMates,
   views,
-  userAuth
+  userAuth,
+  mostRecent,
 };
 
 export default combineReducers({

@@ -1,5 +1,5 @@
-import { parseJSON } from '../utils/Utils';
-import { login, getQuestions, submitAnswer, finishTest } from '../utils/HttpFunctions';
+import { parseJSON } from '../utils/utils';
+import { login, getQuestions, submitAnswer, finishTest } from '../utils/httpFunctions';
 import {
   OPTION_SELECTED,
   GO_TO_PAGE,
@@ -163,8 +163,8 @@ export function sendTestFinishAction(userId, sectionId, timeLeft){
 }
 */
 
-export function sendTestFinishAction(userId, sectionId, timeLeft){
-  let response = sendTestFinish(userId, sectionId, timeLeft);
+export function sendTestFinishAction(userId, sessionId, sectionId, timeLeft){
+  let response = sendTestFinish(userId, sessionId, sectionId, timeLeft);
   return function(dispatch) {
     () => {
       dispatch(goToReviewTestPage(response));
@@ -173,7 +173,7 @@ export function sendTestFinishAction(userId, sectionId, timeLeft){
 }
 
 
-async function sendTestFinish(userId, sectionId, timeLeft) {
+async function sendTestFinish(userId, sessionId, sectionId, timeLeft) {
   let response;
   try {
       response = await parseJSON(submitAnswer(userId, sectionId, timeLeft));
@@ -182,7 +182,7 @@ async function sendTestFinish(userId, sectionId, timeLeft) {
       console.log(err);
     }
   try {
-    response = await parseJSON(finishTest(userId, sectionId, timeLeft));
+    response = await parseJSON(finishTest(userId, sessionId));
   } catch(err) {
       console.log(err);
     }

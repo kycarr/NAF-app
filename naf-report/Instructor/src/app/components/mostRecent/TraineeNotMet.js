@@ -15,33 +15,21 @@ class TraineeNotMet extends React.Component {
 			 	<ul className="requirements-list">
 			 		<li ><b>Sailor A:</b></li>
 			 		<ul className="inner-list">
-	  			 		<li>- Needs Major Requirements(2) </li>
-	  			 			<ul>
-	  			 				Topic 1, Topic 2
-	  			 			</ul>
-				 		<li>- Minor Requirements(3) </li>
-				 			<ul>
-				 				Topic 4, Topic 8, Topic 9
-				 			</ul>
-						<li style={{color:'red'}}>- Critical Errors(3)</li>
-							<ul>
-								Topic 3 - Question 2, Topic 4 - Question 3, Question 4
-							</ul>
+	  			 		<li>- Needs Major Requirements: &#160; 2 - Topic 1, Topic 2
+	  			 		 </li>
+				 		<li>- Minor Requirements: &#160; 3 - Topic 4, Topic 8, Topic 9
+				 		</li>
+						<li>- Critical Errors: &#160; 3 - Topic 1 - Question 2, Topic 4 - Question 3, Question 4
+						</li>
 			 		</ul>
 			 		<li ><b>Sailor B:</b></li>
 			 		<ul className="inner-list">
-	  			 		<li>- Needs Major Requirements(2) </li>
-	  			 			<ul>
-	  			 				Topic 1, Topic 2
-	  			 			</ul>
-				 		<li>- Minor Requirements(3) </li>
-				 			<ul>
-				 				Topic 4, Topic 8, Topic 9
-				 			</ul>
-						<li style={{color:'red'}}>- Critical Errors(3)</li>
-							<ul>
-								Topic 3 - Question 2, Topic 4 - Question 3, Question 4
-							</ul>
+	  			 		<li>- Needs Major Requirements: &#160; 2 - Topic 1, Topic 2
+	  			 		 </li>
+				 		<li>- Minor Requirements: &#160; 3 - Topic 4, Topic 8, Topic 9
+				 		</li>
+						<li>- Critical Errors: &#160; 3 - Topic 1 - Question 2, Topic 4 - Question 3, Question 4
+						</li>
 			 		</ul>
 			 	</ul>
 		);
@@ -65,7 +53,22 @@ TraineeNotMet.propTypes = {
 export default TraineeNotMet;
 
 /*
+			 		<li ><b>Sailor B:</b></li>
 
+			 		<ul className="inner-list">
+	  			 		<li>- Needs Major Requirements(2) </li>
+	  			 			<ul>
+	  			 				Topic 1, Topic 2
+	  			 			</ul>
+				 		<li>- Minor Requirements(3) </li>
+				 			<ul>
+				 				Topic 4, Topic 8, Topic 9
+				 			</ul>
+						<li style={{color:'red'}}>- Critical Errors(3)</li>
+							<ul>
+								Topic 3 - Question 2, Topic 4 - Question 3, Question 4
+							</ul>
+			 		</ul>
 			 <p><span>Topic 01</span></p>
 			 <p><span className="topicTitle">Major Requirements(11)</span></p>
 			 <p><span className="topicDescription">Bob Smith, James Mason, Henry McFarlene, Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton</span></p>

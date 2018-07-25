@@ -16,6 +16,8 @@ export {
 export {fetchTeamMatesDataIfNeeded}    from './teamMates';
 // userInfos:
 export {fetchUserInfoDataIfNeeded}     from './userInfos';
+
+export {fetchInstructorDataIfNeeded}   from './mostRecent';
 // views:
 export {
   enterHome,

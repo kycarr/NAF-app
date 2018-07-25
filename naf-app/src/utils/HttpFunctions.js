@@ -14,8 +14,10 @@ export function login(username, password) {
 }
 
 export function getQuestions(userId) {
+	const testParamName="Test One";
 	return axios.post(`${URL}/api/questions`, {
-		 userId
+		 userId,
+		 testParamName
 	});
 }
 
@@ -50,9 +52,9 @@ export function submitAnswer(userId, sectionId, timeLeft) {
 	});
 }
 
-export function finishTest(userId) {
+export function finishTest(userId, sessionId) {
 	return axios.post(`${URL}/api/finishTest`, {
-		userId
+		userId,
+		sessionId
 	});
 }
-

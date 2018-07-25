@@ -15,33 +15,25 @@ class RequirementsNotMet extends React.Component {
 			 	<ul className="requirements-list">
 			 		<li ><b>Overview </b></li>
 			 		<ul className="inner-list">
-	  			 		<li>- Needs Major Remediation(11) </li>
-	  			 			<ul>
-	  			 				Bob Smith, James Mason, Henry McFarlene, Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
-	  			 			</ul>
-				 		<li>- Needs Minor Remediation(8) </li>
-				 			<ul>
-				 				Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
-				 			</ul>
-						<li style={{color:'red'}}>- Critical Question Errors(1)</li>
-							<ul>
-								Timmothy Alberton
-							</ul>
+	  			 		<li>- Needs Major Remediation: &#160; &#160; 11 - 
+	  			 			Bob Smith, James Mason, Henry McFarlene, Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
+	  			 		</li>
+				 		<li>- Needs Minor Remediation: &#160; &#160; 8 - 
+				 			Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
+				 		</li>
+						<li>- Critical Question Errors: &#160; &#160; 2 - Olivia Noah - Question 1, Question 2, Isabella James - Question 4
+						</li>
 			 		</ul>
 			 		<li ><b>Topic 02 </b></li>
 			 		<ul className="inner-list">
-	  			 		<li>- Needs Major Remediation(11) </li>
-	  			 			<ul>
-	  			 				Bob Smith, James Mason, Henry McFarlene, Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
-	  			 			</ul>
-				 		<li>- Needs Minor Remediation(8) </li>
-				 			<ul>
-				 				Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
-				 			</ul>
-						<li style={{color:'red'}}>- Critical Question Errors(1)</li>
-							<ul>
-								Timmothy Alberton
-							</ul>
+	  			 		<li>- Needs Major Remediation: &#160; &#160; 11 - 
+	  			 			Bob Smith, James Mason, Henry McFarlene, Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
+	  			 		</li>
+				 		<li>- Needs Minor Remediation: &#160; &#160; 8 - 
+				 			Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
+				 		</li>
+						<li>- Critical Question Errors: &#160; &#160; 2 - Olivia Noah - Question 1, Question 2, Isabella James - Question 4
+						</li>
 			 		</ul>
 			 	</ul>
 		);
@@ -66,7 +58,21 @@ RequirementsNotMet.propTypes = {
 export default RequirementsNotMet;
 
 /*
-
+			 		<li ><b>Topic 02 </b></li>
+			 		<ul className="inner-list">
+	  			 		<li>- Needs Major Remediation(11) </li>
+	  			 			<ul>
+	  			 				Bob Smith, James Mason, Henry McFarlene, Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
+	  			 			</ul>
+				 		<li>- Needs Minor Remediation(8) </li>
+				 			<ul>
+				 				Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton
+				 			</ul>
+						<li style={{color:'red'}}>- Critical Question Errors(1)</li>
+							<ul>
+								Timmothy Alberton
+							</ul>
+			 		</ul>
 			 <p><span>Topic 01</span></p>
 			 <p><span className="topicTitle">Major Requirements(11)</span></p>
 			 <p><span className="topicDescription">Bob Smith, James Mason, Henry McFarlene, Janet Jonson, David Silinger, Jim  Hicks, Samuel Johson, Timmothy Alberton</span></p>

@@ -59,7 +59,7 @@ const loginButtonStyle = {
   }
 
   onClickFinishTest() {
-    this.props.sendTestFinishAction(this.props.userId, this.props.sectionNum, SubmitBottomButton.getToolbarTimer());
+    this.props.sendTestFinishAction(this.props.userId, this.props.sessionId, this.props.sectionNum, SubmitBottomButton.getToolbarTimer());
     this.togglePopupWarning();
     scrollTo(0, 0, {
       duration: SCROLL_SPEED
@@ -126,7 +126,8 @@ function mapStateToProps(state) {
     totalSectionNum : state.QuestionsOnAPage.totalSections,
     allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered,
     isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    sessionId: state.QuestionsOnAPage.sessionId
   }
 }
 

@@ -85,6 +85,8 @@ class Home extends React.Component {
 		earningGraphLabels:   PropTypes.array,
 		earningGraphDatasets: PropTypes.array,
 		teamMatesIsFetching:  PropTypes.bool,
+		instructorResults:    PropTypes.object,
+		instructorTopics:     PropTypes.array,
 		teamMates:            PropTypes.arrayOf(
 			PropTypes.shape({
 				picture:      PropTypes.string,
@@ -99,7 +101,8 @@ class Home extends React.Component {
 			leaveHome: PropTypes.func,
 			fetchEarningGraphDataIfNeeded:  PropTypes.func,
 			fetchTeamMatesDataIfNeeded:     PropTypes.func,
-			chooseModule: PropTypes.func
+			chooseModule: PropTypes.func,
+			fetchInstructorDataIfNeeded: PropTypes.func
 		})
 	}; 
 	constructor(props, context) {
@@ -146,11 +149,13 @@ class Home extends React.Component {
 		const {
 			actions: {
 				fetchEarningGraphDataIfNeeded,
-				fetchTeamMatesDataIfNeeded
+				fetchTeamMatesDataIfNeeded,
+				fetchInstructorDataIfNeeded,
 			}
 		} = this.props;
 		fetchEarningGraphDataIfNeeded();
 		fetchTeamMatesDataIfNeeded();
+		fetchInstructorDataIfNeeded();
 	}
 
 	componentWillUnmount() {
