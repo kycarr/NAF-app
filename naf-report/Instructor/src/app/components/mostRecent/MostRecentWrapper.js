@@ -145,7 +145,7 @@ class MostRecentWrapper extends React.Component {
 MostRecentWrapper.propTypes = {
 	results: PropTypes.object,
 	topics: PropTypes.array,
-	trainees: PropTypes.trainees
+	trainees: PropTypes.array
 };
 
 export default MostRecentWrapper;

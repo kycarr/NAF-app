@@ -17,36 +17,15 @@ class WorkProgress extends React.Component {
   constructor(props){
 
     super(props);
-    
+    let _content = convertTraineesToArray(props);
     this.state = {
       headers : ['Trainee Name', 'Time Started', 'Time Completed', '# Attempts', 'Total Score', 'Result', 'Topic 1', 'Topic 4','Topic 7'],
-      content : [
-      [ 'Bob Smith', '10:00 - 10/10/2014', '11:00 - 10/10/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'James Mason', '10:00 - 10/12/2014', '11:00 - 10/12/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'Henry McFarlene', '10:00 - 10/13/2014', '11:00 - 10/13/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'Janet Jonson', '10:00 - 10/15/2014', '11:00 - 10/15/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'David Silinger', '10:00 - 10/16/2014', '11:00 - 10/16/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'Jim  Hicks', '10:00 - 10/17/2014', '11:00 - 10/17/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'Samuel Johson', '10:00 - 10/18/2014', '11:00 - 10/18/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'Timmothy Alberton', '10:00 - 10/19/2014', '11:00 - 10/19/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'Sailor I', '10:00 - 10/20/2014', '11:00 - 10/20/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'Sailor J', '10:00 - 10/21/2014', '11:00 - 10/21/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'Sailor K', '10:00 - 10/23/2014', '11:00 - 10/23/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
-      [ 'Sailor L', '10:00 - 10/24/2014', '11:00 - 10/24/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)']
-      ]
+      content : _content
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    
-    let _content = nextProps.trainees.map(ele => {
-      let array = [ele.traineeName, ele.timeStarted, ele.timeCompleted, ele.attempts, ele.totalScore, ele.result];
-      for(topic in ele.topics) {
-        array.push(topic);
-      }
-      return array;
-    });
-    console.log(_content);
+    let _content = convertTraineesToArray(nextProps);
     this.setState({
       content: _content
     });  
@@ -99,6 +78,17 @@ class WorkProgress extends React.Component {
   }
 }
   
+function convertTraineesToArray(props) {
+
+  let _content = props.trainees.map(ele => {
+  let array = [ele.traineeName, ele.timeStarted, ele.timeCompleted, ele.attempts, ele.totalScore, ele.result];
+  for(let topic in ele.topics) {
+    array.push(topic);
+  }
+  return array;
+  });
+  return _content
+}
 
 WorkProgress.propTypes = {
     trainees: PropTypes.array
