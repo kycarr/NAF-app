@@ -34,16 +34,21 @@ class MostRecentWrapper extends React.Component {
 
 	constructor(props) {
 		super(props);
+		let topics = props.topics;
+		let labels = topics.map(ele => {
+			return ele.label;
+		});
+		let leftSeries = topics.map(ele => {
+			return -ele.fail;
+		});
+		let rightSeries = topics.map(ele => {
+			return ele.pass;
+		});
+		let series = [leftSeries, rightSeries];
 		this.state = {
 			key: 1,
 			heatData:null,
-			data: {
-				labels: ['Topic 9', 'Topic 7', 'Topic 4', 'Topic 1'],
-				series: [
-					[-12, -10, -7, -5],
-					[3, 5, 8, 10]
-				]
-			},
+			data: {labels: labels, series: series},
 			options : {
 				seriesBarDistance: 0,
 				reverseData: true,
@@ -75,7 +80,6 @@ class MostRecentWrapper extends React.Component {
 		this.setState({
 			data: {labels: labels, series: series}
 		});
-		console.log(labels);
 	}
 
 	render() {
@@ -133,7 +137,7 @@ class MostRecentWrapper extends React.Component {
 								 <WorkProgress trainees={this.props.trainees} />
 							</div>
 							</Collapsible>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-							<RequirementsWrapper />
+							<RequirementsWrapper byTopics={this.props.byTopics}/>
 						</div>     
 					</div>
 			</div>
@@ -145,7 +149,8 @@ class MostRecentWrapper extends React.Component {
 MostRecentWrapper.propTypes = {
 	results: PropTypes.object,
 	topics: PropTypes.array,
-	trainees: PropTypes.array
+	trainees: PropTypes.array,
+	byTopics: PropTypes.array
 };
 
 export default MostRecentWrapper;

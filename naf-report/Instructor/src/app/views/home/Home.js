@@ -221,7 +221,7 @@ class Home extends React.Component {
 				</TabList>
 
 				<TabPanel title="Most Recent">
-					<MostRecentWrapper results={this.props.instructorResults} topics={this.props.instructorTopics} trainees={this.props.instructorTrainees}/>
+					<MostRecentWrapper results={this.props.instructorResults} topics={this.props.instructorTopics} trainees={this.props.instructorTrainees} byTopics={this.props.instructorbyTopics}/>
 				</TabPanel>
 					<TabPanel title="Test History">
 						<h2 className="testhistory-title">Test History:</h2>

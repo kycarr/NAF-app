@@ -60,6 +60,7 @@ export const fetchInstructorMockData = (
           results: InstructorMockData.results,
           topics: InstructorMockData.topics,
           trainees: InstructorMockData.trainees,
+          byTopics: InstructorMockData.byTopics
         }),
         timeToWait
       );

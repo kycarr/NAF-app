@@ -31,7 +31,7 @@ class RequirementsWrapper extends React.Component {
 					<div className='bycollapse-button-trainee' onClick={this.clickFunction}><span>By Trainee</span></div>
 				</div>
 				<div className="collapsible-paragraph">
-				 	<RequirementsNotMet />
+				 	<RequirementsNotMet dataByTopic={this.props.byTopics} />
 				</div>
 				</Collapsible>
 			);
@@ -63,6 +63,8 @@ class RequirementsWrapper extends React.Component {
 		});
 	}
 }
-
+RequirementsWrapper.propTypes = {
+	byTopics: PropTypes.array
+};
 
 export default RequirementsWrapper;

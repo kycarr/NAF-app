@@ -34,6 +34,7 @@ export const InstructorMockData = {
     pass: '33%'
   },
 
+
   trainees: [
     {
       traineeName: 'Bob Smith',
@@ -87,6 +88,47 @@ export const InstructorMockData = {
       ]
 
     }
+  ],
+
+  byTopics: [
+    {
+      name: 'Overview',
+      major: [
+        'Bob Smith',
+        'James Mason',
+        'Henry McFarlene',
+        'Janet jonson',
+        'David Silinger',
+        'Jim Hicks'
+      ],
+      minor: [
+        'Samuel Johson',
+        'Timmothy Alberton'
+      ],
+      critical:[
+        'Daniel Yoon'
+      ]
+    },
+    {
+      name: 'Topic 2',
+      major: [
+        'Bob Smith',
+        'James Mason',
+        'Henry McFarlene',
+        'Janet jonson',
+        'David Silinger',
+        'Jim Hicks'
+      ],
+      minor: [
+        'Samuel Johson',
+        'Timmothy Alberton'
+      ],
+      critical:[
+        'Daniel Yoon'
+      ]
+    }
   ]
+
+
 
 };
