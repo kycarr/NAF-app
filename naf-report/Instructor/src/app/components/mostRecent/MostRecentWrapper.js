@@ -60,6 +60,23 @@ class MostRecentWrapper extends React.Component {
 		};
 	}
 
+	componentWillReceiveProps(nextProps) {
+		let topics = nextProps.topics;
+		let labels = topics.map(ele => {
+			return ele.label;
+		});
+		let leftSeries = topics.map(ele => {
+			return -ele.fail;
+		});
+		let rightSeries = topics.map(ele => {
+			return ele.pass;
+		});
+		let series = [leftSeries, rightSeries];
+		this.setState({
+			data: {labels: labels, series: series}
+		});
+		console.log(labels);
+	}
 
 	render() {
 		return (
@@ -70,28 +87,28 @@ class MostRecentWrapper extends React.Component {
 					
 						<h2 className="testhistory-title">Most Recent Test Results:</h2>
 						<div className="col-md-2 topcard-left">
-						 <div className="sm-st-info"><div>Class Name</div><span className="testname">Class 3</span></div>
+						 <div className="sm-st-info"><div>Class Name</div><span className="testname">{this.props.results.className}</span></div>
 						</div>
 						<div className="col-md-3 topcard">
-							<div className="sm-st-info"><div>Test Name</div><span className="right-align-2">FC - Module 06</span></div>
+							<div className="sm-st-info"><div>Test Name</div><span className="right-align-2">{this.props.results.testName}</span></div>
 						</div>
 						<div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div>Date Completed</div><span className="right-align-3">04/11/2018</span></div>
+							 <div className="sm-st-info"><div>Date Completed</div><span className="right-align-3">{this.props.results.dateCompleted}</span></div>
 						</div>
 						<div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div># Finished</div><span className="right-align-4">10</span></div>
+							 <div className="sm-st-info"><div># Finished</div><span className="right-align-4">{this.props.results.finished}</span></div>
 						</div>
 							 <div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div># Incomplete</div><span className="right-align-5">4</span></div>
+							 <div className="sm-st-info"><div># Incomplete</div><span className="right-align-5">{this.props.results.inComplete}</span></div>
 						</div>
 							 <div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div># Not Start</div><span className="right-align-6">1</span></div>
+							 <div className="sm-st-info"><div># Not Start</div><span className="right-align-6">{this.props.results.notStart}</span></div>
 						</div>
 							 <div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div>Average %</div><span className="right-align-7">50%</span></div>
+							 <div className="sm-st-info"><div>Average %</div><span className="right-align-7">{this.props.results.average}</span></div>
 						</div>
 							 <div className="col-md-1 topcard-right">
-							 <div className="sm-st-info"><div>Pass %</div><span className="right-align-8">53%</span></div>
+							 <div className="sm-st-info"><div>Pass %</div><span className="right-align-8">{this.props.results.pass}</span></div>
 						</div>
 					</div>
 
@@ -113,7 +130,7 @@ class MostRecentWrapper extends React.Component {
 						<div className="col-md-12">
 							<Collapsible trigger={<span className='collapsible-icon'><i className='fa fa-caret-right-collpase'></i>Trainee</span>}>
 							<div className="collapsible-paragraph">
-								 <WorkProgress />
+								 <WorkProgress trainees={this.props.trainees} />
 							</div>
 							</Collapsible>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 							<RequirementsWrapper />
@@ -125,5 +142,10 @@ class MostRecentWrapper extends React.Component {
 	}
 }
 
+MostRecentWrapper.propTypes = {
+	results: PropTypes.object,
+	topics: PropTypes.array,
+	trainees: PropTypes.trainees
+};
 
 export default MostRecentWrapper;

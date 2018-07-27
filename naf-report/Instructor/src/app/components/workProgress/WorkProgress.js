@@ -1,5 +1,5 @@
 // @flow weak
-
+import PropTypes          from 'prop-types';
 import React              from 'react';
 import WorkProgressPanel  from './workProgressPanel/WorkProgressPanel';
 import {
@@ -10,8 +10,17 @@ import {
   TableCol
 }                         from '../../components';
 
-const headers = ['Trainee Name', 'Time Started', 'Time Completed', '# Attempts', 'Total Score', 'Result', 'Topic 1', 'Topic 4','Topic 7'];
-const content = [
+
+
+class WorkProgress extends React.Component {
+
+  constructor(props){
+
+    super(props);
+    
+    this.state = {
+      headers : ['Trainee Name', 'Time Started', 'Time Completed', '# Attempts', 'Total Score', 'Result', 'Topic 1', 'Topic 4','Topic 7'],
+      content : [
       [ 'Bob Smith', '10:00 - 10/10/2014', '11:00 - 10/10/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
       [ 'James Mason', '10:00 - 10/12/2014', '11:00 - 10/12/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
       [ 'Henry McFarlene', '10:00 - 10/13/2014', '11:00 - 10/13/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
@@ -24,48 +33,75 @@ const content = [
       [ 'Sailor J', '10:00 - 10/21/2014', '11:00 - 10/21/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
       [ 'Sailor K', '10:00 - 10/23/2014', '11:00 - 10/23/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)'],
       [ 'Sailor L', '10:00 - 10/24/2014', '11:00 - 10/24/2014',4,0,'Fail','0/4 (0%)','0/4 (0%)','0/4 (0%)']
-];
-const WorkProgress = () => (
-  <WorkProgressPanel>
-    <Table>
-      <TableHeader>
-        {
-          headers.map(
-            (header, headerIdx) => {
-              return (
-                <TableCol key={headerIdx}>
-                 <b> {header}</b>
-                </TableCol>
-              );
-            }
-          )
-        }
-      </TableHeader>
-      <TableBody>
-        {
-          content.map(
-            (contentRow, contentRowIdx) => {
-              return (
-                <TableRow key={contentRowIdx}>
+      ]
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    
+    let _content = nextProps.trainees.map(ele => {
+      let array = [ele.traineeName, ele.timeStarted, ele.timeCompleted, ele.attempts, ele.totalScore, ele.result];
+      for(topic in ele.topics) {
+        array.push(topic);
+      }
+      return array;
+    });
+    console.log(_content);
+    this.setState({
+      content: _content
+    });  
+  }
+
+  render() {
+
+    return (
+          <WorkProgressPanel>
+              <Table>
+                <TableHeader>
                   {
-                    contentRow.map(
-                      (contentColumn, contentColumnIdx) => {
+                    this.state.headers.map(
+                      (header, headerIdx) => {
                         return (
-                          <TableCol key={contentColumnIdx}>
-                            {contentColumn}
+                          <TableCol key={headerIdx}>
+                           <b> {header}</b>
                           </TableCol>
                         );
                       }
                     )
                   }
-                </TableRow>
-              );
-            }
-          )
-        }
-      </TableBody>
-    </Table>
-  </WorkProgressPanel>
-);
+                </TableHeader>
+                <TableBody>
+                  {
+                    this.state.content.map(
+                      (contentRow, contentRowIdx) => {
+                        return (
+                          <TableRow key={contentRowIdx}>
+                            {
+                              contentRow.map(
+                                (contentColumn, contentColumnIdx) => {
+                                  return (
+                                    <TableCol key={contentColumnIdx}>
+                                      {contentColumn}
+                                    </TableCol>
+                                  );
+                                }
+                              )
+                            }
+                          </TableRow>
+                        );
+                      }
+                    )
+                  }
+                </TableBody>
+              </Table>
+            </WorkProgressPanel>
+      );
+  }
+}
+  
+
+WorkProgress.propTypes = {
+    trainees: PropTypes.array
+};
 
 export default WorkProgress;

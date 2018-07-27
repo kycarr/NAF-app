@@ -13,24 +13,80 @@ export const InstructorMockData = {
     },
     {
       label: 'Electronics Knowledge',
-      pass: 3,
-      fail: 12
+      pass: 12,
+      fail: 3
     },
     {
       label: 'Arithmetic Reasoning',
       pass: 4,
-      fail: 11
+      fail: 9
     }
   ],
 
   results: {
     className: 'Class 1',
     testName: 'Test One',
-    dateCompleted: '04/11/2018',
+    dateCompleted: '07/11/2018',
     finished: 10,
     inComplete: 4,
     notStart: 1,
     average: '50%',
-    pass: '43%'
+    pass: '33%'
   },
+
+  trainees: [
+    {
+      traineeName: 'Bob Smith',
+      timeStarted: '10:00 - 10/10/2014',
+      timeCompleted: '11:00 - 10/10/2014',
+      attempts: 4,
+      totalScore: 10,
+      result: 'Fail',
+      topics: [
+         {
+            label: 'Topic one',
+            score: 5,
+            total: 10
+         },
+         {
+            label: 'Topic two',
+            score: 2,
+            total: 3
+         },
+         {
+            label: 'Topic three',
+            score: 3,
+            total: 4
+         }
+      ]
+
+    },
+    {
+      traineeName: 'Bob Smith',
+      timeStarted: '10:00 - 10/10/2014',
+      timeCompleted: '11:00 - 10/10/2014',
+      attempts: 4,
+      totalScore: 10,
+      result: 'Fail',
+      topics: [
+         {
+            label: 'Topic one',
+            score: 5,
+            total: 10
+         },
+         {
+            label: 'Topic two',
+            score: 2,
+            total: 3
+         },
+         {
+            label: 'Topic three',
+            score: 3,
+            total: 4
+         }
+      ]
+
+    }
+  ]
+
 };

@@ -58,7 +58,8 @@ export const fetchInstructorMockData = (
       setTimeout(
         () => resolve({
           results: InstructorMockData.results,
-          topics: InstructorMockData.topics
+          topics: InstructorMockData.topics,
+          trainees: InstructorMockData.trainees,
         }),
         timeToWait
       );
