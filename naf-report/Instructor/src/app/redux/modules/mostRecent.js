@@ -29,6 +29,7 @@ type MostRecentState = {
   trainees:   Array,
   results:    Object,
   byTopics:   Array,
+  byTrainee:  Array,
   time:       string
 };
 /*
@@ -40,7 +41,8 @@ const initialState: MostRecentState = {
   topics:     [],
   time:       null,
   trainees:   [],
-  byTopics:   []
+  byTopics:   [],
+  byTrainee:  []
 };
 
 export default function mostRecent(state = initialState, action) {
@@ -59,6 +61,7 @@ export default function mostRecent(state = initialState, action) {
       topics:     action.topics,
       trainees:   action.trainees,
       byTopics:   action.byTopics,
+      byTrainee:  action.byTrainee,
       time:       action.time
     };
   case 'ERROR_INSTRUCTOR_DATA':
@@ -102,6 +105,7 @@ function receivedInstructorData(data, time = moment().format()) {
     results:    data.results,
     trainees:   [...data.trainees],
     byTopics:   [...data.byTopics],
+    byTrainee:  [...data.byTrainee],
     time
   };
 }

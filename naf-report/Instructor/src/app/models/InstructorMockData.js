@@ -127,6 +127,64 @@ export const InstructorMockData = {
         'Daniel Yoon'
       ]
     }
+  ],
+
+  byTrainee: [
+    {
+      name: 'Sailor A',
+      major: [
+        'Math',
+        'Science',
+        'Security'
+      ],
+      minor: [
+        'Finance',
+      ],
+      critical:[
+        {
+          topic: 'Computer Network',
+          questions: [
+            'Question 1',
+            'Question 4',
+            'Question 2'
+          ]
+        },
+        {
+          topic: 'Computer Security',
+          questions: [
+            'Question 2',
+            'Question 13'
+          ]
+        }
+      ]
+    },
+    {
+      name: 'Sailor B',
+      major: [
+        'Math',
+        'Science'
+      ],
+      minor: [
+        'Finance',
+        'Security'
+      ],
+      critical:[
+        {
+          topic: 'Computer Network',
+          questions: [
+            'Question 1',
+            'Question 2'
+          ]
+        },
+        {
+          topic: 'Computer Security',
+          questions: [
+            'Question 2',
+            'Question 13'
+          ]
+        }
+      ]
+    }
   ]
 
 

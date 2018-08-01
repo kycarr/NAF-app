@@ -137,7 +137,7 @@ class MostRecentWrapper extends React.Component {
 								 <WorkProgress trainees={this.props.trainees} />
 							</div>
 							</Collapsible>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-							<RequirementsWrapper byTopics={this.props.byTopics}/>
+							<RequirementsWrapper byTopics={this.props.byTopics} byTrainee={this.props.byTrainee}/>
 						</div>     
 					</div>
 			</div>
@@ -150,7 +150,8 @@ MostRecentWrapper.propTypes = {
 	results: PropTypes.object,
 	topics: PropTypes.array,
 	trainees: PropTypes.array,
-	byTopics: PropTypes.array
+	byTopics: PropTypes.array,
+	byTrainee: PropTypes.array
 };
 
 export default MostRecentWrapper;

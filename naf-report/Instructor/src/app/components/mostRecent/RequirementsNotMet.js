@@ -10,20 +10,51 @@ class RequirementsNotMet extends React.Component {
 	}
 
 	render() {
+
+		const listItems = this.props.dataByTopic.map( (element, index) => 
+			<div>
+			 		<li ><b>{element.name} </b></li>
+			 		<ul className="inner-list">
+	  			 		<li>- Needs Major Remediation({element.major.length}) </li>
+	  			 			<ul>
+	  			 				{
+	  			 					element.major.map((ele, i, arr) => {
+			 							if(i !== arr.length - 1)
+  			 								return ele + ', ';
+  			 							else
+  			 								return ele;
+	  			 					})
+	  			 				}
+	  			 			</ul>
+				 		<li>- Needs Minor Remediation({element.minor.length}) </li>
+				 			<ul>
+	  			 				{
+	  			 					element.minor.map((ele, i, arr) => {
+			 							if(i !== arr.length - 1)
+  			 								return ele + ', ';
+  			 							else
+  			 								return ele;
+	  			 					})
+	  			 				}
+				 			</ul>
+						<li style={{color:'red'}}>- Critical Question Errors({element.critical.length})</li>
+							<ul>
+	  			 				{
+	  			 					element.critical.map((ele, i, arr) => {
+			 							if(i !== arr.length - 1)
+  			 								return ele + ', ';
+  			 							else
+  			 								return ele;
+	  			 					})
+	  			 				}
+							</ul>
+			 		</ul>
+			</div>
+		);
+
 		return (
 		 	<ul className="requirements-list">
-		 		{
-		 			this.props.dataByTopic.map(element => {
-			 				<li>{element.name}
-					 		<ul className="inner-list">
-			  			 		<li>- Needs Major Remediation: &#160; &#160; 11 - 
-	  			 					{element.major}
-	  			 				</li>
-				 			</ul>
-				 			</li>
-					})
-				}
-
+				{listItems}
 	 		</ul>
 		);
 	}
@@ -47,6 +78,14 @@ RequirementsNotMet.propTypes = {
 export default RequirementsNotMet;
 
 /*
+
+ 				<li ><b>{element.name} </b></li>
+		 		<ul className="inner-list">
+  			 		<li>- Needs Major Remediation({element.major.length}) </li>
+  			 			<ul>
+		 						{element.major}
+	 					</ul>
+	 			</ul>
 			 		<li ><b>Overview </b></li>
 			 		<ul className="inner-list">
 	  			 		<li>- Needs Major Remediation: &#160; &#160; 11 - 

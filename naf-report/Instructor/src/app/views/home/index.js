@@ -17,7 +17,8 @@ const mapStateToProps = (state) => {
     instructorResults:      state.mostRecent.results,
     instructorTopics:       state.mostRecent.topics,
     instructorTrainees:     state.mostRecent.trainees,
-    instructorbyTopics:     state.mostRecent.byTopics
+    instructorbyTopics:     state.mostRecent.byTopics,
+    instructorbyTrainee:    state.mostRecent.byTrainee
   };
 };
     // instructorResults:      state.mostRecent.results,
