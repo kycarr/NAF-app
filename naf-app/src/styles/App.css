@@ -23,6 +23,10 @@ button {
 	border-radius: 8px !important;
 	padding: 6vh 4vw !important;
 	margin: 0px auto !important;
+  font-size: 1.7em;
+  text-align: justify;
+  text-justify: inter-word;
+  margin-bottom: 20px;
 }
 
 .outter-box {
@@ -39,7 +43,6 @@ button {
 	border-radius: 8px !important;
 	padding: 2vh 1vw !important;
 	margin: 2vh 1vw !important;
-	font-size: 18px !important;
 	font-weight: 700 !important;
 	text-align: center !important;
 }
@@ -49,12 +52,13 @@ button {
 }
 
 .card-instructions p {
-	font-size: 16px !important;
+	font-size: 20px !important;
 	margin: 0px auto !important;
+  color: #000;
 }
 
 .card-instructions p.header{
-	font-size: 22px !important;
+	font-size: 25px !important;
 }
 
 .intro-buttons-div {
@@ -67,15 +71,26 @@ button {
 	align-items: center !important;
 }
 
-	.intro-buttons {
-		display: inline-block !important;
-		background-color: #53646C !important;
-		color: #FFFFFF !important;
-		border-radius: 8px !important;
-		margin: 0vh 1vw !important;
-		font-weight: 700 !important;
-		text-align: center !important;
-	}
+
+.intro-buttons {
+	display: inline-block !important;
+	background-color: #53646C ;
+	color: #000000 ;
+	border-radius: 8px !important;
+	margin: 0vh 1vw !important;
+	font-weight: 700 !important;
+	text-align: center !important;
+}
+
+.intro-buttons Button {
+  textTransform: 'none';
+  fontSize: '18px';
+  color: '#fff';
+}
+
+.pagination-button-label {
+  font-size: 1.25em;
+}
 
 /* ---------------- INSTRUCTIONS-PAGE ----------------- */
 
@@ -90,7 +105,7 @@ button {
 }
 
 .dialog-text {
-	color: #000000 !important; 
+	color: #000000 !important;
 	font-family: 'Work Sans', sans-serif !important;
 	font-size: 16px !important;
 	margin: 15px 30px !important;
@@ -98,7 +113,7 @@ button {
 }
 
 .dialog-text-center {
-	color: #000000 !important; 
+	color: #000000 !important;
 	font-family: 'Work Sans', sans-serif !important;
 	font-size: 16px !important;
 	margin: 15px 30px !important;
@@ -177,16 +192,16 @@ button {
 		.toolbar-time {
 			margin: 0 auto !important;
 			min-width: 350px;
-		    justify-content: center !important;	
+		    justify-content: center !important;
 		}
-			
+
 		.toolbar-fixed-width-div {
 			min-width: 350px !important;
 		}
 
 			.toolbar-title {
 				color: #FFFFFF !important;
-				font-size: 20px !important;  
+				font-size: 20px !important;
 				font-family: 'Work Sans', sans-serif !important;
 				letter-spacing: 1.6px !important;
 			}
@@ -235,18 +250,18 @@ button {
 		.image-warning {
 			justify-content: center !important;
 			margin: 20px 0px 10px 0px !important;
-			text-align: center !important; 
+			text-align: center !important;
 		}
 
 		.toolbar-dialog-text {
 			color: #000000 !important;
-			color: rgba(0, 0, 0, 0.8) !important; 
+			color: rgba(0, 0, 0, 0.8) !important;
 			font-family: 'Work Sans', sans-serif !important;
 			font-size: 16px !important;
 			margin: 15px 30px !important;
 		}
 
-		.dialog-title {	
+		.dialog-title {
 			display: flex;
 			justify-content: center;
 			color: #000000 !important;
@@ -330,7 +345,7 @@ button {
 			    height: 28px !important;
 			    background-color: #53646C !important;
 				opacity: 0.5 !important;
-		
+
 			    color: #FFFFFF !important;
 			    border-radius: 14px !important;
 			    border: 1px solid #FFFFFF;
@@ -387,7 +402,7 @@ button {
 		.test-questions {
 			text-align: center !important;
 			padding: 10px 10px !important;
-			background: linear-gradient(rgba(173, 190, 197, 1) , rgba(173, 190, 197, 0.3) , rgba(173, 190, 197, 0.7)) !important;
+			background: linear-gradient(rgba(193, 190, 210, 0.4) , rgba(173, 190, 197, 0.1) , rgba(173, 190, 197, 0.6)) !important;
 		}
 
 			.test-qlist {
@@ -416,6 +431,7 @@ button {
 
 			.test-question-question {
 				margin-left: 32px !important;
+        font-size: 18px;
 			}
 
 			.test-question-filler {
@@ -423,6 +439,7 @@ button {
 				font-size: 16px !important;
 				margin: 8px 0px !important;
 				margin-left: 32px !important;
+        font-weight: bold !important;
 			}
 
 			.test-option-unselected {

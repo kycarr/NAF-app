@@ -1,8 +1,8 @@
-import {OPTION_SELECTED, 
-  GO_TO_PAGE, 
-  GO_TO_SECTION, 
-  QUESTION_ANSWERED, 
-  SET_TO_DEFAULT, 
+import {OPTION_SELECTED,
+  GO_TO_PAGE,
+  GO_TO_SECTION,
+  QUESTION_ANSWERED,
+  SET_TO_DEFAULT,
   CHANGE_BOOKMARK,
   RECEIVE_USER_QUESTIONS,
   FETCH_QUESTIONS_REQUEST,
@@ -41,22 +41,22 @@ const initState = {
 
 export default createReducer(initState, {
 
-  [RECEIVE_USER_INFO]: (state, payload) => 
+  [RECEIVE_USER_INFO]: (state, payload) =>
     Object.assign({}, state, {
       userId: payload.res.id,
       isFetchingQuestions: true,
       isAuthenticated: !payload.res.loginFailed
     }),
 
-  [OPTION_SELECTED]: (state, payload) => 
+  [OPTION_SELECTED]: (state, payload) =>
     optionSelected(state, payload),
 
-  [GO_TO_PAGE]: (state, payload) => 
+  [GO_TO_PAGE]: (state, payload) =>
       Object.assign({}, state, {
         page: payload,
     }),
 
-  [GO_TO_SECTION]: (state, payload) => 
+  [GO_TO_SECTION]: (state, payload) =>
     Object.assign({}, state, {
       isSubmitingAnswer: false,
       page: 0,
@@ -65,15 +65,15 @@ export default createReducer(initState, {
       questionsArray: state.qArray[payload]
   }),
 
-  [QUESTION_ANSWERED]: (state, payload) => 
+  [QUESTION_ANSWERED]: (state, payload) =>
     questionAnswered(state, payload),
 
-  [FETCH_QUESTIONS_REQUEST]: (state, payload) => 
+  [FETCH_QUESTIONS_REQUEST]: (state, payload) =>
     Object.assign({}, state, {
       isFetchingQuestions: true
     }),
 
-  [RECEIVE_USER_QUESTIONS]: (state, payload) => 
+  [RECEIVE_USER_QUESTIONS]: (state, payload) =>
     Object.assign({}, state, {
       page: 0,
       section: 0,
@@ -86,7 +86,7 @@ export default createReducer(initState, {
       taskId: payload.taskId,
       isFetchingQuestions: false
     }),
-  [CHANGE_BOOKMARK]: (state, payload) => 
+  [CHANGE_BOOKMARK]: (state, payload) =>
     changeBookmark(state, payload),
 
   [SUBMIT_SECTION_ANSWER]: (state, payload) =>
@@ -127,11 +127,11 @@ function optionSelected(state, payload) {
     }
     return question;
   });
-  optionSave(state.userId, 
+  optionSave(state.userId,
                   state.taskId,
                   state.sessionId,
-                  state.section, 
-                  payload.questionId, 
+                  state.section,
+                  payload.questionId,
                   nextQuestionsArray[payload.questionId - 1].optionList
   );
 

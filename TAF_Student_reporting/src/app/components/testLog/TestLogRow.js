@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 class TestLogRow extends React.Component {
 
@@ -14,12 +13,11 @@ class TestLogRow extends React.Component {
   }
 
   render() {
-    const time = moment(this.props.dateCompleted).format('MM/DD/YYYY');
     return (
           <tr>
 
             <td className="text-align-left">{this.props.testName}</td>
-            <td className="text-align-left" className="text-align-left">{time}</td>
+            <td className="text-align-left" className="text-align-left">{this.props.dateCompleted}</td>
             <td className="text-align-right">{this.props.attempts}</td>
             <td className="text-align-right">{this.props.highestScore}</td>
             <td className="text-align-left">{this.props.testResult}</td>

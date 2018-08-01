@@ -11,7 +11,7 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          lineNumber: 0,
+          lineNumber: 0
         };
         this.onWayPoint = this.onWayPoint.bind(this);
     }
@@ -39,4 +39,3 @@ export default class App extends Component {
         );
     }
 }
-

@@ -4,6 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import {Link} from "react-router-dom";
 import FlatButton from 'material-ui/FlatButton';
+import {resetToDefaultState} from '../actions/index';
+import {connect} from 'react-redux';
 
 // import FlatButton from 'material-ui/FlatButton';
 // import {Link} from "react-router-dom";
@@ -21,7 +23,7 @@ const buttonStyle = {
   fontSize: '18px'
 };
 
-export default class ToolbarLoginComponent extends Component {
+class ToolbarLoginComponent extends Component {
 
 
 	render() {
@@ -49,3 +51,5 @@ export default class ToolbarLoginComponent extends Component {
 	}
 
 }
+
+export default connect(null, {resetToDefaultState})(ToolbarLoginComponent);

@@ -531,8 +531,8 @@ export function leaveProtected(time = moment().format()) {
 export const fetchStudentTestAnswers = (sessionId) => dispatch => {
 
     sessionId = encodeURIComponent(sessionId);
-    const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
-    // const URL = `http://localhost:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
+    // const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
+    const URL = `http://localhost:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
     console.log(URL);
 
 
@@ -557,8 +557,8 @@ export const fetchStudentTestAnswers = (sessionId) => dispatch => {
 export const fetchStudentWithSession = (sessionId) => dispatch => {
 
     sessionId = encodeURIComponent(sessionId);
-    const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
-    // const URL = `http://localhost:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
+    // const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
+    const URL = `http://localhost:8080/student/fetchStudentAnswers?sessionId=${sessionId}`;
     console.log(URL);
 
 
@@ -581,8 +581,8 @@ export const fetchStudentWithSession = (sessionId) => dispatch => {
 
 export const fetchStudentSessions = (userId) => dispatch => {
       userId = encodeURIComponent(userId);
-    const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentSessions?userId=${userId}`;
-    // const URL = `http://localhost:8080/student/fetchStudentSessions?userId=${userId}`;
+    // const URL=`http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080/student/fetchStudentSessions?userId=${userId}`;
+    const URL = `http://localhost:8080/student/fetchStudentSessions?userId=${userId}`;
     console.log(URL);
 
     axios

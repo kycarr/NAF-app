@@ -12,15 +12,10 @@ import NAFLogo from "../images/NAF_Logo_Large.png";
 import TAFLogo from "../images/TAF_Logo_Large.png";
 import {TAF_SYMBOL} from '../constants';
 
-/*
-
-
-
-            */
 const buttonStyle = {
   textTransform: 'none',
   fontSize: '18px',
-  color: '#FFFFFF'
+  color: '#fff'
 };
 
 const loginButtonStyle = {
@@ -71,9 +66,12 @@ class LoginPage extends Component {
   }
 
   togglePopup() {
+
     this.setState({
       open: !this.state.open
     });
+
+
   }
 
   loginTrigger() {
@@ -82,9 +80,9 @@ class LoginPage extends Component {
 
 /*
 
-        <Button 
-          label="OK" 
-          primary={true} 
+        <Button
+          label="OK"
+          primary={true}
           labelStyle={loginButtonStyle}
           onClick={this.loginTrigger}
           data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading"
@@ -102,9 +100,9 @@ class LoginPage extends Component {
 
     const buttons = [
       <Button label="CANCEL" primary={true} onClick={this.togglePopup} labelStyle={loginButtonStyle} />,
-              <Button 
-          label="OK" 
-          primary={true} 
+              <Button
+          label="OK"
+          primary={true}
           labelStyle={loginButtonStyle}
           onClick={this.loginTrigger}
         />
@@ -121,7 +119,7 @@ class LoginPage extends Component {
             This is the Navy Training Assessment Framework working prototype, which implements test delivery and reporting functionality for studying how to deploy future tests which may require more complex item types and/or statistical analysis. This prototype is unclassified and does not store FOUO data. Likewise, CAC access is currently not enabled. However, it should only be accessed by authorized users evaluating the system or participating in user studies. Data should not be stored on this system for permanent use and may be wiped at any time during prototype upgrades. If you have any feedback or problems, please email our support line at: TAFsupport@ict.usc.edu
           </div>
 
-          <div className="outter-box">
+          <div className="outter-box" >
             <div className="card-instructions">
               <p className="header">CAC Users</p><br/>
               <p>This option is for CAC users with a computer configured for CAC use.</p>
@@ -143,7 +141,7 @@ class LoginPage extends Component {
 
           <div className="intro-buttons-div">
             <span className="intro-buttons">
-              <Button id="demonstrationButton" label="Demonstration" labelStyle={buttonStyle}>                    
+              <Button id="demonstrationButton" label="Demonstration" labelStyle={buttonStyle}>
               </Button>
             </span>
             <span className="intro-buttons">
@@ -160,6 +158,7 @@ class LoginPage extends Component {
             open={this.state.open}
             onRequestClose={this.handleClose}
           >
+
             <TextField
               autoFocus
               margin="dense"
@@ -178,8 +177,9 @@ class LoginPage extends Component {
               fullWidth
             />
             <p style={{color: 'red', font: 2}}>
-              {this.props.loginFailed ?  "name or password wrong!" : ""}
+              {this.props.loginFailed ?  "Incorrect username or password" : ""}
             </p>
+
           </Dialog>
         </div>
       </MuiThemeProvider>

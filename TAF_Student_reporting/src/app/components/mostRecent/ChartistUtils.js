@@ -6,7 +6,7 @@ function ctPointLabels(options) {
       labelClass: 'ct-label',
       labelOffset: {
         x: 0,
-        y: 20
+        y: -10
       },
       textAnchor: 'middle'
     };
@@ -16,7 +16,7 @@ function ctPointLabels(options) {
 
       chart.on('draw', function(data) {
       
-        if(data.type === 'line') {
+        if(data.type === 'point') {
           data.group.elem('text', {
             x: data.x + options.labelOffset.x,
             y: data.y + options.labelOffset.y,

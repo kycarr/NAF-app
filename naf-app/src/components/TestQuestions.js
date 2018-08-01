@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {optionSelected, goToPage, questionAnswered} from '../actions';
+import {optionSelected, goToPage, questionAnswered, changeBookmark} from '../actions';
 import {
   NUM_QUESTIONS_ON_A_PAGE,
   SCROLL_SPEED,
@@ -16,6 +16,10 @@ import Dragula from 'react-dragula';
 import nextPage from "../images/NAF_Icon_CircleRight.png";
 import prevPage from "../images/NAF_Icon_CircleLeft.png";
 import nimitz3 from "../images/nimitz3.jpg";
+import Button from 'material-ui/FlatButton'
+
+import imgBookmarkOn from '../images/NAF_Icon_BookmarkOn.png';
+import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
 
 class TestQuestions extends Component {
 
@@ -63,11 +67,11 @@ class TestQuestions extends Component {
   static onAnswerChanged(id, answer) {
     this.props.questionAnswered(id, answer);
   }
-  
+
   WayPoint(lineNum) {
       if(lineNum % 1 === 0) {
       const onWayPointChild = this.props.onWayPointChild;
-               
+
           return  (
               <Waypoint
                 onEnter = {function(props) {
@@ -83,22 +87,22 @@ class TestQuestions extends Component {
     switch (questionType) {
       case MULTI_CHOICE:
         return question.optionList.map((option) => {
-          return  <div key={question.id + option.option} className={option.selected ? "test-option-selected" : "test-option-unselected"} 
+          return  <div key={question.id + option.option} className={option.selected ? "test-option-selected" : "test-option-unselected"}
                     onClick={() => this.props.optionSelected(this.props.userId, this.props.sectionNumber, question.id, option)}>
                     {option.option}
                   </div>
         });
       case SHORT_ANSWER:
         return (
-          <TextField id={'TextField' + question.id} style={{backgroundColor : 'rgba(256,256,256,0.4)', border: '2px solid rgba(256,256,256,0.7)'}} 
-          textareaStyle={{padding : '0px 15px', margin: '6px 0px'}} className="text-field" rows={2} rowsMax={4} multiLine={true} 
+          <TextField id={'TextField' + question.id} style={{backgroundColor : 'rgba(256,256,256,0.4)', border: '2px solid rgba(256,256,256,0.7)'}}
+          textareaStyle={{padding : '0px 15px', margin: '6px 0px'}} className="text-field" rows={2} rowsMax={4} multiLine={true}
           underlineStyle={{display: 'none'}}  inputStyle={{ textAlign: 'center' }}
           hintStyle={{ width: 'inherit', textAlign: 'left', margin: '0px 15px', marginBottom: '26px' }}
           fullWidth={true} hintText={ question.answered ? "Type your answer here" : question.answer } onBlur={(event) => TestQuestions.onAnswerChanged.bind(this)(question.id, event.target.value)}/>
         );
       case ESSAY:
         return (
-          <TextField id={'TextField' + question.id} style={{backgroundColor : 'rgba(256,256,256,0.4)', border: '2px solid rgba(256,256,256,0.7)'}} 
+          <TextField id={'TextField' + question.id} style={{backgroundColor : 'rgba(256,256,256,0.4)', border: '2px solid rgba(256,256,256,0.7)'}}
           textareaStyle={{padding : '0px 15px', margin: '6px 0px'}} className="text-field" rows={4} rowsMax={25} multiLine={true}
           underlineStyle={{display: 'none'}} inputStyle={{ textAlign: 'center', verticalAlign: 'text-top'}}
           hintStyle={{ width: 'inherit', textAlign: 'left', margin: '0px 15px', marginBottom: '74px'}}
@@ -117,9 +121,18 @@ class TestQuestions extends Component {
     return questions.map((question) => {
       return (
         <div key={question.id} className="test-question" ref="questionNode5" id={"question" + question.id}>
-          <div className="test-question-num"> {lineNum++} </div>
-          <div className="test-question-question"> {question.question}</div>
-          {question.type === MULTI_CHOICE && question.choiceType === MULTIPLE_ANSWER ? <div className="test-question-filler">Select all that apply.</div> : null}
+
+          <span className = "image-bookmark" style={{float: 'left', marginRight: '10px'}} >
+            <img src = {question.bookmarked ? imgBookmarkOn : imgBookmarkOff} alt = "bookmark"
+              onClick = {() => this.props.changeBookmark(question.id)}/>
+            <span onClick = {() => this.props.changeBookmark(question.id)}> </span>
+          </span>
+          <span className="test-question-num"> {lineNum++} </span>
+
+
+          <div className="test-question-question"> &nbsp; {question.question}</div>
+
+          {question.type === MULTI_CHOICE && question.choiceType === MULTIPLE_ANSWER ? <div className="test-question-filler"><strong>Select all that apply.</strong></div> : null}
           {question.videoURL !== undefined ? TestQuestions.renderVideo(question.videoURL) : null}
           {question.imageURL !== undefined ? TestQuestions.renderImage(question.imageURL) : null}
           {this.renderQuestion.bind(this)(question)}
@@ -171,20 +184,37 @@ class TestQuestions extends Component {
           {this.renderList()}
         </div>
         <div>
-          <img src={prevPage} className={pageNum === 0 ? "page-navigation-inactive" : "page-navigation-active"}
+          {/*<img src={prevPage} className={pageNum === 0 ? "page-navigation-inactive" : "page-navigation-active"}
                alt="prevPage"
                onClick={() => this.goToPrevPage.bind(this)(pageNum - 1)}
-          />
+          />*/}
+
+
+            <Button className={pageNum === 0 ? "page-navigation-inactive" : "page-navigation-active"}
+                onClick={() => this.goToPrevPage.bind(this)(pageNum - 1)} >
+                <img src={prevPage} alt="" />
+                <span className="pagination-button-label"> Previous Page </span>
+            </Button>
+
+
           {pageNumArray.map((index) => {
             return (<span key={index + pageNum} className={index === pageNum ? "page-current" : "page-not-current"}
                           onClick={() => this.goToSpecificPage.bind(this)(index)}/>)
           })}
 
-          <img src={nextPage}
-               className={pageNum === totalPageNum - 1 ? "page-navigation-inactive" : "page-navigation-active"}
-               alt="nextPage"
-               onClick={() => this.goToNextPage.bind(this)(pageNum + 1, totalPageNum - 1)}
-          />
+          {/*
+            <img src={nextPage}
+                className={pageNum === totalPageNum - 1 ? "page-navigation-inactive" : "page-navigation-active"}
+                alt="nextPage"
+                onClick={() => this.goToNextPage.bind(this)(pageNum + 1, totalPageNum - 1)}
+              />
+          */}
+
+          <Button className={pageNum === totalPageNum - 1 ? "page-navigation-inactive" : "page-navigation-active"}
+              onClick={() => this.goToNextPage.bind(this)(pageNum + 1, totalPageNum - 1)} >
+            <span className="pagination-button-label">Next Page </span>
+            <img src={nextPage} />
+          </Button>
         </div>
 
       </div>
@@ -203,4 +233,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {optionSelected, goToPage, questionAnswered})(TestQuestions);
+export default connect(mapStateToProps, {optionSelected, goToPage, questionAnswered, changeBookmark})(TestQuestions);

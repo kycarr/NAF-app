@@ -124,15 +124,16 @@ class NavbarComponent extends Component {
           <span style={{fontSize: '14px'}}>Section {this.props.sectionNum + 1} / {this.props.totalSectionNum} <br/> Page {this.props.pageNumber + 1} / {totalPageNum} </span>
         </div>
         <div className="nav-questions">
-          <FlatButton className="nav-button" onClick={this.togglePopupWarning} label= {this.props.sectionNum + 1 === this.props.totalSectionNum ? "Finish Test" : "Submit Section"} id="submitBtn" labelStyle={buttonStyle}/>
+
           <div className="nav-qlist">
             {questions.map((question) => {
-                return <NavbarQuestion key={question.id} question={question} lineNum={lineNum++} 
-                        bookmarked={question.bookmarked} answered={question.answered} 
+                return <NavbarQuestion key={question.id} question={question} lineNum={lineNum++}
+                        bookmarked={question.bookmarked} answered={question.answered}
                         wayPointNum={this.props.lineNumber}/>
             })}
           </div>
-          <div className="nav-button-page">
+
+          {/*<div className="nav-button-page">
             <img src={prevPage} className={pageNum === 0 ? "page-navigation-inactive" : "page-navigation-active"}
                  alt="prevPage"
                  onClick={() => this.goToPrevPage.bind(this)(pageNum - 1)}
@@ -143,11 +144,19 @@ class NavbarComponent extends Component {
                  alt="nextPage"
                  onClick={() => this.goToNextPage.bind(this)(pageNum + 1, totalPageNum - 1)}
             />
-          </div>
+
+          </div>*/}
+
           <FlatButton className="nav-button" label="Back to Top" id="toTopBtn" labelStyle={buttonStyle}
                       onClick={NavbarComponent.handleOnClickBackToTop}>
             <img className="image" src={arrowUp} alt="arrowUp"/>
           </FlatButton>
+
+          <div>
+          {pageNum === totalPageNum - 1 ? (  <FlatButton className="nav-button" onClick={this.togglePopupWarning} label= {this.props.sectionNum + 1 === this.props.totalSectionNum ? "Finish Test"
+            : "Submit Section"} id="submitBtn" labelStyle={buttonStyle}/> ) : null}
+          </div>
+
         </div>
       </div>
       <Dialog

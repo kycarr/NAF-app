@@ -38,7 +38,7 @@ class Instructions extends Component {
 						          Use your mouse to scroll up or down to review previous questions. <br /><br />
 						          You can also click on any question in the Navigation bar to go to the respective question. <br /><br />
 						          You may not return to a section once you have moved on to the next section. <br /><br />
-						          You may hide the timer by clicking on the eye <span><img src={eye} alt="eye"/></span> <br /><br />
+						          You may hide the timer by clicking on the eye. <span><img src={eye} alt="eye"/></span> <br /><br />
 						          If you choose to hide the timer, it will reappear at the 2 minute warning. <br /><br />
 						          The timer will stop the test, if you have not finished in the allotted time. <br /><br />
 						          All your work is automatically saved and submitted when the timer stops the test. <br />

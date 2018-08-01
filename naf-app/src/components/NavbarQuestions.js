@@ -28,10 +28,10 @@ class NavbarQuestions extends Component {
         <div className={((this.props.lineNum > 0) && (this.props.lineNum === waypointNumber)) ? "arrow-right" : "arrow-spacing-right"}></div>
         <div className="nav-question">
           <div className = "image-bookmark">
-            <div key = {this.props.question.id} 
-              className = {this.props.answered ? "nav-question-selected" : "nav-question-unselected"}
+            <div key = {this.props.question.id}
+              className = {this.props.answered ? "nav-question-unselected" : "nav-question-selected"}
               onClick = {() => NavbarQuestions.handleScrollToElement(this.props.question.id)}>
-                {this.props.lineNum}
+                {this.props.lineNum} 
             </div>
           </div>
           <div className = "image-bookmark">

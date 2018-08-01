@@ -103,7 +103,7 @@ class ToolbarComponent extends React.Component {
       this.setState({time: timeLeftVar});
       this.startTimer();
   }
-  
+
   togglePopup() {
     this.setState({
       openInstructions: !this.state.openInstructions
@@ -180,7 +180,7 @@ class ToolbarComponent extends React.Component {
         <p className="toolbar-dialog-text">
           <span style ={{fontWeight : 'bold'}}>Course Name / Section Technical Administration</span> <br /><br />
           This test has two sections. <br /><br />
-          You have exactly 15 minutes to complete Section 1; and 17 minutes for Section 2. <br /><br />
+          You have exactly 15 minutes to complete Section 1; and 5 minutes for Section 2. <br /><br />
           Each section may have multiple pages, with each page containing a maximum of 10 questions. <br /><br />
           Click the bookmark <span><img src={imgBookmarkOff} alt="bookmarkOff"/></span> next to any question, answered or unanswered, as a reminder for yourself. The bookmarks will not be submitted nor will they be recorded or effect your test score. <br /><br />
           Use your mouse to scroll up or down to review previous questions. <br /><br />
@@ -221,7 +221,7 @@ class ToolbarComponent extends React.Component {
           <img className="image-warning" src={warning} alt="warning"/>
           <p className="dialog-text">
             <div className="dialog-title">Warning</div>
-              <span>Your time is over. All your work has been automatically saved and submitted.<br/><br/></span> 
+              <span>Your time is over. All your work has been automatically saved and submitted.<br/><br/></span>
           </p>
         </Dialog>
     </div>
