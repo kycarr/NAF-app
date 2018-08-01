@@ -10,9 +10,82 @@ class RequirementsNotMet extends React.Component {
 	}
 
 	render() {
-		return (
 
-			 	<ul className="requirements-list">
+		const listItems = this.props.dataByTopic.map( (element, index) => 
+			<div>
+			 		<li ><b>{element.name} </b></li>
+			 		<ul className="inner-list">
+	  			 		<li>- Needs Major Remediation({element.major.length}) </li>
+	  			 			<ul>
+	  			 				{
+	  			 					element.major.map((ele, i, arr) => {
+			 							if(i !== arr.length - 1)
+  			 								return ele + ', ';
+  			 							else
+  			 								return ele;
+	  			 					})
+	  			 				}
+	  			 			</ul>
+				 		<li>- Needs Minor Remediation({element.minor.length}) </li>
+				 			<ul>
+	  			 				{
+	  			 					element.minor.map((ele, i, arr) => {
+			 							if(i !== arr.length - 1)
+  			 								return ele + ', ';
+  			 							else
+  			 								return ele;
+	  			 					})
+	  			 				}
+				 			</ul>
+						<li style={{color:'red'}}>- Critical Question Errors({element.critical.length})</li>
+							<ul>
+	  			 				{
+	  			 					element.critical.map((ele, i, arr) => {
+			 							if(i !== arr.length - 1)
+  			 								return ele + ', ';
+  			 							else
+  			 								return ele;
+	  			 					})
+	  			 				}
+							</ul>
+			 		</ul>
+			</div>
+		);
+
+		return (
+		 	<ul className="requirements-list">
+				{listItems}
+	 		</ul>
+		);
+	}
+
+}
+
+
+
+RequirementsNotMet.propTypes = {
+	byTopic: PropTypes.bool,
+	dataByTopic: PropTypes.arrayOf(
+		PropTypes.shape({
+			name: PropTypes.string,
+			major: PropTypes.arrayOf(PropTypes.string),
+			minor: PropTypes.arrayOf(PropTypes.string),
+			critical: PropTypes.arrayOf(PropTypes.string)
+		})
+	) 
+};
+
+export default RequirementsNotMet;
+
+/*
+
+ 				<li ><b>{element.name} </b></li>
+		 		<ul className="inner-list">
+  			 		<li>- Needs Major Remediation({element.major.length}) </li>
+  			 			<ul>
+		 						{element.major}
+	 					</ul>
+	 			</ul>
 			 		<li ><b>Overview </b></li>
 			 		<ul className="inner-list">
 	  			 		<li>- Needs Major Remediation: &#160; &#160; 11 - 
@@ -35,29 +108,9 @@ class RequirementsNotMet extends React.Component {
 						<li>- Critical Question Errors: &#160; &#160; 2 - Olivia Noah - Question 1, Question 2, Isabella James - Question 4
 						</li>
 			 		</ul>
-			 	</ul>
-		);
-	}
-
-}
 
 
 
-RequirementsNotMet.propTypes = {
-	byTopic: PropTypes.bool,
-	dataByTopic: PropTypes.arrayOf(
-		PropTypes.shape({
-			topic: PropTypes.string,
-			major: PropTypes.arrayOf(PropTypes.string),
-			minor: PropTypes.arrayOf(PropTypes.string),
-			critical: PropTypes.arrayOf(PropTypes.string)
-		})
-	) 
-};
-
-export default RequirementsNotMet;
-
-/*
 			 		<li ><b>Topic 02 </b></li>
 			 		<ul className="inner-list">
 	  			 		<li>- Needs Major Remediation(11) </li>

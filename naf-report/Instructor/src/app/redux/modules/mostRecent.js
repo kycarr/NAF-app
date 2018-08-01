@@ -26,7 +26,10 @@ const ERROR_INSTRUCTOR_DATA     = 'ERROR_INSTRUCTOR_DATA';
 type MostRecentState = {
   isFetching: boolean,
   topics:     Array,
+  trainees:   Array,
   results:    Object,
+  byTopics:   Array,
+  byTrainee:  Array,
   time:       string
 };
 /*
@@ -36,7 +39,10 @@ const initialState: MostRecentState = {
   isFetching: false,
   results:    {},
   topics:     [],
-  time:       null
+  time:       null,
+  trainees:   [],
+  byTopics:   [],
+  byTrainee:  []
 };
 
 export default function mostRecent(state = initialState, action) {
@@ -53,6 +59,9 @@ export default function mostRecent(state = initialState, action) {
       isFetching: action.isFetching,
       results:    action.results,
       topics:     action.topics,
+      trainees:   action.trainees,
+      byTopics:   action.byTopics,
+      byTrainee:  action.byTrainee,
       time:       action.time
     };
   case 'ERROR_INSTRUCTOR_DATA':
@@ -93,7 +102,10 @@ function receivedInstructorData(data, time = moment().format()) {
     type:       RECEIVED_INSTRUCTOR_DATA,
     isFetching: false,
     topics:     [...data.topics],
-    results:    [...data.results],
+    results:    data.results,
+    trainees:   [...data.trainees],
+    byTopics:   [...data.byTopics],
+    byTrainee:  [...data.byTrainee],
     time
   };
 }

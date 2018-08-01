@@ -10,28 +10,53 @@ class TraineeNotMet extends React.Component {
 	}
 
 	render() {
+		const listItems = this.props.dataByTrainee.map( (element, index) => 
+			<div>
+			 		<li ><b>{element.name} </b></li>
+			 		<ul className="inner-list">
+	  			 		<li>- Needs Major Remediation({element.major.length}) </li>
+	  			 			<ul>
+	  			 				{
+	  			 					element.major.map((ele, i, arr) => {
+			 							if(i !== arr.length - 1)
+  			 								return ele + ', ';
+  			 							else
+  			 								return ele;
+	  			 					})
+	  			 				}
+	  			 			</ul>
+				 		<li>- Needs Minor Remediation({element.minor.length}) </li>
+				 			<ul>
+	  			 				{
+	  			 					element.minor.map((ele, i, arr) => {
+			 							if(i !== arr.length - 1)
+  			 								return ele + ', ';
+  			 							else
+  			 								return ele;
+	  			 					})
+	  			 				}
+				 			</ul>
+						<li style={{color:'red'}}>- Critical Question Errors({element.critical.length})</li>
+							<ul>
+	  			 				{	 
+	  			 					element.critical.map((ele) => 
+	  			 						<li style={{listStyleType: 'none'}}> 
+	  			 							{
+	  			 								ele.topic + ': ' + ele.questions.map((e, i, arr) => {
+		  			 								return ' ' + e;
+		  			 							})
+		  			 						}
+	  			 						</li>
+	  			 					)
+	  			 				}
+							</ul>
+			 		</ul>
+			</div>
+		);
 		return (
-
-			 	<ul className="requirements-list">
-			 		<li ><b>Sailor A:</b></li>
-			 		<ul className="inner-list">
-	  			 		<li>- Needs Major Requirements: &#160; 2 - Topic 1, Topic 2
-	  			 		 </li>
-				 		<li>- Minor Requirements: &#160; 3 - Topic 4, Topic 8, Topic 9
-				 		</li>
-						<li>- Critical Errors: &#160; 3 - Topic 1 - Question 2, Topic 4 - Question 3, Question 4
-						</li>
-			 		</ul>
-			 		<li ><b>Sailor B:</b></li>
-			 		<ul className="inner-list">
-	  			 		<li>- Needs Major Requirements: &#160; 2 - Topic 1, Topic 2
-	  			 		 </li>
-				 		<li>- Minor Requirements: &#160; 3 - Topic 4, Topic 8, Topic 9
-				 		</li>
-						<li>- Critical Errors: &#160; 3 - Topic 1 - Question 2, Topic 4 - Question 3, Question 4
-						</li>
-			 		</ul>
-			 	</ul>
+		 	<ul className="requirements-list">
+				{listItems}
+	 		</ul>
 		);
 	}
 
@@ -40,14 +65,17 @@ class TraineeNotMet extends React.Component {
 
 
 TraineeNotMet.propTypes = {
-	dataByTopic: PropTypes.arrayOf(
+	dataByTrainee: PropTypes.arrayOf(
 		PropTypes.shape({
-			topic: PropTypes.string,
+			name: PropTypes.string,
 			major: PropTypes.arrayOf(PropTypes.string),
 			minor: PropTypes.arrayOf(PropTypes.string),
-			critical: PropTypes.arrayOf(PropTypes.string)
-		})
-	) 
+			critical: PropTypes.arrayOf(PropTypes.shape({
+				topic: PropTypes.string,
+				questions: PropTypes.arrayOf(PropTypes.string)
+			})
+		)}
+	))
 };
 
 export default TraineeNotMet;

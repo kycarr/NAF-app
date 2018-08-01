@@ -15,7 +15,10 @@ const mapStateToProps = (state) => {
     teamMatesIsFetching:    state.teamMates.isFetching,
     teamMates:              state.teamMates.data,
     instructorResults:      state.mostRecent.results,
-    instructorTopics:       state.mostRecent.topics
+    instructorTopics:       state.mostRecent.topics,
+    instructorTrainees:     state.mostRecent.trainees,
+    instructorbyTopics:     state.mostRecent.byTopics,
+    instructorbyTrainee:    state.mostRecent.byTrainee
   };
 };
     // instructorResults:      state.mostRecent.results,
