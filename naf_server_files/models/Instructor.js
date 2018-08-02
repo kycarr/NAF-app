@@ -6,10 +6,10 @@ const InstructorSchema = new Schema({
 	name: {
 		type: String
 	},
-	assignment: {
+	assignment: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Assignment'
-	},
+	}],
 	classes: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Class'

@@ -15,6 +15,10 @@ const ClassSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Module'
     },
+    task: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Task'
+    }],
 
     className: String
 });

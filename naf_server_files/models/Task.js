@@ -32,9 +32,11 @@ const TaskSchema = new Schema({
     },
     testResult: {
     	type: String
-    }
+    },
 
-	
+	className: {
+		type: String
+	}
 
 
 });

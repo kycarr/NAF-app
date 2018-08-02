@@ -5,7 +5,6 @@ const AssignmentSchema = new Schema({
     
     dateCompleted: {
         type: Date,
-        required: true,
         default: Date.now
     },
     instructor: {

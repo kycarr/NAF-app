@@ -13,14 +13,38 @@ const Test = require('../../models/Test');
 const Section = require('../../models/Section');
 const Item = require('../../models/Item');
 const Topic = require('../../models/Topic');
-
-
+const Assignment = require('../../models/Assignment');
+const Instructor = require('../../models/Instructor');
+const Class = require('../../models/Class');
 //data for seeding database
 const qArray1 = require('../../questions');
 const qArray2 = require('../../newQuestions');
 const topicsArray1 = require('../../topics');
 const topicsArray2 = require('../../newTopics');
 const usersArray = require('../../users');
+const StudentReport = require('../../models/StudentReport');
+
+// async function generateInstructorReport(testName){
+//    const results = StudentReport.aggregate([
+//         {
+//             $match: {
+//                 testName: testName
+//             }
+//         },
+//         {
+//             $group: {
+//                 _id: "$_id",
+//                 average: {$avg: "$testScorePercentage"}
+//             }
+//         }
+//     ], function (err, result) {
+//         if (err) {
+//             console.log(err);
+//             return;
+//         }
+//         console.log(result);
+//     });
+// }
 
 
 
@@ -64,6 +88,8 @@ const populateDB = async (test, qArray, topicsArray) => {
   }
 
   await test.save();
+
+
   console.log('Database seeded successfully with dummy test data for test: ', test.testName);
 }
 
@@ -123,6 +149,31 @@ const createDB = async () => {
       .catch(err => console.log('Error finding test two: ' + err));
 
 
+    Instructor.findOne({name: 'Matthew Trimmer'})
+    .then(instructor => {
+      if(instructor) {
+        console.log("instructor exists");
+      }
+      else {
+        const instructor = new Instructor({
+          name: 'Matthew Trimmer'
+        });
+        instructor.save()
+        .then(ins => {
+            const classes = new Class({
+              instructor: ins._id,
+              className: 'Class One'
+            });
+            classes.save();
+        })
+        .catch(err => console.log('Error: ' + err));
+        
+      }
+    })
+    .catch(err => console.log('Error finding instructor: ' + err));
+
+
+    generateInstructorReport('Test One');
 }
 
 //seed the database
