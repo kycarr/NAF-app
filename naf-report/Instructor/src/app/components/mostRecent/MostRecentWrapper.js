@@ -18,6 +18,7 @@ import '../../style/chartist.css';
 import HeatMap from 'react-heatmap-grid';
 import $ from 'jquery';
 import Collapsible from 'react-collapsible';
+import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 const graphLabelName = {
   'marginLeft' : '22px',
@@ -97,7 +98,9 @@ class MostRecentWrapper extends React.Component {
 							<div className="sm-st-info"><div>Test Name</div><span className="right-align-2">{this.props.results.testName}</span></div>
 						</div>
 						<div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div>Date Completed</div><span className="right-align-3">{this.props.results.dateCompleted}</span></div>
+							 <div className="sm-st-info"><div>Date Completed</div><span className="right-align-3">
+							 {moment(this.props.results.dateCompleted).format('MM/DD/YYYY')}
+							 </span></div>
 						</div>
 						<div className="col-md-1 topcard">
 							 <div className="sm-st-info"><div># Finished</div><span className="right-align-4">{this.props.results.finished}</span></div>

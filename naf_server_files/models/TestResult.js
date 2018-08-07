@@ -4,10 +4,7 @@ var ObjectId = Schema.Types.ObjectId
 
 var TestResultSchema = new Schema({
 
-    class: {                     
-        type: Schema.Types.ObjectId,
-        ref: 'Class'
-    },
+
     className: {
         type: String,
         required: true
@@ -19,30 +16,26 @@ var TestResultSchema = new Schema({
     dateCompleted: {
         type: String,
     },
-    numFinished: {
+    finished: {
         type: Number,
         min: 0
     },
-    numIncomplete: {
+    inComplete: {
         type: Number,
         min: 0
     },
-    numNotStart: {
+    notStart: {
         type: Number,
         min: 0
     },
-    numAveragePercent: {
-        type: Number,
-        min: 0,
-        max: 1
+    average: {
+        type: String,
     },
-    numPassPercent: {
-        type: Number,
-        min: 0,
-        max: 1
+    pass: {
+        type: String,
     },
     topics: [{
-        name: String,
+        label: String,
         pass: Number,
         fail: Number
     }]

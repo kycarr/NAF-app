@@ -1,27 +1,5 @@
 export const InstructorMockData = {
 
-  topics: [
-    {
-      label: 'Math Knowledge',
-      pass: 10,
-      fail: 5
-    },
-    {
-      label: 'English Knowledge',
-      pass: 5,
-      fail: 10
-    },
-    {
-      label: 'Electronics Knowledge',
-      pass: 12,
-      fail: 3
-    },
-    {
-      label: 'Arithmetic Reasoning',
-      pass: 4,
-      fail: 9
-    }
-  ],
 
   results: {
     className: 'Class 1',
@@ -31,7 +9,29 @@ export const InstructorMockData = {
     inComplete: 4,
     notStart: 1,
     average: '50%',
-    pass: '33%'
+    pass: '33%',
+    topics: [
+      {
+        label: 'Math Knowledge',
+        pass: 10,
+        fail: 5
+      },
+      {
+        label: 'English Knowledge',
+        pass: 5,
+        fail: 10
+      },
+      {
+        label: 'Electronics Knowledge',
+        pass: 12,
+        fail: 3
+      },
+      {
+        label: 'Arithmetic Reasoning',
+        pass: 4,
+        fail: 9
+      }
+    ]
   },
 
 

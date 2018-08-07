@@ -4,7 +4,7 @@ const router = express.Router();
 const test_controller = require('../../controllers/test_controller');
 const fetch_answers_controller = require('../../controllers/fetch_answers_controller');
 const instructor_controller = require('../../controllers/instructor_controller');
-
+import {generateTraineeReport} from '../../controllers/instructor_controller';
 const User = require('../../models/User');
 const Answer = require('../../models/Answer');
 const Session = require('../../models/Session');
@@ -16,6 +16,7 @@ const Topic = require('../../models/Topic');
 const Assignment = require('../../models/Assignment');
 const Instructor = require('../../models/Instructor');
 const Class = require('../../models/Class');
+const TestResult = require('../../models/TestResult');
 //data for seeding database
 const qArray1 = require('../../questions');
 const qArray2 = require('../../newQuestions');
@@ -24,27 +25,31 @@ const topicsArray2 = require('../../newTopics');
 const usersArray = require('../../users');
 const StudentReport = require('../../models/StudentReport');
 
-// async function generateInstructorReport(testName){
-//    const results = StudentReport.aggregate([
-//         {
-//             $match: {
-//                 testName: testName
-//             }
-//         },
-//         {
-//             $group: {
-//                 _id: "$_id",
-//                 average: {$avg: "$testScorePercentage"}
-//             }
-//         }
-//     ], function (err, result) {
-//         if (err) {
-//             console.log(err);
-//             return;
-//         }
-//         console.log(result);
-//     });
-// }
+/*
+async function generateInstructorReport(testName){
+   const results = StudentReport.aggregate([
+        {
+            $match: {
+                testName: testName
+            }
+        },
+        {
+            $group: {
+                _id: "$_id",
+                average: {$avg: "$testScorePercentage"}
+            }
+        }
+    ], function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log(result);
+    });
+}
+*/
+
+
 
 
 
@@ -148,7 +153,7 @@ const createDB = async () => {
       })
       .catch(err => console.log('Error finding test two: ' + err));
 
-
+    let users = await User.find({}, '_id');
     Instructor.findOne({name: 'Matthew Trimmer'})
     .then(instructor => {
       if(instructor) {
@@ -162,7 +167,8 @@ const createDB = async () => {
         .then(ins => {
             const classes = new Class({
               instructor: ins._id,
-              className: 'Class One'
+              className: 'Class One',
+              user: users
             });
             classes.save();
         })
@@ -173,7 +179,7 @@ const createDB = async () => {
     .catch(err => console.log('Error finding instructor: ' + err));
 
 
-    generateInstructorReport('Test One');
+    generateTraineeReport('Test One', "Class One");
 }
 
 //seed the database
@@ -199,7 +205,7 @@ router.get('/student/fetchStudentAnswers', fetch_answers_controller.fetchStudent
 
 router.get('/student/fetchStudentSessions', fetch_answers_controller.fetchStudentSessions);
 
-router.get('/api/instructor/fetchInstructorData', instructor_controller.fetchInstructorData);
+router.get('/instructor/fetchInstructorData', instructor_controller.fetchInstructorData);
 
 
 

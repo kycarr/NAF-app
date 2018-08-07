@@ -97,11 +97,11 @@ function requestInstructorData(time = moment().format()) {
   };
 }
 function receivedInstructorData(data, time = moment().format()) {
-  console.log(data);
+  console.log(data.results);
   return {
     type:       RECEIVED_INSTRUCTOR_DATA,
     isFetching: false,
-    topics:     [...data.topics],
+    topics:     [...data.results.topics],
     results:    data.results,
     trainees:   [...data.trainees],
     byTopics:   [...data.byTopics],
@@ -109,6 +109,11 @@ function receivedInstructorData(data, time = moment().format()) {
     time
   };
 }
+
+/*
+
+
+ */
 function errorFetchInstructorData(error, time = moment().format()) {
   return {
     type:       ERROR_INSTRUCTOR_DATA,
@@ -120,7 +125,7 @@ function errorFetchInstructorData(error, time = moment().format()) {
 function fetchInstructorData() {
   return dispatch => {
     dispatch(requestInstructorData());
-    if (appConfig.DEV_MODE) {
+    if (!appConfig.DEV_MODE) {
       // DEV ONLY
       fetchInstructorMockData()
         .then(
@@ -132,7 +137,8 @@ function fetchInstructorData() {
           data => dispatch(receivedInstructorData(data))
         )
         .catch(
-          error => dispatch(errorInstructorData(error))
+
+          error => dispatch(console.log(error))
         );
     }
   };

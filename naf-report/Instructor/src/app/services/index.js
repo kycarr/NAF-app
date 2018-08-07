@@ -19,5 +19,6 @@ export {
 export {
   getEarningGraphData,
   getTeamMatesData,
-  getUserInfoData
+  getUserInfoData,
+  getInstructorData
 }                             from './API';

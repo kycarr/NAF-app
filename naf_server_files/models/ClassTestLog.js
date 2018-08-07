@@ -4,29 +4,24 @@ var ObjectId = Schema.Types.ObjectId
 
 var ClassTestLogSchema = new Schema({
 
-
-    class: {                     
-        type: Schema.Types.ObjectId,
-        ref: 'Class'
-    },
-    
 	className: String,
 
 	testName: String,
 
     dateCompleted: String,
 
-    averageScore: Number,
+    average: String,
 
-    pass: Number,
+    pass: String,
 
     attempts: Number,
 
     finished: Number,
 
-    Incomplete: Number,
+    inComplete: Number,
 
-    noStart: Number
+    notStart: Number,
+    
 
 });
 

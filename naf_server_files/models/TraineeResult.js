@@ -9,7 +9,11 @@ var TraineeResultSchema = new Schema({
         ref: 'User'
     },
 
-    name: String,
+    testName: String,
+
+    className: String,
+
+    traineeName: String,
 
     timeStarted: String,
 
@@ -22,7 +26,8 @@ var TraineeResultSchema = new Schema({
     result: String,
 
     topics: [{
-        correct: Number,
+        label: String,
+        score: Number,
         total: Number
     }]
 });

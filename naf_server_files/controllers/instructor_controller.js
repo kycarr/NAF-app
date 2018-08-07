@@ -12,8 +12,279 @@ const Session = require('../models/Session');
 const Task = require('../models/Task');
 const Topic = require('../models/Topic');
 const StudentReport = require('../models/StudentReport');
+const TestResult = require('../models/TestResult');
+const Class = require('../models/Class');
+
+/*
+const trainees = [
+    {
+      traineeName: 'Bob Smith',
+      timeStarted: '10:00 - 10/10/2014',
+      timeCompleted: '11:00 - 10/10/2014',
+      attempts: 4,
+      totalScore: 10,
+      result: 'Fail',
+      topics: [
+         {
+            label: 'Topic one',
+            score: 5,
+            total: 10
+         },
+         {
+            label: 'Topic two',
+            score: 2,
+            total: 3
+         },
+         {
+            label: 'Topic three',
+            score: 3,
+            total: 4
+         }
+      ]
+
+    },
+    {
+      traineeName: 'Bob Smith',
+      timeStarted: '10:00 - 10/10/2014',
+      timeCompleted: '11:00 - 10/10/2014',
+      attempts: 4,
+      totalScore: 10,
+      result: 'Fail',
+      topics: [
+         {
+            label: 'Topic one',
+            score: 5,
+            total: 10
+         },
+         {
+            label: 'Topic two',
+            score: 2,
+            total: 3
+         },
+         {
+            label: 'Topic three',
+            score: 3,
+            total: 4
+         }
+      ]
+
+    }
+  ];
+*/
+const byTopics = [
+    {
+      name: 'Overview',
+      major: [
+        'Bob Smith',
+        'James Mason',
+        'Henry McFarlene',
+        'Janet jonson',
+        'David Silinger',
+        'Jim Hicks'
+      ],
+      minor: [
+        'Samuel Johson',
+        'Timmothy Alberton'
+      ],
+      critical:[
+        'Daniel Yoon'
+      ]
+    },
+    {
+      name: 'Topic 2',
+      major: [
+        'Bob Smith',
+        'James Mason',
+        'Henry McFarlene',
+        'Janet jonson',
+        'David Silinger',
+        'Jim Hicks'
+      ],
+      minor: [
+        'Samuel Johson',
+        'Timmothy Alberton'
+      ],
+      critical:[
+        'Daniel Yoon'
+      ]
+    }
+  ];
+
+  const byTrainee = [
+    {
+      name: 'Sailor A',
+      major: [
+        'Math',
+        'Science',
+        'Security'
+      ],
+      minor: [
+        'Finance',
+      ],
+      critical:[
+        {
+          topic: 'Computer Network',
+          questions: [
+            'Question 1',
+            'Question 4',
+            'Question 2'
+          ]
+        },
+        {
+          topic: 'Computer Security',
+          questions: [
+            'Question 2',
+            'Question 13'
+          ]
+        }
+      ]
+    },
+    {
+      name: 'Sailor B',
+      major: [
+        'Math',
+        'Science'
+      ],
+      minor: [
+        'Finance',
+        'Security'
+      ],
+      critical:[
+        {
+          topic: 'Computer Network',
+          questions: [
+            'Question 1',
+            'Question 2'
+          ]
+        },
+        {
+          topic: 'Computer Security',
+          questions: [
+            'Question 2',
+            'Question 13'
+          ]
+        }
+      ]
+    }
+  ];
+
+async function fetchInstructorReport(testName, className) {
+    const report = await TestResult.findOne({testName: testName, className: className});
+    if(report === null) {
+        return generateInstructorReport(testName, className);
+    }
+    else {
+        return report;
+    }
+
+}
+export async function generateTraineeReport(testName, className) {
+    const students = await Class.findOne({className: className});
+    const reports = await StudentReport.find({testName: testName}).sort({testDate: 'descending'});
+    const users = await User.find({
+        '_id': { $in: students.user}
+    });
+    let trainees = [];
+    console.log(users);
+    for(let i = 0; i < users.length; i++) {
+        trainees.push({'traineeName': users[i].name});
+        
+    }
+
+     timeStarted: '10:00 - 10/10/2014',
+      timeCompleted: '11:00 - 10/10/2014',
+      attempts: 4,
+      totalScore: 10,
+      result: 'Fail',
+      topics: [
+         {
+            label: 'Topic one',
+            score: 5,
+            total: 10
+         },
+         {
+            label: 'Topic two',
+            score: 2,
+            total: 3
+         },
+         {
+            label: 'Topic three',
+            score: 3,
+            total: 4
+         }
+      ]
+    console.log(trainees);
+
+}
 
 
+async function generateInstructorReport(testName, className) {
+    await generateTraineeReport(testName, className);
+    let results = {};
+    const reports = await StudentReport.find({testName: testName}).sort({testDate: 'descending'});
+    const students = await Class.findOne({className: className});
+    let total = students.user.length;
+    let sum = 0;
+    let testMap = [];
+    let topicValue = [];
+    let pass = 0;
+    let labels = reports[0].topicLabel;
+    let dateCompleted = reports[0].testDate;
+    for(let i = 0; i < reports.length; i++) {
+        if(!testMap.includes(reports[i].user)) {
+            testMap.push(String(reports[i].user));
+            topicValue.push(reports[i].topicValue);
+            sum += parseInt(reports[i].testScorePercentage);
+            if(reports[i].testResult === "PASS") {
+                pass++;
+            }
+        }
+    }
+
+    results.average = (sum / testMap.length).toFixed(2) + "%";
+    results.dateCompleted = dateCompleted;
+    results.inComplete = total - testMap.length;
+    results.testName = testName;
+    results.className = className;
+    results.pass = (pass * 100 / total).toFixed(2) + "%";
+    results.notStart = 0;
+    results.finished = testMap.length;
+
+    let topic = [];
+    for(let i = 0; i < labels.length; i++) {
+        topic.push({label: labels[i], pass: 0, fail: 0});
+    }
+    for(let i = 0; i < topicValue.length; i++) {
+        for(let j = 0; j < topic.length; j++) {
+            if(topicValue[i][j] > 20) {
+                topic[j].pass++; 
+            }
+            else {
+                topic[j].fail++;
+            }
+        }
+    }
+    results.topics = topic;
+    console.log(results);
+    const testLog = new TestResult(results);
+    await testLog.save();
+    return results;
+}
+
+exports.fetchInstructorData = async(req, res) => {
+	const resultsObject = await fetchInstructorReport('Test One', "Class One");
+	const responseJSON = {};
+	console.log(resultsObject);
+	responseJSON['results'] = resultsObject;
+	responseJSON['trainees'] = trainees;
+	responseJSON['byTrainee'] = byTrainee;
+	responseJSON['byTopics'] = byTopics;
+	
+	res.json(responseJSON);
+
+}
+
+/*
 exports.fetchInstructorData = async (req,res) => {
 
 	const sessionId = mongoose.Types.ObjectId(req.query['sessionId']);
@@ -121,3 +392,4 @@ exports.fetchInstructorData = async (req,res) => {
 	//res.json(passFailObject);
 
 }
+*/
