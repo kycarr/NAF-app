@@ -31,7 +31,13 @@ const StudentReportSchema = {
 		Critical: [{type: String}]
 	},
 	topicValue: [{type: Number}],
-	topicLabel: [{type: String}]
+	topicLabel: [{type: String}],
+	byTopic: [{
+		topic: String,
+		correct: Number,
+		incorrect: Number,
+		percentage: Number
+	}]
 
 
 }

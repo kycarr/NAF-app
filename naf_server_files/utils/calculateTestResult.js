@@ -1,6 +1,7 @@
 const calculateTestResult = rawData => {
 
   console.log('Calculating Test Result');
+  console.log(rawData);
     let correctness = [];
     let topicsScore = [];
     let topicsScoreP = [];
@@ -8,10 +9,16 @@ const calculateTestResult = rawData => {
     let topicsIndex=0;
     let totalPass=0;
     let topicLabel = [];
+   
 
 
     if(Object.keys(rawData['questionResponses']).length > 0) {
+
+      let questionsArray = new Array(Object.keys(rawData['questionResponses']).length);
+      
       for(let key in rawData['questionResponses']) {
+
+          questionsArray.push(rawData['questionResponses'][key]);
 
           if(rawData['questionResponses'][key].pass === true) {
             correctness[key] = true;
@@ -34,7 +41,7 @@ const calculateTestResult = rawData => {
             }
           }
       }
-    }
+    
 
     for(let key in topicValue) {
       if(!(key in topicsScoreP)){
@@ -46,6 +53,8 @@ const calculateTestResult = rawData => {
       topicValue.push(100*(topicsScoreP[key]/topicValue[key]));
       topicLabel.push(key);
     }
+
+    let byTopic= new Array(topicLabel.length);
 
     let totalScore = correctness.length>1 ? Math.round(100*totalPass/correctness.length,1):0;
 
@@ -63,9 +72,25 @@ const calculateTestResult = rawData => {
         }
     }
 
+    for(let i=0; i<topicLabel.length; i++) {
+      const currentTopic = topicLabel[i];
+      //filter by topic here
+      const numPass = questionsArray.filter(question => question.topicName === currentTopic && question.pass === true).length;
+      const numFail = questionsArray.filter(question => question.topicName === currentTopic && question.pass === false).length;
+      const percentage = 100*(numPass/(numPass + numFail));
+      byTopic.push({
+        topic: currentTopic,
+        correct: numPass,
+        incorrect: numFail,
+        percentage: percentage
+      });
+    }
+
     let testScore = `${totalPass}/${correctness.length}`;
     let testScorePercentage = `${totalScore} %`;
     let testResult = totalScore>60?'PASS':'FAIL';
+
+
  
 
     const reportingData = {
@@ -75,12 +100,13 @@ const calculateTestResult = rawData => {
       'testResult': testResult,
       'requirementsNotMetObject': requirementsNotMetObject,
       'topicValue': topicValue,
-      'topicLabel': topicLabel
+      'topicLabel': topicLabel,
+      'byTopic': byTopic
     };
 
     
     return reportingData;
-
+  }
 }
 
 module.exports = calculateTestResult;

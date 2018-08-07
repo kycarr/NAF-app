@@ -281,6 +281,7 @@ exports.finish_test = async (req,res) => {
   
   answerResponse['userId'] = session.user._id;
   const reportingData = calculateTestResult(answerResponse);
+  console.log('reportingData');
   console.log(reportingData);
   
   task.score = reportingData['testScore'];
@@ -305,31 +306,8 @@ exports.finish_test = async (req,res) => {
     .then(report => {console.log('answer report Successfully saved'); console.log(report);})
     .catch(err => console.log('Error in saving the answer report ' + err))
 
-
-
   
   // answerResponse['reportingData'] = reportingData;
   console.log(userId + "has finished the test"); 
   res.status(200).end('Success Finish');
 }
-
-//Aggregation function
-var getBalance = function(accountId) {
-    AccountModel.aggregate([
-        { $match: {
-            _id: accountId
-        }},
-        { $unwind: "$records" },
-        { $group: {
-            _id: "$_id",
-            balance: { $sum: "$records.amount"  }
-        }}
-    ], function (err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.log(result);
-    });
-}
-

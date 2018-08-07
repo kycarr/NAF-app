@@ -14,6 +14,7 @@ const Topic = require('../models/Topic');
 const StudentReport = require('../models/StudentReport');
 const TestResult = require('../models/TestResult');
 const Class = require('../models/Class');
+const TraineeResult = require('../models/TraineeResult');
 
 /*
 const trainees = [
@@ -178,6 +179,18 @@ async function fetchInstructorReport(testName, className) {
     }
 
 }
+
+async function fetchTraineeReport(testName, className) {
+    const report = await TraineeResult.findOne({testName: testName, className: className});
+    if(report === null) {
+        return generateTraineeReport(testName, className);
+    }
+    else {
+        return report;
+    }
+
+}
+
 export async function generateTraineeReport(testName, className) {
     const students = await Class.findOne({className: className});
     const reports = await StudentReport.find({testName: testName}).sort({testDate: 'descending'});
@@ -185,41 +198,77 @@ export async function generateTraineeReport(testName, className) {
         '_id': { $in: students.user}
     });
     let trainees = [];
-    console.log(users);
+    let labels = reports[0].topicLabel;
+    var myMap = new Map();
+
     for(let i = 0; i < users.length; i++) {
-        trainees.push({'traineeName': users[i].name});
-        
+        myMap.set(users[i].name, {});
+    }
+    for(let i = 0; i < reports.length; i++) {
+        let user = reports[i].user;
+        let ele = myMap.get(user);
+        if(Object.keys(ele).length === 0) {
+            let topics = [];
+            let topicValue = reports[i].topicValue;
+            for(let j = 0; j < topicValue.length; j++) {
+                topics.push({label: labels[j], score: 3, total: 5});
+            }
+            myMap.set(user, {
+                timeStarted: reports[i].testDate.toString(), 
+                timeCompleted: reports[i].testDate.toString(),
+                result: reports[i].testResult,
+                topics: topics,
+                attempts: 1,
+                totalScore: reports[i].testScorePercentage
+            });
+        }
+        else {
+            if(Date.parse(ele.dateCompleted) < Date.parse(reports[i].testDate)) {
+                ele.timeStarted = reports[i].testDate;
+                ele.timeCompleted = reports[i].testDate;
+            }
+            ele.attempts++;
+            myMap.set(user, ele);
+        }
     }
 
-     timeStarted: '10:00 - 10/10/2014',
-      timeCompleted: '11:00 - 10/10/2014',
-      attempts: 4,
-      totalScore: 10,
-      result: 'Fail',
-      topics: [
-         {
-            label: 'Topic one',
-            score: 5,
-            total: 10
-         },
-         {
-            label: 'Topic two',
-            score: 2,
-            total: 3
-         },
-         {
-            label: 'Topic three',
-            score: 3,
-            total: 4
-         }
-      ]
-    console.log(trainees);
+    myMap.forEach((value, key) => {
+        if(value.result === undefined) {
+            trainees.push({
+                testName: testName,
+                className: className,
+                traineeName: key,
+                timeStarted: '',
+                timeCompleted: '',
+                result: 'FAIL',
+                topics: [],
+                attempts: 0,
+                totalScore: '0%'
+            });
+        }
+        else {
+            trainees.push({
+                testName: testName,
+                className: className,
+                traineeName: key,
+                timeStarted: value.timeStarted,
+                timeCompleted: value.timeCompleted,
+                result: value.result,
+                topics: value.topics,
+                attempts: value.attempts,
+                totalScore: value.totalScore
+            });
+        }
 
+    });  
+    let traineeResult = TraineeResult(trainees);
+    await traineeResult.save();
+    return trainees;
 }
 
 
 async function generateInstructorReport(testName, className) {
-    await generateTraineeReport(testName, className);
+    // await generateTraineeReport(testName, className);
     let results = {};
     const reports = await StudentReport.find({testName: testName}).sort({testDate: 'descending'});
     const students = await Class.findOne({className: className});
@@ -265,18 +314,19 @@ async function generateInstructorReport(testName, className) {
         }
     }
     results.topics = topic;
-    console.log(results);
     const testLog = new TestResult(results);
     await testLog.save();
     return results;
 }
 
 exports.fetchInstructorData = async(req, res) => {
-	const resultsObject = await fetchInstructorReport('Test One', "Class One");
+	const resultsObject = await fetchInstructorReport('Test One', 'Class One');
+    const traineesObject = await fetchTraineeReport('Test One', 'Class One');
 	const responseJSON = {};
 	console.log(resultsObject);
+    console.log(traineesObject);
 	responseJSON['results'] = resultsObject;
-	responseJSON['trainees'] = trainees;
+	responseJSON['trainees'] = traineesObject;
 	responseJSON['byTrainee'] = byTrainee;
 	responseJSON['byTopics'] = byTopics;
 	

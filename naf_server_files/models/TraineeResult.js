@@ -4,26 +4,36 @@ var ObjectId = Schema.Types.ObjectId
 
 var TraineeResultSchema = new Schema({
 
-    user: {                     
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+    testName: {
+        type: String
     },
 
-    testName: String,
+    className: {
+        type: String
+    },
+    traineeName: {
+        String
+    },
 
-    className: String,
+    timeStarted: {
+        type: String
+    },
 
-    traineeName: String,
+    timeCompleted: {
+        type: String
+    },
 
-    timeStarted: String,
+    attempts: {
+        type: Number
+    },
 
-    timeCompleted: String,
+    totalScore: {
+        type: String
+    },
 
-    attempts: String,
-
-    totalScore: String,
-
-    result: String,
+    result: {
+        type: String
+    },
 
     topics: [{
         label: String,
@@ -33,6 +43,6 @@ var TraineeResultSchema = new Schema({
 });
 
 
-var TraineeResult = mongoose.model('test_results', TraineeResultSchema);
+var TraineeResult = mongoose.model('trainee_results', TraineeResultSchema);
 
 module.exports = TraineeResult;

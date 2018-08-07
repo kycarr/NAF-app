@@ -84,9 +84,9 @@ exports.fetchStudentAnswers = async(req,res) => {
       responseObject['username'] = session.user.username;
       responseObject['testName'] = studentReport.testName;
 
-      const {testName, testScore, testScorePercentage, testResult, requirementsNotMetObject, topicValue, topicLabel} = studentReport;
+      const {testName, testScore, testScorePercentage, testResult, requirementsNotMetObject, topicValue, topicLabel, byTopic} = studentReport;
 
-      responseObject['reportingData'] = {testName, testScore, testScorePercentage, testResult, requirementsNotMetObject, topicValue, topicLabel};
+      responseObject['reportingData'] = {testName, testScore, testScorePercentage, testResult, requirementsNotMetObject, topicValue, topicLabel, byTopic};
 
 
 

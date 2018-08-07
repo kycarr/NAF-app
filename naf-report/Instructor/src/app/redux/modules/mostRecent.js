@@ -97,7 +97,7 @@ function requestInstructorData(time = moment().format()) {
   };
 }
 function receivedInstructorData(data, time = moment().format()) {
-  console.log(data.results);
+  console.log(data.trainees);
   return {
     type:       RECEIVED_INSTRUCTOR_DATA,
     isFetching: false,

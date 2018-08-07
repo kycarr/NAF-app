@@ -2,6 +2,7 @@
 import PropTypes          from 'prop-types';
 import React              from 'react';
 import WorkProgressPanel  from './workProgressPanel/WorkProgressPanel';
+import moment               from 'moment';
 import {
   Table,
   TableHeader,
@@ -81,11 +82,11 @@ class WorkProgress extends React.Component {
 function convertTraineesToArray(props) {
 
   let _content = props.trainees.map(ele => {
-  let array = [ele.traineeName, ele.timeStarted, ele.timeCompleted, ele.attempts, ele.totalScore, ele.result];
-  for(let topic in ele.topics) {
-    array.push(topic);
-  }
-  return array;
+    let array = [ele.traineeName, moment(ele.timeStarted).format('MM/DD/YYYY'),  moment(ele.timeCompleted).format('MM/DD/YYYY'), ele.attempts, ele.totalScore, ele.result];
+    for(let topic in ele.topics) {
+      array.push(topic);
+    }
+    return array;
   });
   return _content
 }
