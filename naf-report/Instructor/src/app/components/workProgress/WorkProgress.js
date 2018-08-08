@@ -11,7 +11,7 @@ import {
   TableCol
 }                         from '../../components';
 
-
+const header = ['Trainee Name', 'Time Started', 'Time Completed', '# Attempts', 'Total Score', 'Result'];
 
 class WorkProgress extends React.Component {
 
@@ -20,14 +20,20 @@ class WorkProgress extends React.Component {
     super(props);
     let _content = convertTraineesToArray(props);
     this.state = {
-      headers : ['Trainee Name', 'Time Started', 'Time Completed', '# Attempts', 'Total Score', 'Result', 'Topic 1', 'Topic 4','Topic 7'],
+      headers : header,
       content : _content
     };
   }
 
   componentWillReceiveProps(nextProps) {
+    if(nextProps.trainees.length === 0) return;
     let _content = convertTraineesToArray(nextProps);
+    let labels = nextProps.trainees[0].topics.map(ele => {
+        return ele.label;
+    });
+    let _headers = header.concat(labels);
     this.setState({
+      headers: _headers,
       content: _content
     });  
   }
@@ -82,10 +88,15 @@ class WorkProgress extends React.Component {
 function convertTraineesToArray(props) {
 
   let _content = props.trainees.map(ele => {
-    let array = [ele.traineeName, moment(ele.timeStarted).format('MM/DD/YYYY'),  moment(ele.timeCompleted).format('MM/DD/YYYY'), ele.attempts, ele.totalScore, ele.result];
-    for(let topic in ele.topics) {
-      array.push(topic);
-    }
+    let timeStarted = moment(ele.timeStarted).format('MM/DD/YYYY');
+    let timeCompleted = moment(ele.timeCompleted).format('MM/DD/YYYY');
+    let array = [ele.traineeName, 
+    timeStarted === "Invalid date" ? ele.timeStarted : timeStarted,  
+    timeCompleted === "Invalid date" ? ele.timeCompleted : timeCompleted, 
+    ele.attempts, ele.totalScore, ele.result];
+    ele.topics.forEach(topic => {
+        array.push(topic.score.toString() + ' / ' + topic.total.toString());
+    });
     return array;
   });
   return _content

@@ -76,7 +76,6 @@ const calculateTestResult = rawData => {
     for(let i=0; i<topicLabel.length; i++) {
       const currentTopic = topicLabel[i];
       //filter by topic here
-      console.log("?????????");
       const numPass = questionsArray.filter(question => question.topicName === currentTopic && question.pass === true).length;
       const numFail = questionsArray.filter(question => question.topicName === currentTopic && question.pass === false).length;
       const percentage = 100*(numPass/(numPass + numFail));

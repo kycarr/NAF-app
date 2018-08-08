@@ -14,7 +14,7 @@ var TraineeResultSchema = new Schema({
 
     traineeResult: [{
         traineeName: {
-            String
+            type: String
         },
 
         timeStarted: {

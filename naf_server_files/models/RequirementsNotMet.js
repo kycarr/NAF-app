@@ -4,27 +4,26 @@ var ObjectId = Schema.Types.ObjectId
 
 var RequirementsNotMetSchema = new Schema({
 
+    className: {
+        type: String
+    },
+    testName: {
+        type: String
+    },
     byTopic: [{
-        topic: String,
+        name: String,
         major: [String],
         minor: [String],
         critical: [String]
-        test:
     }],
-
     byTrainee: [{
-        user: {                     
-            type: Schema.Types.ObjectId,
-            ref: 'User'
-        },
+        name: String,
         major: [String],
         minor: [String],
         critical: [String]
-        test
     }]
 });
 
-
-var RequirementsNotMet = mongoose.model('test_results', RequirementsNotMetSchema);
+var RequirementsNotMet = mongoose.model('requirements_result', RequirementsNotMetSchema);
 
 module.exports = RequirementsNotMet;

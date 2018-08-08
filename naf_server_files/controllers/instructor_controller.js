@@ -187,8 +187,45 @@ async function fetchTraineeReport(testName, className) {
         return generateTraineeReport(testName, className);
     }
     else {
-        return report;
+        return report.traineeResult;
     }
+
+}
+
+
+async function fetchRequirementsReport(testName, className) {
+    const report = await TraineeResult.findOne({testName: testName, className: className});
+    console.log(report);
+    if(report === null) {
+        return generateTraineeReport(testName, className);
+    }
+    else {
+        return report.traineeResult;
+    }
+
+}
+
+
+export async function generateRequirementsReport(testName, className) {
+    const students = await Class.findOne({className: className});
+    const reports = await StudentReport.find({testName: testName}, 'user byTopic testDate').sort({testDate: 'descending'});
+    let byTopics = [];
+    let major = [];
+    let minor = [];
+    let critical = ['Daniel Yoon'];
+    reports.forEach(element => {
+
+        element.byTopic.forEach(topic => {
+            if(topic.percentage < 30) {
+                major.push(element.user);
+            }
+            else if(topic.percentage < 60) {
+                minor.push(element.user);
+            }
+        });
+    });
+    console.log(reports);
+    //byTopics:
 
 }
 
@@ -201,18 +238,37 @@ export async function generateTraineeReport(testName, className) {
     let trainees = [];
     let labels = reports[0].topicLabel;
     var myMap = new Map();
-
+    let noTopic = [];
+    let topicFlag = true;
     for(let i = 0; i < users.length; i++) {
         myMap.set(users[i].name, {});
     }
     for(let i = 0; i < reports.length; i++) {
         let user = reports[i].user;
         let ele = myMap.get(user);
+
         if(Object.keys(ele).length === 0) {
             let topics = [];
-            let topicValue = reports[i].topicValue;
-            for(let j = 0; j < topicValue.length; j++) {
-                topics.push({label: labels[j], score: 3, total: 5});
+            // let topicValue = reports[i].topicValue;
+            let byTopic = reports[i].byTopic;
+            for(let j = 0; j < labels.length; j++) {
+
+                let topicObject = byTopic.find(element => {
+                    if(labels[j] == element.topic) {
+                        return element;
+                    }
+                    else {
+                        return null;
+                    }
+                });
+                if(topicFlag) {
+                    noTopic.push({label: labels[j], score: 0, total: topicObject.correct + topicObject.incorrect});
+                }
+                topics.push({label: labels[j], score: topicObject.correct, total: topicObject.correct + topicObject.incorrect});
+                topics.sort(function (a, b) {
+                    if(a.label < b.label) return -1;
+                    else return 1;
+                });
             }
             myMap.set(user, {
                 timeStarted: reports[i].testDate.toString(), 
@@ -231,17 +287,21 @@ export async function generateTraineeReport(testName, className) {
             ele.attempts++;
             myMap.set(user, ele);
         }
+        topicFlag = false;
+        noTopic.sort(function (a, b) {
+            if(a.label < b.label) return -1;
+            else return 1;
+        });
     }
-
     myMap.forEach((value, key) => {
         if(value.result === undefined) {
             trainees.push({
 
                 traineeName: key,
-                timeStarted: '',
-                timeCompleted: '',
+                timeStarted: 'NOT COMPLETE',
+                timeCompleted: 'NOT COMPLETE',
                 result: 'FAIL',
-                topics: [],
+                topics: noTopic,
                 attempts: 0,
                 totalScore: '0%'
             });
@@ -294,12 +354,12 @@ async function generateInstructorReport(testName, className) {
         }
     }
 
-    results.average = (sum / testMap.length).toFixed(2) + "%";
+    results.average = Math.round(sum / testMap.length) + "%";
     results.dateCompleted = dateCompleted;
     results.inComplete = total - testMap.length;
     results.testName = testName;
     results.className = className;
-    results.pass = (pass * 100 / total).toFixed(2) + "%";
+    results.pass =  Math.round(pass * 100 / total) + "%";
     results.notStart = 0;
     results.finished = testMap.length;
 
@@ -327,8 +387,6 @@ exports.fetchInstructorData = async(req, res) => {
 	const resultsObject = await fetchInstructorReport('Test One', 'Class One');
     const traineesObject = await fetchTraineeReport('Test One', 'Class One');
 	const responseJSON = {};
-	console.log(resultsObject);
-    console.log(traineesObject);
 	responseJSON['results'] = resultsObject;
 	responseJSON['trainees'] = traineesObject;
 	responseJSON['byTrainee'] = byTrainee;

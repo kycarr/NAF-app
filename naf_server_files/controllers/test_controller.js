@@ -394,7 +394,8 @@ const populate_test = async (sessionId) => {
   // console.log(dbResultSave);
 
   console.log(dbResultSave);
-  StudentReport.findOneAndUpdate({session: sessionId}, {$set: dbResultSave})
+  StudentReport.findOneAndUpdate({session: sessionId}, {$set: dbResultSave},
+    { new: true, overwrite: true })
       .then(report => {console.log('answer report Successfully updated'); console.log(report);})
     .catch(err => console.log('Error in updating the answer report ' + err))
 
