@@ -227,6 +227,8 @@ exports.submit_section = async (req,res) => {
     res.status(200).json({msg: 'Submit data received: userId, sectionId, timeLeft'});
 }
 
+
+
 exports.finish_test = async (req,res) => {
   console.log("Inside finishTest route");
   console.log(req.body);
@@ -310,4 +312,92 @@ exports.finish_test = async (req,res) => {
   // answerResponse['reportingData'] = reportingData;
   console.log(userId + "has finished the test"); 
   res.status(200).end('Success Finish');
+}
+
+exports.update_test = async () => {
+  console.log("???");
+  const reports = await StudentReport.find();
+  for(let i = 0; i < reports.length; i++) {
+    await populate_test(reports[i].session);
+  }
+}
+
+const populate_test = async (sessionId) => {
+  console.log("Inside populate test route");
+  
+  //calculate and save the student test results 
+  const session = await Session.findById(sessionId).populate('user');
+  const task = await Task.findById(session.task).populate('test');
+  console.log(task);
+  let answersList = await Answer.find({session: sessionId, task: session.task});
+  const items = await Item.find({test: task.test});
+
+  const answerResponse = {};
+  answerResponse['user'] = session.user.name;
+  answerResponse['testDate'] = task.date;
+  answerResponse['questionResponses'] = {};
+  answerResponse['testName'] = task.test.testName;
+
+  for(let i=0; i<items.length;i++) {
+      const currentItem = items[i];
+      const topic = await Topic.findOne({id: currentItem.topicId});
+      let currentAnswer = answersList.filter(element => element.item.toString() === currentItem._id.toString());
+      let pass = false;
+
+      if(currentAnswer === undefined || currentAnswer.length === 0) {
+          currentAnswer ='' ;
+      } else {
+          pass = currentAnswer[0].pass;
+          currentAnswer = currentAnswer[0].answers;
+      }
+
+      let type = currentItem.type;
+      if(type == "Multiple_choice") {
+          type = currentItem.choiceType;
+      }
+      const correctAnswer = currentItem.correctAnswer;
+      const topic_id = currentItem.topicId;
+      const topicName = topic.name;
+      const questionText = currentItem.question;
+      const object = {
+        'question' : questionText,
+        'userProvidedAnswer' : currentAnswer,
+        'correctAnswer' : correctAnswer,
+        'type': type,
+        'topicName': topicName,
+        'pass': pass
+
+      } 
+          // answerResponse[i] = [currentAnswer, correctAnswer, type, topic_id];
+        answerResponse['questionResponses'][i] = object;
+  }
+  
+  answerResponse['userId'] = session.user._id;
+  const reportingData = calculateTestResult(answerResponse);
+  console.log('reportingData');
+  console.log(reportingData);
+  
+  task.score = reportingData['testScore'];
+  task.testResult = reportingData['testResult'];
+  task.save()
+    .then(task => console.log('Task Successfully saved'))
+    .catch(error => console.log('ERROR in saving task with updated score and result'));
+
+  const dbResultSave = {
+    ...reportingData,
+    session : session._id,
+    testDate: task.date,
+    user: session.user.name
+  };
+
+  console.log('dbResultSave');
+  console.log(dbResultSave);
+
+
+  StudentReport.findOneAndUpdate({session: sessionId}, dbResultSave)
+      .then(report => {console.log('answer report Successfully updated'); console.log(report);})
+    .catch(err => console.log('Error in updating the answer report ' + err))
+
+  
+  // answerResponse['reportingData'] = reportingData;
 }

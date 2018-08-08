@@ -4,7 +4,7 @@ const router = express.Router();
 const test_controller = require('../../controllers/test_controller');
 const fetch_answers_controller = require('../../controllers/fetch_answers_controller');
 const instructor_controller = require('../../controllers/instructor_controller');
-import {generateTraineeReport} from '../../controllers/instructor_controller';
+import {update_test} from '../../controllers/test_controller';
 const User = require('../../models/User');
 const Answer = require('../../models/Answer');
 const Session = require('../../models/Session');
@@ -178,8 +178,8 @@ const createDB = async () => {
     })
     .catch(err => console.log('Error finding instructor: ' + err));
 
+    update_test();
 
-    generateTraineeReport('Test One', "Class One");
 }
 
 //seed the database

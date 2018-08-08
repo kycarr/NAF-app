@@ -11,35 +11,39 @@ var TraineeResultSchema = new Schema({
     className: {
         type: String
     },
-    traineeName: {
-        String
-    },
 
-    timeStarted: {
-        type: String
-    },
+    traineeResult: [{
+        traineeName: {
+            String
+        },
 
-    timeCompleted: {
-        type: String
-    },
+        timeStarted: {
+            type: String
+        },
 
-    attempts: {
-        type: Number
-    },
+        timeCompleted: {
+            type: String
+        },
 
-    totalScore: {
-        type: String
-    },
+        attempts: {
+            type: Number
+        },
 
-    result: {
-        type: String
-    },
+        totalScore: {
+            type: String
+        },
 
-    topics: [{
-        label: String,
-        score: Number,
-        total: Number
+        result: {
+            type: String
+        },
+
+        topics: [{
+            label: String,
+            score: Number,
+            total: Number
+        }]
     }]
+
 });
 
 
