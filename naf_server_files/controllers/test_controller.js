@@ -328,7 +328,7 @@ const populate_test = async (sessionId) => {
   //calculate and save the student test results 
   const session = await Session.findById(sessionId).populate('user');
   const task = await Task.findById(session.task).populate('test');
-  console.log(task);
+  // console.log(task);
   let answersList = await Answer.find({session: sessionId, task: session.task});
   const items = await Item.find({test: task.test});
 
@@ -374,14 +374,14 @@ const populate_test = async (sessionId) => {
   
   answerResponse['userId'] = session.user._id;
   const reportingData = calculateTestResult(answerResponse);
-  console.log('reportingData');
-  console.log(reportingData);
+  // console.log('reportingData');
+  // console.log(reportingData);
   
-  task.score = reportingData['testScore'];
-  task.testResult = reportingData['testResult'];
-  task.save()
-    .then(task => console.log('Task Successfully saved'))
-    .catch(error => console.log('ERROR in saving task with updated score and result'));
+  // task.score = reportingData['testScore'];
+  // task.testResult = reportingData['testResult'];
+  // task.save()
+  //   .then(task => console.log('Task Successfully saved'))
+  //   .catch(error => console.log('ERROR in saving task with updated score and result'));
 
   const dbResultSave = {
     ...reportingData,
@@ -390,11 +390,11 @@ const populate_test = async (sessionId) => {
     user: session.user.name
   };
 
-  console.log('dbResultSave');
+  // console.log('dbResultSave');
+  // console.log(dbResultSave);
+
   console.log(dbResultSave);
-
-
-  StudentReport.findOneAndUpdate({session: sessionId}, dbResultSave)
+  StudentReport.findOneAndUpdate({session: sessionId}, dbResultSave, {overwrite: true})
       .then(report => {console.log('answer report Successfully updated'); console.log(report);})
     .catch(err => console.log('Error in updating the answer report ' + err))
 

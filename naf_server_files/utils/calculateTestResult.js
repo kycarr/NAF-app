@@ -1,7 +1,7 @@
 const calculateTestResult = rawData => {
 
   console.log('Calculating Test Result');
-  console.log(rawData);
+  // console.log(rawData);
     let correctness = [];
     let topicsScore = [];
     let topicsScoreP = [];
@@ -52,9 +52,10 @@ const calculateTestResult = rawData => {
     for(let key in topicsScoreP) {
       topicValue.push(100*(topicsScoreP[key]/topicValue[key]));
       topicLabel.push(key);
+      console.log(key);
     }
 
-    let byTopic= new Array(topicLabel.length);
+    let byTopic= [];
 
     let totalScore = correctness.length>1 ? Math.round(100*totalPass/correctness.length,1):0;
 
@@ -75,9 +76,12 @@ const calculateTestResult = rawData => {
     for(let i=0; i<topicLabel.length; i++) {
       const currentTopic = topicLabel[i];
       //filter by topic here
+      console.log("?????????");
       const numPass = questionsArray.filter(question => question.topicName === currentTopic && question.pass === true).length;
       const numFail = questionsArray.filter(question => question.topicName === currentTopic && question.pass === false).length;
       const percentage = 100*(numPass/(numPass + numFail));
+
+      console.log(byTopic);
       byTopic.push({
         topic: currentTopic,
         correct: numPass,
