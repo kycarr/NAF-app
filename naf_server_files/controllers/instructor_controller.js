@@ -15,7 +15,7 @@ const StudentReport = require('../models/StudentReport');
 const TestResult = require('../models/TestResult');
 const Class = require('../models/Class');
 const TraineeResult = require('../models/TraineeResult');
-
+const RequirementsNotMet = require('../models/RequirementsNotMet');
 /*
 const trainees = [
     {
@@ -209,22 +209,30 @@ async function fetchRequirementsReport(testName, className) {
 export async function generateRequirementsReport(testName, className) {
     const students = await Class.findOne({className: className});
     const reports = await StudentReport.find({testName: testName}, 'user byTopic testDate').sort({testDate: 'descending'});
+    
+    let byTopic = [];
+    let byTrainee = [];
 
-    let results = [];
     reports[0].byTopic.forEach(topic => {
-        results.push({name: topic.topic, major: [], minor: [], critical: ['Daniel Yoong']});
+        byTopic.push({name: topic.topic, major: [], minor: [], critical: ['Daniel Yoon']});
     });
-    results.sort(function (a, b) {
+    byTopic.sort(function (a, b) {
         if(a.name < b.name) return -1;
         else return 1;
     });
 //https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
-    let major = [];
-    let minor = [];
-    let critical = ['Daniel Yoon'];
+    let visited = [];
     for(let j = 0; j < reports.length; j++) {
         //sort first
         let element = reports[j];
+        
+        let index = visited.findIndex(ele => {
+          return ele.user === element.user;
+        });
+        //if there exist a record then any pass is a pass
+        if(index !== -1) {
+          continue;
+        }
 
         element.byTopic.sort(function (a, b) {
             if(a.topic < b.topic) return -1;
@@ -233,18 +241,76 @@ export async function generateRequirementsReport(testName, className) {
 
         for(let i = 0; i < element.byTopic.length; i++) {
             let topic = element.byTopic[i];
-            console.log(topic);
+            // console.log(topic);
             if(topic.percentage < 30) {
-                results[i].major.push(element.user);
+                byTopic[i].major.push(element.user);
             }
             else if(topic.percentage < 60) {
-                results[i].minor.push(element.user);
+                byTopic[i].minor.push(element.user);
             }
         }
-    }
-    console.log(results);
-    //byTopics:
 
+        visited.push(element);
+    }
+
+    for(let j = 0; j < reports.length; j++) {
+        let element = reports[j];
+        let found = byTrainee.find(ele => {
+
+          return ele.name === element.user;
+        });
+        if(found)
+            continue;
+
+        let major = [];
+        let minor = [];
+        let critical = [];
+        for(let i = 0; i < element.byTopic.length; i++) {
+            let topic = element.byTopic[i];
+            // console.log(topic);
+            if(topic.percentage < 30) {
+                major.push(topic.topic);
+            }
+            else if(topic.percentage < 60) {
+                minor.push(topic.topic);
+            }
+        }
+        byTrainee.push({name: element.user, major: major, minor: minor, critical: critical});
+
+    }   
+
+    byTrainee.sort(function (a, b) {
+        if(a.name < b.name) return -1;
+        else return 1;
+    });
+
+    byTopic.forEach(result => {
+        result.major.sort(function (a, b) {
+            if(a < b) return -1;
+            else return 1;
+        });
+        result.minor.sort(function (a, b) {
+            if(a < b) return -1;
+            else return 1;
+        });
+        result.critical.sort(function (a, b) {
+            if(a < b) return -1;
+            else return 1;
+        });
+    });
+
+    //Trainee:
+
+    let result = {
+        testName: testName,
+        className: className,
+        byTopic: byTopic,
+        byTrainee: byTrainee
+    }
+    console.log(result);
+    let requirements = RequirementsNotMet(result);
+    await requirements.save();
+    return result;
 }
 
 export async function generateTraineeReport(testName, className) {
