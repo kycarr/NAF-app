@@ -34,7 +34,8 @@ const initState = {
   isSubmitingAnswer: false,
   isAuthenticated: false,
   answerArray: [],
-  resultUrl: ""
+  resultUrl: "",
+  numAnsweredQuestions: 0
 };
 
 
@@ -138,6 +139,7 @@ function optionSelected(state, payload) {
   return Object.assign({}, state, {
       allQuestionsAnswered: numAnsweredQuestions === nextQuestionsArray.length,
       questionsArray: nextQuestionsArray,
+      numAnsweredQuestions: numAnsweredQuestions
   });
 }
 function optionSave(userId, taskId, sessionId, sectionId, questionId, answer) {
@@ -164,6 +166,7 @@ function questionAnswered(state, payload) {
   return Object.assign({}, state, {
     allQuestionsAnswered: numAnsweredQuestions === nextQuestionsArray.length,
     questionsArray: nextQuestionsArray,
+    numAnsweredQuestions: numAnsweredQuestions
   });
 }
 

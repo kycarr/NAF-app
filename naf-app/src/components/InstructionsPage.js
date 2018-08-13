@@ -11,15 +11,35 @@ import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
 import ToolbarLoginComponent from './ToolbarLogin';
 import { fetchQuestions } from '../actions'
 
+import compose from 'recompose/compose';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
 
 const buttonStyle = {
   textTransform: 'none',
   fontSize: '18px'
 };
 
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+});
+
 class Instructions extends Component {
     render() {
+
+        const {classes} = this.props;
+
         return (
+            <div className = {classes.root} >
             <div className="InstructionsPage">
                 <MuiThemeProvider>
                     <div>
@@ -29,27 +49,32 @@ class Instructions extends Component {
                                 <p className="instructions-text">
                                     <span style ={{fontSize:'24px', textAlign:'center'}}>Instructions</span>
                                 </p>
-				              	<p className="dialog-text">
-						          <span style ={{fontWeight : 'bold'}}>Course Name / Section Technical Administration</span> <br /><br />
-						          This test has two sections. <br /><br />
-						          You have exactly 15 minutes to complete Section 1; and 17 minutes for Section 2. <br /><br />
-						          Each section may have multiple pages, with each page containing a maximum of 10 questions. <br /><br />
-						          Click the bookmark <span><img src={imgBookmarkOff} alt="bookmarkOff"/></span> next to any question, answered or unanswered, as a reminder for yourself. The bookmarks will not be submitted nor will they be recorded or effect your test score. <br /><br />
-						          Use your mouse to scroll up or down to review previous questions. <br /><br />
-						          You can also click on any question in the Navigation bar to go to the respective question. <br /><br />
-						          You may not return to a section once you have moved on to the next section. <br /><br />
-						          You may hide the timer by clicking on the eye. <span><img src={eye} alt="eye"/></span> <br /><br />
-						          If you choose to hide the timer, it will reappear at the 2 minute warning. <br /><br />
-						          The timer will stop the test, if you have not finished in the allotted time. <br /><br />
-						          All your work is automatically saved and submitted when the timer stops the test. <br />
-						        </p>
+                     <Grid container spacing={12}>
+                       <Grid item sm={12} md={10}>
+    				             <p className="dialog-text">
+    						          <span style ={{fontWeight : 'bold'}}>Course Name / Section Technical Administration</span> <br /><br />
+    						          This test has two sections. <br /><br />
+    						          You have exactly 15 minutes to complete Section 1; and 17 minutes for Section 2. <br /><br />
+    						          Each section may have multiple pages, with each page containing a maximum of 10 questions. <br /><br />
+    						          Click the bookmark <span><img src={imgBookmarkOff} alt="bookmarkOff"/></span> next to any question, answered or unanswered, as a reminder for yourself. The bookmarks will not be submitted nor will they be recorded or effect your test score. <br /><br />
+    						          Use your mouse to scroll up or down to review previous questions. <br /><br />
+    						          You can also click on any question in the Navigation bar to go to the respective question. <br /><br />
+    						          You may not return to a section once you have moved on to the next section. <br /><br />
+    						          You may hide the timer by clicking on the eye. <span><img src={eye} alt="eye"/></span> <br /><br />
+    						          If you choose to hide the timer, it will reappear at the 2 minute warning. <br /><br />
+    						          The timer will stop the test, if you have not finished in the allotted time. <br /><br />
+    						          All your work is automatically saved and submitted when the timer stops the test. <br />
+    						        </p>
+                      </Grid>
+                    </Grid>
 						        <Link to={`/testPage`}>
 					            	<FlatButton className="instructions-button" label="Start Test" labelStyle={buttonStyle} onClick={() => this.props.fetchQuestions(this.props.userId)}/>
 					            </Link>
 				            </div>
-                        </div>
+                  </div>
                     </div>
                 </MuiThemeProvider>
+            </div>
             </div>
         );
     }
@@ -64,4 +89,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {fetchQuestions})(Instructions);
+export default compose(withStyles(styles),connect(mapStateToProps, {fetchQuestions}))(Instructions);

@@ -21,6 +21,8 @@ import Button from 'material-ui/FlatButton'
 import imgBookmarkOn from '../images/NAF_Icon_BookmarkOn.png';
 import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
 
+import MediaQuery from 'react-responsive';
+
 class TestQuestions extends Component {
 
   static renderVideo(videoURL) {
@@ -123,9 +125,9 @@ class TestQuestions extends Component {
         <div key={question.id} className="test-question" ref="questionNode5" id={"question" + question.id}>
 
           <span className = "image-bookmark" style={{float: 'left', marginRight: '10px'}} >
-            <img src = {question.bookmarked ? imgBookmarkOn : imgBookmarkOff} alt = "bookmark"
+            <MediaQuery minDeviceWidth={768} > <img src = {question.bookmarked ? imgBookmarkOn : imgBookmarkOff} alt = "bookmark"
               onClick = {() => this.props.changeBookmark(question.id)}/>
-            <span onClick = {() => this.props.changeBookmark(question.id)}> </span>
+              <span onClick = {() => this.props.changeBookmark(question.id)}> </span> </MediaQuery>
           </span>
           <span className="test-question-num"> {lineNum++} </span>
 

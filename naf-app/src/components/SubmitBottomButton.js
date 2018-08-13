@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import {Link} from "react-router-dom";
 import arrowUp from '../images/NAF_Icon_ArrowUp.png';
@@ -17,7 +18,7 @@ const buttonStyle = {
 
 const loginButtonStyle = {
   textTransform: 'none',
-  fontSize: '18px',
+  fontSize: '15px',
 };
 
  class SubmitBottomButton extends React.Component {
@@ -40,7 +41,7 @@ const loginButtonStyle = {
       duration: SCROLL_SPEED
     });
   }
-  
+
   togglePopupWarning() {
     this.setState({
       openWarning: !this.state.openWarning
@@ -87,7 +88,9 @@ const loginButtonStyle = {
       }
       return (
         <div>
-          <FlatButton className="nav-button" onClick={this.togglePopupWarning} label= {this.props.sectionNum + 1 === this.props.totalSectionNum ? "Finish Test" : "Submit Section"} id="submitBtn" labelStyle={buttonStyle}/>
+          {pageNum === totalPageNum - 1 ? (  <FlatButton className="nav-button" onClick={this.togglePopupWarning} label= {this.props.sectionNum + 1 === this.props.totalSectionNum ? "Finish Test"
+          : "Submit Section"} id="submitBtn" labelStyle={buttonStyle}/> ) : null}
+          {/* <FlatButton className="nav-button" onClick={this.togglePopupWarning} label= {this.props.sectionNum + 1 === this.props.totalSectionNum ? "Finish Test" : "Submit Section"} id="submitBtn" labelStyle={buttonStyle}/> */}
           <Dialog
             style = {{ fontFamily : 'Work Sans', textAlign : 'center' }}
             actions={warningButtons}
@@ -99,9 +102,14 @@ const loginButtonStyle = {
             <img className="image-warning" src={warning} alt="warning"/>
             <div className="dialog-title">Warning</div>
             <p className="dialog-text">
-              {this.props.allQuestionsAnswered ?
-                <span>You have completed this section. If you proceed, you will not be able to return to this section. <br /><br /></span> :
-                <span><b>You have unanswered questions.</b> If you submit, you will not be able to return to this section. Any unanswered questions will be graded as incomplete.<br /><br /></span>}
+            {this.props.allQuestionsAnswered ?
+              <span>You have completed this section. <br />You have answered {this.props.numAnsweredQuestions} out of {this.props.allQuestions.length} questions in this section.
+               If you proceed, you will not be able to return to this section. <br /><br /></span> :
+
+
+              <span>You have not completed this section. You have <span style={{'color': 'red'}}> <b>{this.props.allQuestions.length - this.props.numAnsweredQuestions} unanswered </b>  {this.props.allQuestions.length - this.props.numAnsweredQuestions === 1 ? 'question' : 'questions' } </span>
+               out of {this.props.allQuestions.length} questions.
+               <br />If you submit, you will not be able to return to this section. Any unanswered questions will be graded as incomplete.<br /><br /></span>}
             </p>
           </Dialog>
       </div>
@@ -127,7 +135,8 @@ function mapStateToProps(state) {
     allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered,
     isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions,
     userId: state.auth.userId,
-    sessionId: state.QuestionsOnAPage.sessionId
+    sessionId: state.QuestionsOnAPage.sessionId,
+    numAnsweredQuestions: state.QuestionsOnAPage.numAnsweredQuestions
   }
 }
 

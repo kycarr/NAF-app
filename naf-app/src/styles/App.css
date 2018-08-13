@@ -6,6 +6,100 @@
 button {
 	font-family: 'Work Sans', sans-serif !important;
 }
+/* ---------------- MEDIA-QUERIES FOR LOGIN PAGE ----------------- */
+@media screen and (max-width: 480px) {
+  .intro-instructions {
+    font-size: 1em;
+  }
+  .app-logo{
+    width: 50vw;
+  }
+  .app-logo-small {
+    width: 30vw;
+  }
+  .card-instructions p.header{
+    font-size: 1em;
+  }
+  .toolbar-text{
+    font-size: 15px !important;
+    margin-right: 15px !important;
+  }
+  .icon-user {
+    height: auto;
+    width: 25px;
+  }
+
+  .image-type {
+    height: 45vw !important;
+    margin: 5px auto;
+  }
+
+  .card-instructions p {
+      font-size: 1em;
+  }
+
+  .test-question-question {
+  			margin-left: 24px;
+        font-size: 15px;
+  }
+  .reviewtest-box {
+    margin: 100px auto !important;
+  }
+
+  .toolbar-button-instructions {
+    height: 10px;
+    width: auto;
+  }
+
+  .toolbar-button-exit {
+    margin-left: 15px !important;
+
+  }
+
+  .toolbar-timer {
+    font-size: 15px !important;
+  }
+
+}
+
+@media screen and (min-width: 481px ) and (max-width: 769px) {
+  .intro-instructions {
+    font-size: 1.4em;
+  }
+  .card-instructions p.header{
+      font-size: 1.4em;
+  }
+  .app-logo-small {
+    width: 32vw;
+  }
+
+    .image-type {
+      height: 30vw !important;
+      margin: 5px auto;
+    }
+
+  .card-instructions p {
+      font-size: 1.2em;
+  }
+}
+
+@media screen and (min-width: 770px ) {
+  .intro-instructions {
+    font-size: 1.8em;
+  }
+  .card-instructions p.header{
+      font-size: 1.6em;
+  }
+  .card-instructions p {
+      font-size: 1.4em;
+  }
+  .image-type {
+    height: 20vw !important;
+    margin: 5px auto;
+  }
+}
+
+/* ---------------------------------------------- */
 
 /* ---------------- INTRO-PAGE ----------------- */
 
@@ -14,6 +108,7 @@ button {
 	padding : 6vh 0vw 2vh 0vw !important;
 	margin: 0px auto !important;
 	text-align: center !important;
+  height: auto;
 }
 
 .intro-instructions {
@@ -23,19 +118,21 @@ button {
 	border-radius: 8px !important;
 	padding: 6vh 4vw !important;
 	margin: 0px auto !important;
-  font-size: 1.7em;
   text-align: justify;
   text-justify: inter-word;
   margin-bottom: 20px;
 }
+
+
+
 
 .outter-box {
 	text-align: center !important;
 }
 
 .card-instructions {
-	width: 40vw !important;
-	height: 240px !important;
+	width: 45vw !important;
+	height: 100% !important;
 	display: inline-block !important;
 	vertical-align: middle !important;
 	background-color: rgba(83, 100, 108, 0.3) !important;
@@ -52,13 +149,8 @@ button {
 }
 
 .card-instructions p {
-	font-size: 20px !important;
 	margin: 0px auto !important;
   color: #000;
-}
-
-.card-instructions p.header{
-	font-size: 25px !important;
 }
 
 .intro-buttons-div {
@@ -95,20 +187,18 @@ button {
 /* ---------------- INSTRUCTIONS-PAGE ----------------- */
 
 .instructions-box {
-	/*background-color: #FFFFFF !important;*/
-	background-color: rgba(256, 256, 256, 0.4) !important;
-	color: #000000 !important;
-	border-radius: 8px !important;
-	padding: 20px 20px !important;
-	margin: 100px 20vw 20px 20vw !important;
-	text-align: center !important;
+	background-color: rgba(256, 256, 256, 0.4);
+	color: #000;
+	border-radius: 8px;
+	padding: 20px 20px;
+	margin: 100px 2vw 20px 2vw;
+	text-align: center;
 }
 
 .dialog-text {
-	color: #000000 !important;
+	color: #000;
 	font-family: 'Work Sans', sans-serif !important;
-	font-size: 16px !important;
-	margin: 15px 30px !important;
+	font-size: 16px;
 	text-align: justify;
 }
 
@@ -131,10 +221,12 @@ button {
 
 .logout-button {
     color: #FFFFFF !important;
-    margin-right: 20px !important;
+    margin-right: 5px !important;
     background-color: #204252 !important;
-	font-weight: 700 !important;
+	  font-weight: 700 !important;
     border-radius: 8px !important;
+    padding: 0px !important;
+
 }
 
 /* ---------------- REVIEWTEST-PAGE ----------------- */
@@ -153,21 +245,23 @@ button {
 	color: #000000 !important;
 	border-radius: 8px !important;
 	padding: 20px 20px !important;
-	margin: 100px 20vw 20px 20vw !important;
+	margin: 100px 20vw 20px 20vw;
 	text-align: center !important;
 }
 	/* ---------------- TOOLBAR-LOGIN ----------------- */
 
 	.app-logo-small {
-		margin: 0px 20px !important;
+		margin: 0px 20px;
+    height: auto;
 	}
 
 	.toolbar-text {
 		display: inline-block !important;
 		color: #FFFFFF !important;
-		font-size: 18px !important;
-		margin: 0px 10px;
 		font-family: 'Work Sans', sans-serif !important;
+    font-size: 20px;
+    margin-right: 20px;
+
 	}
 
 	.icon-user {
@@ -181,22 +275,26 @@ button {
 	/* ---------------- TOOLBAR ----------------- */
 
 	.toolbar {
-		padding: 0px 0px !important;
-	  	width: 100% !important;
-	    position: fixed !important;
+		  padding: 0px 0px;
+	  	width: 100%;
+	    position: fixed;
 	  	background: linear-gradient(to right, #182E3B , #54707B) !important;
-	    z-index: 1 !important;
-	    overflow-x: hidden !important;
+	    z-index: 1;
+	    overflow-x: hidden;
 	}
 
+    .toolbar-eye {
+
+    }
+
 		.toolbar-time {
-			margin: 0 auto !important;
-			min-width: 350px;
-		    justify-content: center !important;
+			/* margin: 0 auto !important; */
+		  justify-content: flex-start !important;
+      font-size: 10px;
 		}
 
 		.toolbar-fixed-width-div {
-			min-width: 350px !important;
+			/*min-width: 350px !important;*/
 		}
 
 			.toolbar-title {
@@ -209,9 +307,9 @@ button {
 			.toolbar-timer {
 				display: inline-block !important;
 				color: #FFFFFF !important;
-				min-width: 150px !important;
-				padding: 0px 10px !important;
-				font-size: 20px !important;
+				/* min-width: 150px !important; */
+				padding: 0px 5px !important;
+				font-size: 20px;
 				font-family: 'Work Sans', sans-serif !important;
 				letter-spacing: 1.6px !important;
 			}
@@ -226,25 +324,20 @@ button {
 				letter-spacing: 1.6px !important;
 			}
 
-		.toolbar-options {
-			position: absolute !important;
-			width: 250px !important;
-	    	right: 75px !important;
-		}
-
 		.toolbar-button-instructions {
-			margin: 0px 0px !important;
 			background-color: #1B4355 !important;
 			color: #FFFFFF !important;
-		    border-radius: 8px !important;
+		  border-radius: 8px !important;
+
 		}
 
 		.toolbar-button-exit {
 			background-color: #1B4355 !important;
 			color: #FFFFFF !important;
-		    border-radius: 8px !important;
+		  border-radius: 8px !important;
 			margin-right: 0px !important;
-			margin-left: 98px !important;
+      margin-left: 60px;
+
 		}
 
 		.image-warning {
@@ -277,7 +370,7 @@ button {
 	.nav-component {
 		/*height: 85vh !important;*/
 	    /*padding: 15px 60px 0px 0px !important;*/
-	    width: 250px !important;
+	    width: 200px !important;
 	    position: fixed !important;
 	    z-index: 1 !important;
 	    top: 70px !important;
@@ -296,14 +389,15 @@ button {
 
 		.nav-button {
 			position: absolute;
-			margin: 10px auto !important;
-		    color: #FFFFFF !important;
-		    background-color: #53646C !important;
-		    border-radius: 8px !important;
+			margin: 5px auto !important;
+		  color: #FFFFFF !important;
+		  background-color: #53646C !important;
+		  border-radius: 8px !important;
+      min-width: 50px;
 		}
 
 			.nav-button .image {
-				margin-left : 15px !important;
+				margin-left : 1px;
 			}
 
 			.image-bookmark {
@@ -412,7 +506,7 @@ button {
 			.test-question {
 				margin: 50px auto !important;
 				padding: 0px 10px !important;
-				font-size: 18px !important;
+				font-size: 18px;
 				font-weight: bold !important;
 				text-align: left !important;
 			}
@@ -420,17 +514,17 @@ button {
 			.test-question-num {
 				font-size: 16px;
 				float: left !important;
-			    width: 26px !important;
-			    height: 26px !important;
-			    background-color: #1B4355 !important;
-			    color: #FFFFFF !important;
-			    border-radius: 13px !important;
-			    border: 1px solid #FFFFFF !important;
-			    text-align: center !important;
+			  width: 26px !important;
+			  height: 26px !important;
+			  background-color: #1B4355 !important;
+			  color: #FFFFFF !important;
+			  border-radius: 13px !important;
+			  border: 1px solid #FFFFFF !important;
+			  text-align: center !important;
 			}
 
 			.test-question-question {
-				margin-left: 32px !important;
+				margin-left: 32px;
         font-size: 18px;
 			}
 
@@ -512,8 +606,6 @@ button {
 			.image-type {
 				display: flex !important;
 				justify-content: center;
-				height: 400px !important;
-				margin: 10px auto !important;
 			}
 
 			.text-field {

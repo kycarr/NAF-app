@@ -180,7 +180,6 @@ const createDB = async () => {
     .catch(err => console.log('Error finding instructor: ' + err));
 
     // update_test();
-    generateRequirementsReport('Test One', 'Class One');
 }
 
 //seed the database

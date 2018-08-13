@@ -18,10 +18,8 @@ import NAF_Logo_Small from '../images/NAF_Logo_Small.png';
 import NAF_Icon_User from '../images/NAF_Icon_User.png';
 import {TAF_SYMBOL} from '../constants';
 
-const buttonStyle = {
-  textTransform: 'none',
-  fontSize: '18px'
-};
+import MediaQuery from 'react-responsive';
+
 
 class ToolbarLoginComponent extends Component {
 
@@ -30,19 +28,23 @@ class ToolbarLoginComponent extends Component {
 		return (
 			<MuiThemeProvider>
   			<Toolbar className="toolbar">
+
   				<ToolbarGroup>
-  					<img className="app-logo-small" src={TAF_SYMBOL ? TAF_Logo_Small : NAF_Logo_Small} alt="app_Logo" />
-  					<div className="toolbar-text">
+            <MediaQuery minDeviceWidth={768} >
+  					     <img className="app-logo-small" src={TAF_SYMBOL ? TAF_Logo_Small : NAF_Logo_Small} alt="app_Logo" />
+            </MediaQuery >
+  					<div style = {{marginLeft: '20px'}} className="toolbar-text">
   						Rate : FC
   					</div>
   				</ToolbarGroup>
+
   				<ToolbarGroup>
   					<div className="toolbar-text">
   						{this.props.name}
   					</div>
   					<img className="icon-user" src={NAF_Icon_User} alt="NAF_Logo" />
   					<Link to={`/`}>
-  				    	<FlatButton className="logout-button" label="Logout" labelStyle={buttonStyle} onClick={this.props.resetToDefaultState}/>
+  				    	<FlatButton className="logout-button" label="Log out" labelStyle={{padding: '0px'}} onClick={this.props.resetToDefaultState}/>
   				    </Link>
   				</ToolbarGroup>
   			</Toolbar>

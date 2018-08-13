@@ -15,7 +15,7 @@ class RequirementsNotMet extends React.Component {
 			<div>
 			 		<li ><b>{element.name} </b></li>
 			 		<ul className="inner-list">
-	  			 		<li>- Needs Major Remediation({element.major.length}) </li>
+	  			 		<li>- Needs Major Remediation ({element.major.length}) </li>
 	  			 			<ul>
 	  			 				{
 	  			 					element.major.map((ele, i, arr) => {
@@ -26,7 +26,7 @@ class RequirementsNotMet extends React.Component {
 	  			 					})
 	  			 				}
 	  			 			</ul>
-				 		<li>- Needs Minor Remediation({element.minor.length}) </li>
+				 		<li>- Needs Minor Remediation ({element.minor.length}) </li>
 				 			<ul>
 	  			 				{
 	  			 					element.minor.map((ele, i, arr) => {
@@ -37,7 +37,7 @@ class RequirementsNotMet extends React.Component {
 	  			 					})
 	  			 				}
 				 			</ul>
-						<li style={{color:'red'}}>- Critical Question Errors({element.critical.length})</li>
+						<li>- Critical Question Errors ({element.critical.length})</li>
 							<ul>
 	  			 				{
 	  			 					element.critical.map((ele, i, arr) => {

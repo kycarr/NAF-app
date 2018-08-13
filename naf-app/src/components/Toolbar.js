@@ -4,6 +4,7 @@ import {resetToDefaultState} from '../actions'
 
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import {Link} from "react-router-dom";
@@ -16,10 +17,11 @@ import warning from '../images/NAF_Icon_Warning.png';
 import {MIN_TIME, TOTAL_TIME, SCROLL_SPEED} from '../constants';
 import scrollTo from "scroll-to";
 
+import MediaQuery from 'react-responsive';
 
 const buttonStyle = {
   textTransform: 'none',
-  fontSize: '18px'
+  fontSize: '16px'
 };
 
 class ToolbarComponent extends React.Component {
@@ -144,27 +146,38 @@ class ToolbarComponent extends React.Component {
 
     return (
       <div>
-        <Toolbar className="toolbar">
-          <ToolbarGroup className="col-lg-1">
-          </ToolbarGroup>
-          <ToolbarGroup className="toolbar-time col-lg-8">
+        <Toolbar className="toolbar row">
+
+
+
+          <ToolbarGroup className="toolbar-time ">
             <IconButton className="toolbar-eye" onClick={this.setTimerState}>
               <img src={this.state.showTimer ? eye : closeEye} alt="eye"/>
             </IconButton>
             {this.state.showTimer ?
               <div className="toolbar-fixed-width-div">
-                <span className="toolbar-title">Time Remaining :</span>
+                <MediaQuery minDeviceWidth={768} >
+                  <span className="toolbar-title">Time Remaining :</span>
+                </MediaQuery>
                 <div className={this.state.seconds < MIN_TIME ? "toolbar-timer-min-time" : "toolbar-timer"} id="toolbar-time">
-                  {this.state.time.h >= 10 ? "" : "0"}{this.state.time.h}:{this.state.time.m >= 10 ? "" : "0"}{this.state.time.m}:{this.state.time.s >= 10 ? "" : "0"}{this.state.time.s}</div>
+                  {this.state.time.h >= 10 ? "" : "0"}{this.state.time.h}:{this.state.time.m >= 10 ? "" : "0"}{this.state.time.m}:{this.state.time.s >= 10 ? "" : "0"}{this.state.time.s}
+                </div>
               </div>
-              : <div className="toolbar-fixed-width-div"></div>}
+              :
+              <div className="toolbar-fixed-width-div">
+
+              </div>
+            }
           </ToolbarGroup>
-          <ToolbarGroup className="col-lg-3">
+
+          <ToolbarGroup className="">
             <div className="toolbar-options">
-              <FlatButton style={{minWidth : '40px'}} className="toolbar-button-instructions" onClick={this.togglePopup} label="?"
-                          labelStyle={buttonStyle}/>
-              <FlatButton className="toolbar-button-exit" onClick={this.togglePopupWarning} label="Exit Test"
-                          labelStyle={buttonStyle}/>
+
+              <RaisedButton style={{minWidth : '20px'}} className="toolbar-button-instructions" onClick={this.togglePopup} label="?"
+                            labelStyle={buttonStyle} />
+
+              <RaisedButton className="toolbar-button-exit" onClick={this.togglePopupWarning} label="Exit Test"
+                          labelStyle={buttonStyle} />
             </div>
           </ToolbarGroup>
         </Toolbar>
@@ -182,9 +195,10 @@ class ToolbarComponent extends React.Component {
           This test has two sections. <br /><br />
           You have exactly 15 minutes to complete Section 1; and 5 minutes for Section 2. <br /><br />
           Each section may have multiple pages, with each page containing a maximum of 10 questions. <br /><br />
-          Click the bookmark <span><img src={imgBookmarkOff} alt="bookmarkOff"/></span> next to any question, answered or unanswered, as a reminder for yourself. The bookmarks will not be submitted nor will they be recorded or effect your test score. <br /><br />
           Use your mouse to scroll up or down to review previous questions. <br /><br />
-          You can also click on any question in the Navigation bar to go to the respective question. <br /><br />
+          <MediaQuery minDeviceWidth={768}>
+            <span>You can also click on any question in the Navigation bar to go to the respective question. <br /><br /> </span>
+          </MediaQuery>
           You may not return to a section once you have moved on to the next section. <br /><br />
           You may hide the timer by clicking on the eye <span><img src={eye} alt="eye"/></span> <br /><br />
           If you choose to hide the timer, it will reappear at the 2 minute warning. <br /><br />

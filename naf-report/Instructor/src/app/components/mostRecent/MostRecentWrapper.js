@@ -20,13 +20,14 @@ import $ from 'jquery';
 import Collapsible from 'react-collapsible';
 import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import ctBarLabels from './ChartistUtils.js';
 const graphLabelName = {
   'marginLeft' : '22px',
   'fontWeight' : 'bold',
   'fontSize' : '1.05em'
 }
 const graphLabelResults = {
-  'marginLeft': '42%',
+  'marginLeft': '32%',
   'fontWeight': 'bold',
   'fontSize': '1.05em'
 }
@@ -40,7 +41,7 @@ class MostRecentWrapper extends React.Component {
 			return ele.label;
 		});
 		let leftSeries = topics.map(ele => {
-			return -ele.fail;
+			return ele.fail;
 		});
 		let rightSeries = topics.map(ele => {
 			return ele.pass;
@@ -51,19 +52,21 @@ class MostRecentWrapper extends React.Component {
 			heatData:null,
 			data: {labels: labels, series: series},
 			options : {
-				seriesBarDistance: 0,
-				reverseData: true,
-				horizontalBars: true,
+				seriesBarDistance: 40,
+				axisY: {
+					onlyInteger: true
+				},
 				axisX: {
-				 offset: 70,
 				 onlyInteger: true,
 				labelInterpolationFnc: function(value) {
-					return Math.abs(value) ;
+					return value;
 					}
 				},
-				height: '350px'
+				height: '350px',
+				plugins: [ ctBarLabels()]
 			}
 		};
+
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -72,12 +75,12 @@ class MostRecentWrapper extends React.Component {
 			return ele.label;
 		});
 		let leftSeries = topics.map(ele => {
-			return -ele.fail;
+			return ele.fail;
 		});
 		let rightSeries = topics.map(ele => {
 			return ele.pass;
 		});
-		let series = [leftSeries, rightSeries];
+		let series = [rightSeries, leftSeries];
 		this.setState({
 			data: {labels: labels, series: series}
 		});
@@ -122,8 +125,8 @@ class MostRecentWrapper extends React.Component {
 					<div className="row">
 					<Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i>Pass/Fail by Topics</div> </div>}>
 		              	<div style={{marginTop: '40px', marginBottom: '30px'}}>
-		              		<span style={graphLabelName} > Name </span>
-          					<span style={graphLabelResults} >Pass/Fail </span>
+		              		<span style={graphLabelName} > # Students </span>
+          					<span style={graphLabelResults} >Green = Pass / Red = Fail </span>
 						</div>
 						<div className="col-md-10 horizontalbar-div">
 						 <ChartistGraph className={'ct-octave'} data={this.state.data} options={this.state.options} type={'Bar'} redraw={'true'} responsive={'true'}/>

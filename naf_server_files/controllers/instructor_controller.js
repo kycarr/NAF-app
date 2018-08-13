@@ -194,13 +194,13 @@ async function fetchTraineeReport(testName, className) {
 
 
 async function fetchRequirementsReport(testName, className) {
-    const report = await TraineeResult.findOne({testName: testName, className: className});
-    console.log(report);
+    const report = await RequirementsNotMet.findOne({testName: testName, className: className});
+    // console.log(report);
     if(report === null) {
-        return generateTraineeReport(testName, className);
+        return generateRequirementsReport(testName, className);
     }
     else {
-        return report.traineeResult;
+        return report;
     }
 
 }
@@ -214,7 +214,7 @@ export async function generateRequirementsReport(testName, className) {
     let byTrainee = [];
 
     reports[0].byTopic.forEach(topic => {
-        byTopic.push({name: topic.topic, major: [], minor: [], critical: ['Daniel Yoon']});
+        byTopic.push({name: topic.topic, major: [], minor: [], critical: []});
     });
     byTopic.sort(function (a, b) {
         if(a.name < b.name) return -1;
@@ -307,7 +307,7 @@ export async function generateRequirementsReport(testName, className) {
         byTopic: byTopic,
         byTrainee: byTrainee
     }
-    console.log(result);
+    // console.log(result);
     let requirements = RequirementsNotMet(result);
     await requirements.save();
     return result;
@@ -470,11 +470,12 @@ async function generateInstructorReport(testName, className) {
 exports.fetchInstructorData = async(req, res) => {
 	const resultsObject = await fetchInstructorReport('Test One', 'Class One');
     const traineesObject = await fetchTraineeReport('Test One', 'Class One');
+    const requirementsObeject = await fetchRequirementsReport('Test One', 'Class One');
 	const responseJSON = {};
 	responseJSON['results'] = resultsObject;
 	responseJSON['trainees'] = traineesObject;
-	responseJSON['byTrainee'] = byTrainee;
-	responseJSON['byTopics'] = byTopics;
+	responseJSON['byTrainee'] = requirementsObeject.byTrainee;
+	responseJSON['byTopics'] = requirementsObeject.byTopic;
 	
 	res.json(responseJSON);
 

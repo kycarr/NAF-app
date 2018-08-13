@@ -14,15 +14,19 @@ import warning from '../images/NAF_Icon_Warning.png';
 import '../styles/App.css';
 import {NUM_QUESTIONS_ON_A_PAGE, SCROLL_SPEED} from '../constants';
 import {goToPage, goToSection, resetToDefaultState, submitSectionAnswers, sendTestFinishAction} from '../actions';
-import scrollTo from "scroll-to";
+import scrollTo from 'scroll-to';
+
+import MediaQuery from 'react-responsive';
+
+
 const buttonStyle = {
   textTransform: 'none',
-  fontSize: '18px'
+  fontSize: '14px'
 };
 
 const loginButtonStyle = {
   textTransform: 'none',
-  fontSize: '18px',
+  fontSize: '14px',
 };
 
 class NavbarComponent extends Component {
@@ -83,9 +87,7 @@ class NavbarComponent extends Component {
   }
 
   onClickFinishTest() {
-    console.log("????????");
     this.props.sendTestFinishAction(this.props.userId, this.props.sessionId, this.props.sectionNum, NavbarComponent.getToolbarTimer());
-    // this.props.resetToDefaultState();
     this.togglePopupWarning();
     scrollTo(0, 0, {
       duration: SCROLL_SPEED
@@ -94,6 +96,7 @@ class NavbarComponent extends Component {
 
 
   render() {
+
     if(this.props.isFetchingQuestions) {
       return (<div> </div>);
     }
@@ -117,6 +120,7 @@ class NavbarComponent extends Component {
       pageNumArray.push(i);
     }
     return (
+      <MediaQuery minDeviceWidth={768}>
       <div>
       <div className="nav-component">
         <div className="nav-header">
@@ -153,8 +157,8 @@ class NavbarComponent extends Component {
           </FlatButton>
 
           <div>
-          {pageNum === totalPageNum - 1 ? (  <FlatButton className="nav-button" onClick={this.togglePopupWarning} label= {this.props.sectionNum + 1 === this.props.totalSectionNum ? "Finish Test"
-            : "Submit Section"} id="submitBtn" labelStyle={buttonStyle}/> ) : null}
+          {/*{pageNum === totalPageNum - 1 ? (  <FlatButton className="nav-button" onClick={this.togglePopupWarning} label= {this.props.sectionNum + 1 === this.props.totalSectionNum ? "Finish Test"
+            : "Submit Section"} id="submitBtn" labelStyle={buttonStyle}/> ) : null} */}
           </div>
 
         </div>
@@ -170,13 +174,21 @@ class NavbarComponent extends Component {
         <img className="image-warning" src={warning} alt="warning"/>
         <div className="dialog-title">Warning</div>
         <p className="dialog-text">
+
           {this.props.allQuestionsAnswered ?
-            <span>You have completed this section. If you proceed, you will not be able to return to this section. <br /><br /></span> :
-            <span><b>You have unanswered questions.</b> If you submit, you will not be able to return to this section. Any unanswered questions will be graded as incomplete.<br /><br /></span>}
+            <span>You have completed this section. <br />You have answered {this.props.numAnsweredQuestions} out of {this.props.allQuestions.length} questions in this section.
+             If you proceed, you will not be able to return to this section. <br /><br /></span> :
+
+
+            <span>You have not completed this section. You have <span style={{'color': 'red'}}> <b>{this.props.allQuestions.length - this.props.numAnsweredQuestions} unanswered </b>  {this.props.allQuestions.length - this.props.numAnsweredQuestions === 1 ? 'question' : 'questions' } </span>
+             out of {this.props.allQuestions.length} questions.
+             <br />If you submit, you will not be able to return to this section. Any unanswered questions will be graded as incomplete.<br /><br /></span>}
         </p>
       </Dialog>
       </div>
+      </MediaQuery>
     )
+
   }
 }
 
@@ -189,7 +201,8 @@ function mapStateToProps(state) {
     allQuestionsAnswered: state.QuestionsOnAPage.allQuestionsAnswered,
     isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions,
     userId: state.auth.userId,
-    sessionId: state.QuestionsOnAPage.sessionId
+    sessionId: state.QuestionsOnAPage.sessionId,
+    numAnsweredQuestions: state.QuestionsOnAPage.numAnsweredQuestions
   }
 }
 
