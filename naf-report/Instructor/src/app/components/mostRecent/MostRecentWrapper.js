@@ -80,7 +80,7 @@ class MostRecentWrapper extends React.Component {
 		let rightSeries = topics.map(ele => {
 			return ele.pass;
 		});
-		let series = [rightSeries, leftSeries];
+		let series = [leftSeries, rightSeries];
 		this.setState({
 			data: {labels: labels, series: series}
 		});

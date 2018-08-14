@@ -114,6 +114,7 @@ class Home extends React.Component {
 		this.selectModule = this.selectModule.bind(this);
 		this.openNewTab = this.openNewTab.bind(this);
 		this.state = {
+			heatmapdata:[],
 			key: 1,
 			heatData:null,
 			data: {
@@ -156,14 +157,57 @@ class Home extends React.Component {
 		fetchEarningGraphDataIfNeeded();
 		fetchTeamMatesDataIfNeeded();
 		fetchInstructorDataIfNeeded();
+		 $('.heatmap-div div[title]').each(function(i, obj) {
+	  if($(obj)[0].title.trim() < 20 ) {
+	  	$(obj)[0]['style'].background='red';
+	  	$(obj)[0]['style'].opacity='1';
+	  }
+	  else if($(obj)[0].title.trim() > 20  && $(obj)[0].title < 50) {
+	  	$(obj)[0]['style'].background='yellow';
+	  	$(obj)[0]['style'].opacity='1';
+	  }
+	  else if($(obj)[0].title.trim() > 50 ) {
+	  	$(obj)[0]['style'].background='green';
+	  	$(obj)[0]['style'].opacity='1';
+	  }
+      if(!isNaN($(obj)[0].title)) {
+      console.log('obj' + obj);
+      
+  }
+});
+	const xLabels = new Array(44).fill(0).map((_, i) => `Topic ${i+1}`);
+	const yLabels = ['Class 9', 'Class 10', 'Class 13', 'Class 5', 'Class 6', 'Class 7', 'Class 3', 'Class 2', 'Class 8', 'Class 11'];
+	const data = new Array(yLabels.length)
+			.fill(0)
+			.map(() => new Array(xLabels.length).fill(0).map(() => Math.floor(Math.random() * 100)));
+			
+	  this.setState({'heatmapdata':data});
 	}
 
 	componentWillUnmount() {
 		const { actions: { leaveHome } } = this.props;
 		leaveHome();
 	}
+
 	componentDidUpdate() {
-	}
+	 $('.heatmap-div div[title]').each(function(i, obj) {
+	  if($(obj)[0].title.trim() < 20 ) {
+	  	$(obj)[0]['style'].background='red';
+	  	$(obj)[0]['style'].opacity='1';
+	  }
+	  else if($(obj)[0].title.trim() > 20  && $(obj)[0].title < 50) {
+	  	$(obj)[0]['style'].background='yellow';
+	  	$(obj)[0]['style'].opacity='1';
+	  }
+	  else if($(obj)[0].title.trim() > 50 ) {
+	  	$(obj)[0]['style'].background='green';
+	  	$(obj)[0]['style'].opacity='1';
+	  }
+      if(!isNaN($(obj)[0].title)) {
+      console.log('obj' + obj);
+  }
+});
+}
 	handleSelect(key) {
 		const data = this.state.data;
 		const options = this.state.options;
@@ -176,7 +220,16 @@ class Home extends React.Component {
 			tabs: [...prevState.tabs, {id: Math.random()}]
 		}));
 	}
+	loadHeatmap(index) {
+	const xLabels = new Array(44).fill(0).map((_, i) => `Topic ${i+1}`);
+	const yLabels = ['Class 9', 'Class 10', 'Class 13', 'Class 5', 'Class 6', 'Class 7', 'Class 3', 'Class 2', 'Class 8', 'Class 11'];
+	const data = new Array(yLabels.length)
+			.fill(0)
+			.map(() => new Array(xLabels.length).fill(0).map(() => Math.floor(Math.random() * 100)));
+			
+	  this.setState({'heatmapdata':data});
 
+	}
 	selectModule(module) {
 		const {
 			actions: {
@@ -201,21 +254,19 @@ class Home extends React.Component {
 			earningGraphLabels,
 			earningGraphDatasets
 		} = this.props;
+		
 		const randomValues = generateRandomValues(2000);
 		const xLabels = new Array(44).fill(0).map((_, i) => `Topic ${i+1}`);
 		const yLabels = ['Class 9', 'Class 10', 'Class 13', 'Class 5', 'Class 6', 'Class 7', 'Class 3', 'Class 2', 'Class 8', 'Class 11'];
-		const data = new Array(yLabels.length)
-			.fill(0)
-			.map(() => new Array(xLabels.length).fill(0).map(() => Math.floor(Math.random() * 100)));
-		
+		console.log('this.state.heatmapdata' + this.state.heatmapdata);
 		return(
 			<AnimatedView>
 			 <Tabs>
 				<TabList>
 					<Tab>Most Recent</Tab>
-					<Tab>Test History</Tab>
+					<Tab onClick={this.loadHeatmap.bind(this, 0)}>Test History</Tab>
 					    {this.state.tabs.map(tab => (
-	      					<Tab>Fc Module 02
+	      					<Tab onClick={this.loadHeatmap.bind(this, 0)}>Fc Module 02
 	      					</Tab>
 					    ))}
 				</TabList>
@@ -244,8 +295,9 @@ class Home extends React.Component {
 						<HeatMap
 									xLabels={xLabels}
 									yLabels={yLabels}
-									data={data}
+									data={this.state.heatmapdata}
 									background={'green'}
+									onLoad={this.loadHeatmap}
 								/>
 								</div>
 								</div>

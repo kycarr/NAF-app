@@ -4936,7 +4936,7 @@ table.text-center th {
   text-align: left;
 }
 .table.align td {
-  text-align: right;
+  text-align: left;
 }
 .text-bold,
 .text-bold.table td,
@@ -8371,7 +8371,21 @@ padding: 6px 10px;
 .st-blue {
   background-color: #23b7e5;
 }
-/*
+.requirements-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size:16px;
+
+}
+.inner-list {
+    list-style-type: none;
+    font-size:16px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+}/*
   Deprecated due to a typo in the name and left here for compatibility purpose only.
   Please use darcula.css instead.
 */
@@ -8670,6 +8684,35 @@ input[type="checkbox"] {
   float: left;
   cursor: pointer; }
 
+.bycollapse-button {
+  background-color: #ef9c35;
+  height: 20px;
+  border-radius: 5px 5px 5px 5px;
+  padding: 0px;
+  margin: 3px;
+  color: white;
+  width: 90px;
+  float: left;
+  cursor: pointer;
+  font-size: 13px;
+  text-align: center; }
+
+.bycollapse-title {
+  float: left; }
+
+.bycollapse-button-trainee {
+  background-color: #d4cfc9;
+  height: 20px;
+  border-radius: 5px 5px 5px 5px;
+  padding: 0px;
+  margin: 3px;
+  color: white;
+  width: 90px;
+  float: left;
+  cursor: pointer;
+  font-size: 13px;
+  text-align: center; }
+
 .topmodule-left {
   width: 150px;
   float: left;
@@ -8710,10 +8753,10 @@ body, html {
   display: block;
   overflow: hidden;
   width: 99%;
-  overflow-x: scroll; }
+  overflow-x: auto; }
 
 .horiz-model-inside {
-  width: 1860px; }
+  overflow: auto; }
 
 .heatmap-div {
   width: 1850px; }
@@ -8735,31 +8778,34 @@ body, html {
   margin-bottom: 0px; }
 
 .table > tbody tr > td:nth-child(5) {
-  padding-left: 65px; }
+  padding-left: 25px; }
 
 .table > tbody tr > td:nth-child(4) {
-  padding-left: 65px; }
+  padding-left: 25px; }
 
 .react-tabs__tab-panel {
-  background: white; }
+  background: white;
+  overflow-y: scroll;
+  overflow: hidden; }
 
 .right-align-1 {
-  padding-right: 25px; }
+  padding-right: 0px; }
 
 .right-align-2 {
-  padding-left: 26px; }
+  padding-left: 0px; }
 
 .right-align-3 {
-  padding-right: 22px; }
+  padding-right: 0px;
+  text-align: center; }
 
 .right-align-4 {
-  padding-left: 38px; }
+  padding-left: 0px; }
 
 .right-align-5 {
-  padding-left: 60px; }
+  padding-left: 0px; }
 
 .right-align-6 {
-  padding-left: 50px; }
+  padding-left: 0px; }
 
 .right-align-7 {
   padding-right: 0px; }
@@ -8820,15 +8866,21 @@ body, html {
     color: black !important; }
 
 .is-open .collapsible-icon {
-    width: 450px;
+    width: 500px;
     margin-left: 20px; }
+
+.is-open .bycollapse-button {
+    margin-top: 8px; }
+
+.is-open .bycollapse-button-trainee {
+    margin-top: 8px; }
 
 .is-open .collapsible-icon .fa-caret-right-collpase:before {
     content: "\F0D7";
     float: left; }
 
 .is-open .collapsible-icon-second {
-    width: 450px;
+    width: 500px;
     margin-left: 30px; }
 
 .is-open .collapsible-icon-second .fa-caret-right-collpase:before {
@@ -8868,7 +8920,7 @@ body, html {
   width: 100%; }
 
 .collapsible-paragraph {
-  margin: 12px;
+  margin: 30px;
   padding: 10px;
   background-color: #eeecec;
   border-radius: 5px;
@@ -8884,8 +8936,17 @@ body, html {
   display: block;
   font-size: 20px !important;
   font-weight: 600;
-  text-align: left;
+  text-align: mid;
   margin-left: 10px; }
+
+#sm-st-info-button {
+  background-color: #427d90;
+  height: 30px;
+  border-radius: 15px 15px 15px 15px;
+  color: white;
+  width: 80px;
+  cursor: pointer;
+  padding: 5px 5px 15px 25px; }
 
 .aside-left--fixed {
   position: fixed; }
@@ -9016,7 +9077,7 @@ body, html {
  * http://www.wtfpl.net/
  */
 
-.ct-chart .ct-label,.ct-chart .ct-label.ct-horizontal{display:block;width:100%;height:100%;fill:rgba(0, 0, 0, .4);color:rgba(0, 0, 0, .4);font-size:.75rem;text-align:left}
+.ct-chart .ct-label,.ct-chart .ct-label.ct-horizontal{display:block;width:100%;height:100%;fill:rgba(0, 0, 0, .4);color:rgba(0, 0, 0, .4);font-size:.75rem;text-align:center}
 
 .ct-chart .ct-label.ct-vertical{display:block;width:100%;height:100%;fill:rgba(0, 0, 0, .4);color:rgba(0, 0, 0, .4);font-size:.75rem;text-align:right}
 
