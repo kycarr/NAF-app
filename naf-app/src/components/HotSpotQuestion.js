@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ImageMapper from './ImageMapper.js';
 
-export default class App extends Component {
+export default class HotSpotQuestion extends Component {
 
   constructor(props) {
   	super(props);
@@ -46,7 +46,7 @@ export default class App extends Component {
   		return <div> Loading ... </div>;
   	}
 
-	const URL = "http://localhost:8080/Picture1.png"
+	const URL = "http://localhost:8080/images/Picture1.png"
 	const MAP = {
   		name: "my-map",
   		areas: this.state.visited
@@ -70,3 +70,8 @@ export default class App extends Component {
     );
   }
 }
+
+
+HotSpotQuestion.propTypes = {
+    limit: PropTypes.number
+};
