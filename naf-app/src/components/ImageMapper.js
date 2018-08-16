@@ -7,9 +7,9 @@ export default class ImageMapper extends Component {
 		['drawrect', 'drawcircle', 'drawpoly', 'initCanvas'].forEach(f => this[f] = this[f].bind(this));
 		let absPos = { position: 'absolute', top: 0, left: 0 };
 		this.styles = {
-			container: { position: 'relative' },
-			canvas: {...absPos, pointerEvents: 'none', zIndex: 2 },
-			img: {...absPos, zIndex: 1, userSelect: 'none' },
+			container: { position: 'relative'},
+			canvas: {...absPos, pointerEvents: 'none', zIndex: 0 },
+			img: {...absPos, zIndex: 0, userSelect: 'none' },
 			map: props.onClick && { cursor: 'pointer' } || undefined
 		};
 	}

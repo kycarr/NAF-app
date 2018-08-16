@@ -5,6 +5,7 @@ const MULTIPLE_ANSWER = "Multiple_Answer";
 const ESSAY = "Essay";
 const SHORT_ANSWER = "Short_Answer";
 const FLOW_CHART = "flow_chart";
+const HOTSPOT = "Hot_Spot";
 
 let sectionTimes = [15 * 60, 10 * 60];
 let qArray = [
@@ -273,6 +274,15 @@ let qArray = [
       bookmarked: false,
       optionList: [{option: "Yes", selected: false},
         {option: "No", selected: false}],
+      correctAnswer: ["Yes"]
+    },
+    {
+      id: 7,
+      type: HOTSPOT,
+      question: "On the schematic diagram for the radar power supply (unit 4), there are four fuses. Click on the region for fuses 3 and 4.",
+      topicId: 4,
+      bookmarked: false,
+      limit: 2,
       correctAnswer: ["Yes"]
     }
   ]

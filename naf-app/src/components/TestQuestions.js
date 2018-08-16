@@ -7,7 +7,8 @@ import {
   MULTI_CHOICE,
   SHORT_ANSWER,
   ESSAY,
-  MULTIPLE_ANSWER
+  MULTIPLE_ANSWER,
+  HOTSPOT
 } from '../constants';
 import scrollTo from 'scroll-to';
 import TextField from 'material-ui/TextField';
@@ -16,8 +17,8 @@ import Dragula from 'react-dragula';
 import nextPage from "../images/NAF_Icon_CircleRight.png";
 import prevPage from "../images/NAF_Icon_CircleLeft.png";
 import nimitz3 from "../images/nimitz3.jpg";
-import Button from 'material-ui/FlatButton'
-
+import Button from 'material-ui/FlatButton';
+import HotSpotQuestion from './HotSpotQuestion';
 import imgBookmarkOn from '../images/NAF_Icon_BookmarkOn.png';
 import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
 
@@ -45,6 +46,7 @@ class TestQuestions extends Component {
       )
     }
   }
+
 
   static renderFlowChar() {
     let dragulaDecorator = (componentBackingInstance) => {
@@ -86,6 +88,7 @@ class TestQuestions extends Component {
 
   renderQuestion(question) {
     let questionType = question.type;
+    console.log(questionType);
     switch (questionType) {
       case MULTI_CHOICE:
         return question.optionList.map((option) => {
@@ -109,6 +112,10 @@ class TestQuestions extends Component {
           underlineStyle={{display: 'none'}} inputStyle={{ textAlign: 'center', verticalAlign: 'text-top'}}
           hintStyle={{ width: 'inherit', textAlign: 'left', margin: '0px 15px', marginBottom: '74px'}}
           fullWidth={true} hintText={ question.answered ? "Type your answer here" : question.answer } onBlur={(event) => TestQuestions.onAnswerChanged.bind(this)(question.id, event.target.value)} />
+        );
+      case HOTSPOT:
+        return (
+          <HotSpotQuestion limit={question.limit} imageURL={question.imageURL}/>
         );
       default:
         break;
@@ -135,6 +142,8 @@ class TestQuestions extends Component {
           <div className="test-question-question"> &nbsp; {question.question}</div>
 
           {question.type === MULTI_CHOICE && question.choiceType === MULTIPLE_ANSWER ? <div className="test-question-filler"><strong>Select all that apply.</strong></div> : null}
+          {question.type === HOTSPOT ? <div className="test-question-filler"><strong>Click on the image to select a region. Click again to cancel the selection.</strong></div> : null}
+
           {question.videoURL !== undefined ? TestQuestions.renderVideo(question.videoURL) : null}
           {question.imageURL !== undefined ? TestQuestions.renderImage(question.imageURL) : null}
           {this.renderQuestion.bind(this)(question)}

@@ -598,6 +598,14 @@ button {
 
 			/* ---------------- QUESTION SPECIFIC CSS ----------------- */
 
+			.image-question {
+				width: 100% !important;
+				display: flex;
+				justify-content: center;
+				margin-top: 20px;
+
+			}	
+
 			.video-type {
 				width: 100% !important;
 				margin: 10px 0px !important;

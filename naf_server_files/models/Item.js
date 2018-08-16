@@ -52,6 +52,9 @@ const ItemSchema = new Schema({
     test: {
         type: Schema.Types.ObjectId,
         ref: 'Test'
+    },
+    limit: {
+        type: Number
     }
 
 });
