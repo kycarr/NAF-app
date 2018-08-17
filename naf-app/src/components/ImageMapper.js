@@ -54,6 +54,7 @@ export default class ImageMapper extends Component {
 		this.ctx.fillStyle = this.props.fillColor;
 		this.ctx.strokeStyle = "Red";
 		this.ctx.lineWidth = this.props.lineWidth;
+
 		if (this.props.onLoad)
 			this.props.onLoad();
 	}
@@ -100,11 +101,11 @@ export default class ImageMapper extends Component {
 	render() {
 		return (
 			<div style={this.styles.container} ref={node => this.container = node}>
-				<img style={this.styles.img} src={this.props.src} useMap={`#${this.props.map.name}`} alt=""
+				<img  style={this.styles.img} src={this.props.src} useMap={`#${this.props.map.name}`} alt=""
 					 ref={node => this.img = node} onLoad={this.initCanvas}
 					 onClick={this.props.onImageClick} />
-				<canvas ref={node => this.canvas = node} style={this.styles.canvas} />
-				<map name={this.props.map.name} style={this.styles.map}>{ this.renderAreas() }</map>
+				<canvas  ref={node => this.canvas = node} style={this.styles.canvas} />
+				<map  name={this.props.map.name} style={this.styles.map}>{ this.renderAreas() }</map>
 			</div>
 		);
 	}

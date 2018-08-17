@@ -33,7 +33,9 @@ button {
     height: 45vw !important;
     margin: 5px auto;
   }
-
+  .image-hotspot {
+    width: 240px !important;
+  }
   .card-instructions p {
       font-size: 1em;
   }
@@ -601,10 +603,13 @@ button {
 			.image-question {
 				width: 100% !important;
 				display: flex;
-				justify-content: center;
 				margin-top: 20px;
-
+				justify-content: center;
 			}	
+
+			.image-hotspot {
+				width: 800px;
+			}
 
 			.video-type {
 				width: 100% !important;

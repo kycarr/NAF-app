@@ -28,7 +28,7 @@ class ToolbarComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {showTimer: true, time: {}, seconds: TOTAL_TIME, openInstructions: false, openSectionWarning: false, openTimeoutWarning: false};
+    this.state = {showTimer: true, time: {}, seconds: props.sectionTime, openInstructions: false, openSectionWarning: false, openTimeoutWarning: false};
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
@@ -55,15 +55,14 @@ class ToolbarComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.sectionNum !== this.props.sectionNum){
       this.setState({
         seconds: nextProps.sectionTime
       });
-    }
   }
 
   componentDidMount() {
-    let timeLeftVar = ToolbarComponent.secondsToTime(this.state.seconds);
+    let timeLeftVar = ToolbarComponent.secondsToTime(this.props.sectionTime);
+    console.log(timeLeftVar);
     this.setState({time: timeLeftVar});
     this.startTimer();
   }

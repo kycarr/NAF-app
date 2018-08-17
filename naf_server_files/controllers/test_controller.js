@@ -162,6 +162,17 @@ exports.post_options_answers = async (req,res) => {
 
 }
 
+exports.post_hotspot_answers = async (req,res) => {
+    console.log("Inside questionResponseStore route");
+    console.log(req.body);
+    let userId = req.body.userId;
+    let sectionId = req.body.sectionId;
+    let questionId = req.body.questionId;
+    let sessionId = req.body.sessionId;
+    let taskId = req.body.taskId;
+    let answer = req.body.response;
+    
+}
 exports.post_essay_answers = async (req,res) => {
     console.log("Inside questionResponseStore route");
     console.log(req.body);

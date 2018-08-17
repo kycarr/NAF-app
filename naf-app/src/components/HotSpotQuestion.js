@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ImageMapper from './ImageMapper';
 import PropTypes from 'prop-types';
 import picture from "../images/Picture1.png";
+import MediaQuery from 'react-responsive';
 
 export default class HotSpotQuestion extends Component {
 
@@ -58,8 +59,6 @@ export default class HotSpotQuestion extends Component {
     });
   }
 
-
-
   render() {
 
   	if(!this.state.visited) {
@@ -71,16 +70,35 @@ export default class HotSpotQuestion extends Component {
     		name: "my-map",
     		areas: this.state.visited
   	};
-	console.log(MAP);
+    console.log(MAP);
+    
     return (
-  		<div className ="image-question"  width="100%">
-        <ImageMapper ref='child'  width={800} src={picture} map={MAP}
-        onLoad={() => this.load()}
-        onClick={area => this.clicked(area, MAP)}
-        onImageClick={evt => this.clickedOutside(evt)}
-        />
-
-			</div>
+  		<div className ="image-question"  ref="child" width="100%">
+            <MediaQuery minDeviceWidth={1025} > 
+            <ImageMapper   src={picture} map={MAP}
+            width={800}
+            onLoad={() => this.load()}
+            onClick={area => this.clicked(area, MAP)}
+            onImageClick={evt => this.clickedOutside(evt)}
+            />
+            </MediaQuery>
+            <MediaQuery minDeviceWidth={769}  maxDeviceWidth={1024} > 
+            <ImageMapper   src={picture} map={MAP}
+            width={600}
+            onLoad={() => this.load()}
+            onClick={area => this.clicked(area, MAP)}
+            onImageClick={evt => this.clickedOutside(evt)}
+            />
+            </MediaQuery>
+            <MediaQuery maxDeviceWidth={768} > 
+            <ImageMapper   src={picture} map={MAP}
+            width={300}
+            onLoad={() => this.load()}
+            onClick={area => this.clicked(area, MAP)}
+            onImageClick={evt => this.clickedOutside(evt)}
+            />
+            </MediaQuery>
+		</div>
       
     );
   }
