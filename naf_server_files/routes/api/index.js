@@ -154,6 +154,27 @@ const createDB = async () => {
       })
       .catch(err => console.log('Error finding test two: ' + err));
 
+    Test.findOne({testName: 'Test Three'})
+    .then(test => {
+      if(test){
+      console.log('Test Three already exists');
+      }
+      else{
+        console.log('Test Three does not exist');
+        //seed the database with the test
+        const newTest = new Test({
+          testName: 'Test Three',
+          module: 'FC-Module 01'
+        });
+        newTest.save()
+        .then(newtest => populateDB(newTest, qArray1, topicsArray1))
+        .catch(err => console.log('New Test One could not be created. Error: ' + err));        
+      }
+    })
+    .catch(err => {
+      console.log('Error finding test three: ' + err);
+    })
+
     let users = await User.find({}, '_id');
     Instructor.findOne({name: 'Matthew Trimmer'})
     .then(instructor => {

@@ -33,6 +33,7 @@ const StudentReportSchema = {
 	topicValue: [{type: Number}],
 	topicLabel: [{type: String}],
 	byTopic: [{
+		_id:false,
 		topic: String,
 		correct: Number,
 		incorrect: Number,

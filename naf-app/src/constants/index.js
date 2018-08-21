@@ -13,6 +13,7 @@ export const ESSAY = "Essay";
 export const SHORT_ANSWER = "Short_Answer";
 export const FLOW_CHART = "flow_chart";
 export const HOTSPOT = "Hot_Spot";
+export const TABLE_FILL = "Table_Fill";
 
 
 //actions

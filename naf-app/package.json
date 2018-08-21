@@ -25,6 +25,7 @@
     "react-responsive": "^5.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
+    "react-table": "^6.8.6",
     "react-visibility-sensor": "^3.11.0",
     "react-waypoint": "^8.0.1",
     "redux": "^3.7.2",

@@ -55,7 +55,21 @@ const ItemSchema = new Schema({
     },
     limit: {
         type: Number
-    }
+    },
+    data: [
+        {
+          _id:false,            
+          symbol: String,
+          poles: String,
+          throws: String,
+          breaks: String
+        }
+    ],
+    columns: [{
+            _id:false,
+            Header: String,
+            accessor: String
+    }]
 
 });
 

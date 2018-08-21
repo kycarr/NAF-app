@@ -8,7 +8,8 @@ import {
   SHORT_ANSWER,
   ESSAY,
   MULTIPLE_ANSWER,
-  HOTSPOT
+  HOTSPOT,
+  TABLE_FILL
 } from '../constants';
 import scrollTo from 'scroll-to';
 import TextField from 'material-ui/TextField';
@@ -21,7 +22,7 @@ import Button from 'material-ui/FlatButton';
 import HotSpotQuestion from './HotSpotQuestion';
 import imgBookmarkOn from '../images/NAF_Icon_BookmarkOn.png';
 import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
-
+import TableFillQuestion from './TableFillQuestion';
 import MediaQuery from 'react-responsive';
 
 class TestQuestions extends Component {
@@ -117,6 +118,10 @@ class TestQuestions extends Component {
         return (
           <HotSpotQuestion limit={question.limit} imageURL={question.imageURL}/>
         );
+      case TABLE_FILL:
+        return (
+          <TableFillQuestion data={question.data} columns={question.columns} />
+        );
       default:
         break;
     }
@@ -145,6 +150,7 @@ class TestQuestions extends Component {
           {question.type === HOTSPOT ? <div className="test-question-filler"><strong>Click on the image to select a region. Click again to cancel the selection.</strong></div> : null}
 
           {question.videoURL !== undefined ? TestQuestions.renderVideo(question.videoURL) : null}
+          {question.type === TABLE_FILL ? <div className="test-question-filler"> <strong> Please Write '1' if Single and '2' if Double </strong> </div> : null }
           {question.imageURL !== undefined ? TestQuestions.renderImage(question.imageURL) : null}
           {this.renderQuestion.bind(this)(question)}
           {this.WayPoint.bind(this)(lineNum)}

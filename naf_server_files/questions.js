@@ -6,6 +6,7 @@ const ESSAY = "Essay";
 const SHORT_ANSWER = "Short_Answer";
 const FLOW_CHART = "flow_chart";
 const HOTSPOT = "Hot_Spot";
+const TABLE_FILL = "Table_Fill";
 
 let sectionTimes = [15 * 60, 10 * 60];
 let qArray = [
@@ -278,6 +279,45 @@ let qArray = [
     },
     {
       id: 7,
+      type: TABLE_FILL,
+      question: "For each switch symbol in the table, please enter a number for the number of poles, throws, and breaks.",
+      topicId: 1,
+      bookmarked: false,
+      columns: [
+        {Header: "Symbol",accessor: "symbol"},
+        {Header: "Number of Poles",accessor: "poles"},
+        {Header: "Number of Throws",accessor: "throws"},
+        {Header: "Number of Breaks",accessor: "breaks"}
+      ],
+      data: [
+        {
+          symbol: "1",
+          poles: "",
+          throws: "",
+          breaks: ""
+        },
+        {
+          symbol: "2",
+          poles: "",
+          throws: "",
+          breaks: ""
+        },
+        {
+          symbol: "3",
+          poles: "",
+          throws: "",
+          breaks: ""
+        },
+        {
+          symbol: "4",
+          poles: "",
+          throws: "",
+          breaks: ""
+        }
+      ]
+    },
+    {
+      id: 8,
       type: HOTSPOT,
       question: "On the schematic diagram for the radar power supply (unit 4), there are four fuses. Click on the region for fuses 3 and 4.",
       topicId: 4,
