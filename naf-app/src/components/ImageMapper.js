@@ -18,7 +18,7 @@ export default class ImageMapper extends Component {
 		coord = coord.split(',');
 		let [left, top, right, bot] = coord;
 		this.ctx.strokeRect(left, top, right - left, bot - top);
-		// this.ctx.fillRect(left, top, right - left, bot - top);
+		this.ctx.fillRect(left, top, right - left, bot - top);
 	}
 
 	drawcircle(coords) {
@@ -113,7 +113,7 @@ export default class ImageMapper extends Component {
 
 ImageMapper.defaultProps = {
 	active: true,
-	fillColor: 'rgba(255, 255, 255, 1.0)',
+	fillColor: 'rgba(211,211,211,0.1)',
 	lineWidth: 1,
 	map: {
 		areas: [],
