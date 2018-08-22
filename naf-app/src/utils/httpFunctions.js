@@ -4,7 +4,7 @@ import axios from 'axios';
 // http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080
 
 const URL = 'http://localhost:8080';
-//const URL ='http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080';
+// const URL ='http://ec2-54-193-65-106.us-west-1.compute.amazonaws.com:8080';
 
 export function login(username, password) {
 	return axios.post(`${URL}/api/login`, {

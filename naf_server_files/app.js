@@ -23,14 +23,14 @@ db
     })
 .on('error', console.error.bind(console, "MongoDB connection error"));
 
-/* Connection Mongo to mLab 
+/* Connection Mongo to mLab */
+
 const db = require("./config/keys").mongoURI;
 mongoose
   .connect(db)
   .then(() => console.log("Mongo DB Connected"))
   .catch(error => console.log(error));
 
-*/
 const indexRoutes = require("./routes/api/index");
 app.use("/",indexRoutes)
 

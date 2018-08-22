@@ -9,7 +9,8 @@ import {
   ESSAY,
   MULTIPLE_ANSWER,
   HOTSPOT,
-  TABLE_FILL
+  TABLE_FILL,
+  DRAG_DROP
 } from '../constants';
 import scrollTo from 'scroll-to';
 import TextField from 'material-ui/TextField';
@@ -24,7 +25,7 @@ import imgBookmarkOn from '../images/NAF_Icon_BookmarkOn.png';
 import imgBookmarkOff from '../images/NAF_Icon_BookmarkOff.png';
 import TableFillQuestion from './TableFillQuestion';
 import MediaQuery from 'react-responsive';
-
+import DragAroundCustomDragLayer from './CustomDragLayer';
 class TestQuestions extends Component {
 
   static renderVideo(videoURL) {
@@ -121,6 +122,10 @@ class TestQuestions extends Component {
       case TABLE_FILL:
         return (
           <TableFillQuestion data={question.data} columns={question.columns} />
+        );
+      case DRAG_DROP:
+        return (
+          <DragAroundCustomDragLayer />
         );
       default:
         break;

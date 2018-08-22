@@ -7,7 +7,7 @@ const SHORT_ANSWER = "Short_Answer";
 const FLOW_CHART = "flow_chart";
 const HOTSPOT = "Hot_Spot";
 const TABLE_FILL = "Table_Fill";
-
+const DRAG_DROP = "Drag_Drop";
 let sectionTimes = [15 * 60, 10 * 60];
 let qArray = [
   [
@@ -323,6 +323,14 @@ let qArray = [
       topicId: 4,
       bookmarked: false,
       limit: 2,
+      correctAnswer: ["Yes"]
+    },
+    {
+      id: 9,
+      type: DRAG_DROP,
+      question: "Construct a simple bridge rectifier by dragging the appropriate components from the tray on the left (below) onto the breadboard (on the right below)",
+      topicId: 3,
+      bookmarked: false,
       correctAnswer: ["Yes"]
     }
   ]
