@@ -16,13 +16,13 @@ export default class BoxDragPreview extends Component {
 
 
 	constructor(props) {
-		super(props)
+		super(props);
 
 	}
 
 
 	render() {
-		const { title } = this.props
+		const { title } = this.props;
 
 		return (
 			<div style={styles}>

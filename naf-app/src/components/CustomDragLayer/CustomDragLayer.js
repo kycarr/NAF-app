@@ -66,10 +66,11 @@ class CustomDragLayer extends Component {
 	}
 
 	render() {
+
 		const { item, itemType, isDragging } = this.props
 
 		if (!isDragging) {
-			return null
+			return null;
 		}
 
 		return (

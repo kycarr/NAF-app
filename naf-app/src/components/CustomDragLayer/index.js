@@ -22,7 +22,7 @@ class DragAroundCustomDragLayer extends Component {
 	}
 
 	render() {
-		const { snapToGridAfterDrop, snapToGridWhileDragging } = this.state
+		const { snapToGridAfterDrop, snapToGridWhileDragging } = this.state;
 
 		return (
 			<div className="dragdrop-type">
@@ -46,4 +46,3 @@ class DragAroundCustomDragLayer extends Component {
 }
 
 export default DragDropContext(HTML5Backend)(DragAroundCustomDragLayer);
-

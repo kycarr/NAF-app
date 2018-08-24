@@ -15,7 +15,7 @@ export default class HotSpotQuestion extends Component {
   		visited: [],
       count: 0
   	};
-  }	
+  }
 
   load() {
   	this.setState({ msg: 'Interact with image !' });
@@ -29,7 +29,7 @@ export default class HotSpotQuestion extends Component {
     if(count - 1 < this.props.limit) {
       this.state.warningToggle = false;
     }
-  	this.setState({ 
+  	this.setState({
       visited: this.state.visited.filter(ele => {
         return !(ele.coords === area.coords);
       }),
@@ -52,8 +52,8 @@ export default class HotSpotQuestion extends Component {
   	const currentVisited = this.state.visited;
   	currentVisited.push(areaObject);
 
-  	this.setState({ 
-      msg: 'You clicked on the image at coords ' + JSON.stringify(coords) + ' !' , x: coords.x, y: coords.y, 
+  	this.setState({
+      msg: 'You clicked on the image at coords ' + JSON.stringify(coords) + ' !' , x: coords.x, y: coords.y,
       visited: currentVisited,
       count: count
     });
@@ -71,35 +71,43 @@ export default class HotSpotQuestion extends Component {
     		areas: this.state.visited
   	};
     console.log(MAP);
-    
+
     return (
-  		<div className ="image-question"  ref="child" width="100%">
-            <MediaQuery minDeviceWidth={1025} > 
-            <ImageMapper   src={picture} map={MAP}
-            width={800}
-            onLoad={() => this.load()}
-            onClick={area => this.clicked(area, MAP)}
-            onImageClick={evt => this.clickedOutside(evt)}
-            />
-            </MediaQuery>
-            <MediaQuery minDeviceWidth={769}  maxDeviceWidth={1024} > 
-            <ImageMapper   src={picture} map={MAP}
-            width={600}
-            onLoad={() => this.load()}
-            onClick={area => this.clicked(area, MAP)}
-            onImageClick={evt => this.clickedOutside(evt)}
-            />
-            </MediaQuery>
-            <MediaQuery maxDeviceWidth={768} > 
-            <ImageMapper   src={picture} map={MAP}
-            width={300}
-            onLoad={() => this.load()}
-            onClick={area => this.clicked(area, MAP)}
-            onImageClick={evt => this.clickedOutside(evt)}
-            />
-            </MediaQuery>
-		</div>
-      
+      <div>
+    		<div className ="image-question"  ref="child" width="100%">
+              <MediaQuery minDeviceWidth={1025} >
+              <ImageMapper   src={picture} map={MAP}
+              width={800}
+              onLoad={() => this.load()}
+              onClick={area => this.clicked(area, MAP)}
+              onImageClick={evt => this.clickedOutside(evt)}
+              />
+              </MediaQuery>
+              <MediaQuery minDeviceWidth={769}  maxDeviceWidth={1024} >
+              <ImageMapper   src={picture} map={MAP}
+              width={600}
+              onLoad={() => this.load()}
+              onClick={area => this.clicked(area, MAP)}
+              onImageClick={evt => this.clickedOutside(evt)}
+              />
+              </MediaQuery>
+              <MediaQuery maxDeviceWidth={768} >
+              <ImageMapper   src={picture} map={MAP}
+              width={300}
+              onLoad={() => this.load()}
+              onClick={area => this.clicked(area, MAP)}
+              onImageClick={evt => this.clickedOutside(evt)}
+              />
+              </MediaQuery>
+              <br />
+  		 </div>
+       <div>
+       
+        <p><small><em><center>You have clicked on {this.state.count} {this.state.count === 1 ? 'region' : 'regions'}. You have {this.props.limit - this.state.count} components left to identify.</center></em></small></p>
+        <br />
+       </div>
+    </div>
+
     );
   }
 }

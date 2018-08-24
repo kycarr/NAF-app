@@ -78,6 +78,19 @@ class TableFillQuestion extends Component {
     console.log(columns);
     console.log('DATA');
     console.log(data);
+
+    let numAnswered = 0;
+    data.forEach((object) => {
+        if(object['breaks'] !== "")
+          numAnswered++;
+        if(object['poles'] !== "")
+          numAnswered++;
+        if(object['throws'] !== "")
+          numAnswered++;
+    });
+
+    console.log(numAnswered);
+
     return (
         <div>
           <ReactTable
@@ -88,6 +101,8 @@ class TableFillQuestion extends Component {
             className="-striped -highlight"
 
           />
+          <br />
+          <p><small><em>You have filled in {numAnswered} {numAnswered === 1 ? 'blank' : 'blanks'} in the table</em></small></p>
           <br />
         </div>
     )
