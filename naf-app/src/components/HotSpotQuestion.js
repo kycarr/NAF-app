@@ -13,7 +13,8 @@ export default class HotSpotQuestion extends Component {
   		x: 0,
   		y:0,
   		visited: [],
-      count: 0
+      count: 0,
+      triggered: false
   	};
   }
 
@@ -28,6 +29,10 @@ export default class HotSpotQuestion extends Component {
     let count = this.state.count;
     if(count - 1 < this.props.limit) {
       this.state.warningToggle = false;
+    }
+    if(count - 1 == 0 && this.state.triggered) {
+      this.props.triggerMark(this.props.id);
+      this.state.triggered = false;
     }
   	this.setState({
       visited: this.state.visited.filter(ele => {
@@ -45,6 +50,12 @@ export default class HotSpotQuestion extends Component {
       return;
     }
     else {
+      if(count == 0) {
+        if(!this.state.triggered) {
+          this.props.triggerMark(this.props.id);
+          this.state.triggered = true;
+        }
+      }
       count++;
     }
   	const coords = { x: evt.nativeEvent.layerX, y: evt.nativeEvent.layerY };
@@ -121,5 +132,7 @@ export default class HotSpotQuestion extends Component {
       */
 HotSpotQuestion.propTypes = {
     limit: PropTypes.number,
-    imageURL: PropTypes.string
+    imageURL: PropTypes.string,
+    triggerMark: PropTypes.func,
+    id: PropTypes.number.required
 };

@@ -623,6 +623,7 @@ button {
 
 			.dragdrop-type {
 				justify-content: center;
+				display: flex ;
 				height: 800px;
 				margin-top: 20px;
 			}

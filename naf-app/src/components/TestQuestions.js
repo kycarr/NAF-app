@@ -117,15 +117,15 @@ class TestQuestions extends Component {
         );
       case HOTSPOT:
         return (
-          <HotSpotQuestion limit={question.limit} imageURL={question.imageURL}/>
+          <HotSpotQuestion limit={question.limit} imageURL={question.imageURL} triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id}/>
         );
       case TABLE_FILL:
         return (
-          <TableFillQuestion data={question.data} columns={question.columns} />
+          <TableFillQuestion data={question.data} columns={question.columns} triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id}/>
         );
       case DRAG_DROP:
         return (
-          <DragAroundCustomDragLayer />
+          <DragAroundCustomDragLayer triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id}/>
         );
       default:
         break;
@@ -163,6 +163,10 @@ class TestQuestions extends Component {
       );
       }
     )
+  }
+
+  hotspotBookMark(id) {
+      this.props.changeBookmark(id);
   }
 
   goToNextPage(nextPageNum, maxPageNum) {

@@ -41,6 +41,7 @@ class Container extends Component {
 	static propTypes = {
 		connectDropTarget: PropTypes.func.isRequired,
 		snapToGrid: PropTypes.bool.isRequired,
+		triggerMark: PropTypes.func.isRequired
 	}
 
 	shouldComponentUpdate = shouldPureComponentUpdate
@@ -48,6 +49,7 @@ class Container extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			triggered: false,
 			boxes: {
 				a: { top: 620, left: 0, title: Picture2},
 				b: { top: 620, left: 150, title: Picture3 },
@@ -59,6 +61,11 @@ class Container extends Component {
 	}
 
 	moveBox(id, left, top) {
+		const { triggerMark } = this.props;
+		if(!this.state.triggered) {
+			this.props.triggerMark(this.props.id);
+			this.state.triggered = true;
+		}
 		this.setState(
 			update(this.state, {
 				boxes: {

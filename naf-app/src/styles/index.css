@@ -4,4 +4,6 @@ body, html {
 	background-image: url("../images/BG.png") !important;
     background-repeat: no-repeat !important;
     background-attachment: fixed !important;
+    background-size:100% auto !important;
+
 }

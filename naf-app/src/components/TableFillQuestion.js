@@ -13,7 +13,8 @@ class TableFillQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: this.props.data
+      data: this.props.data,
+      triggered: false
     }
     this.renderEditable = this.renderEditable.bind(this);
     this.getColumnWidth = this.getColumnWidth.bind(this);
@@ -47,7 +48,9 @@ class TableFillQuestion extends Component {
     return Math.min(maxWidth, cellLength * magicSpacing)
   }
 
+  componentDidMount() {
 
+  }
 
   render() {
     // const images = ['../images/Switch1.png', '../images/Switch2.png', '../images/Switch3.png','../images/Switch2.png'];
@@ -74,10 +77,10 @@ class TableFillQuestion extends Component {
                }
       }
     });
-    console.log('COLUMNS');
-    console.log(columns);
-    console.log('DATA');
-    console.log(data);
+    // console.log('COLUMNS');
+    // console.log(columns);
+    // console.log('DATA');
+    // console.log(data);
 
     let numAnswered = 0;
     data.forEach((object) => {
@@ -88,8 +91,15 @@ class TableFillQuestion extends Component {
         if(object['throws'] !== "")
           numAnswered++;
     });
-
-    console.log(numAnswered);
+    if(numAnswered > 0 && !this.state.triggered) {
+      this.props.triggerMark(this.props.id);
+      this.state.triggered = true;
+    }
+    if(numAnswered == 0 && this.state.triggered) {
+      this.props.triggerMark(this.props.id);
+      this.state.triggered = false;
+    }
+    // console.log(numAnswered);
 
     return (
         <div>
