@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
 
-/* Connection Mongo To LocalHost */
+/* Connection Mongo To LocalHost 
 mongoose.connect('mongodb://localhost/naf_db');
 let db = mongoose.connection;
 db
@@ -22,7 +22,7 @@ db
     console.log('Mongo DB Successfully connected');
     })
 .on('error', console.error.bind(console, "MongoDB connection error"));
-
+*/
 /* Connection Mongo to mLab */
 
 const db = require("./config/keys").mongoURI;

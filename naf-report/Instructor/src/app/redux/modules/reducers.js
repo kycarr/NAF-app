@@ -10,6 +10,7 @@ import views                from './views';
 import userAuth             from './userAuth';
 import testHistory			from './testHistory';
 import mostRecent			from './mostRecent';
+import chooseModules        from './chooseModules';
 export const reducers = {
   testHistory,
   earningGraph,
@@ -19,6 +20,7 @@ export const reducers = {
   views,
   userAuth,
   mostRecent,
+  chooseModules
 };
 
 export default combineReducers({

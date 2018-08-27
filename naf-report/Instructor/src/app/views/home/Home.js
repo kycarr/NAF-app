@@ -87,6 +87,8 @@ class Home extends React.Component {
 		teamMatesIsFetching:  PropTypes.bool,
 		instructorResults:    PropTypes.object,
 		instructorTopics:     PropTypes.array,
+		testLogData:          PropTypes.array,
+		testHistoryData: 	  PropTypes.array,
 		teamMates:            PropTypes.arrayOf(
 			PropTypes.shape({
 				picture:      PropTypes.string,
@@ -102,7 +104,8 @@ class Home extends React.Component {
 			fetchEarningGraphDataIfNeeded:  PropTypes.func,
 			fetchTeamMatesDataIfNeeded:     PropTypes.func,
 			chooseModule: PropTypes.func,
-			fetchInstructorDataIfNeeded: PropTypes.func
+			fetchInstructorDataIfNeeded: PropTypes.func,
+			fetchTestHistoryDataIfNeeded: PropTypes.func
 		})
 	}; 
 	constructor(props, context) {
@@ -152,11 +155,13 @@ class Home extends React.Component {
 				fetchEarningGraphDataIfNeeded,
 				fetchTeamMatesDataIfNeeded,
 				fetchInstructorDataIfNeeded,
+				fetchTestHistoryDataIfNeeded
 			}
 		} = this.props;
 		fetchEarningGraphDataIfNeeded();
 		fetchTeamMatesDataIfNeeded();
 		fetchInstructorDataIfNeeded();
+		fetchTestHistoryDataIfNeeded();
 		 $('.heatmap-div div[title]').each(function(i, obj) {
 	  if($(obj)[0].title.trim() < 20 ) {
 	  	$(obj)[0]['style'].background='red';
@@ -204,7 +209,6 @@ class Home extends React.Component {
 	  	$(obj)[0]['style'].opacity='1';
 	  }
       if(!isNaN($(obj)[0].title)) {
-      console.log('obj' + obj);
   }
 });
 }
@@ -216,10 +220,18 @@ class Home extends React.Component {
 	}
 
 	openNewTab(testname) {
-		this.setState(prevState => ({
-			tabs: [...prevState.tabs, {id: Math.random()}]
-		}));
+		let data = this.props.testHistoryData;
+		let target = {};
+		for(let i = 0; i < data.length; i++) {
+			if(data[i].results.testName === testname) {
+				target = data[i];
+			}
+		}
+		this.setState({
+  			tabs: [...this.state.tabs, target]
+		});
 	}
+
 	loadHeatmap(index) {
 	const xLabels = new Array(44).fill(0).map((_, i) => `Topic ${i+1}`);
 	const yLabels = ['Class 9', 'Class 10', 'Class 13', 'Class 5', 'Class 6', 'Class 7', 'Class 3', 'Class 2', 'Class 8', 'Class 11'];
@@ -237,7 +249,7 @@ class Home extends React.Component {
 			}
 		} = this.props;
 		chooseModule(module);
-		this.reloadHeat();
+		// this.reloadHeat();
 	}
 
 	reloadHeat() {
@@ -258,15 +270,17 @@ class Home extends React.Component {
 		const randomValues = generateRandomValues(2000);
 		const xLabels = new Array(44).fill(0).map((_, i) => `Topic ${i+1}`);
 		const yLabels = ['Class 9', 'Class 10', 'Class 13', 'Class 5', 'Class 6', 'Class 7', 'Class 3', 'Class 2', 'Class 8', 'Class 11'];
-		console.log('this.state.heatmapdata' + this.state.heatmapdata);
+		// console.log('this.state.heatmapdata' + this.state.heatmapdata);
 		return(
 			<AnimatedView>
 			 <Tabs>
 				<TabList>
 					<Tab>Most Recent</Tab>
 					<Tab onClick={this.loadHeatmap.bind(this, 0)}>Test History</Tab>
-					    {this.state.tabs.map(tab => (
-	      					<Tab onClick={this.loadHeatmap.bind(this, 0)}>Fc Module 02
+					    {this.state.tabs.map((ele,index) => (
+	      					<Tab onClick={this.loadHeatmap.bind(this, 0)}
+	      					key={index}
+	      					>{ele.results.testName}
 	      					</Tab>
 					    ))}
 				</TabList>
@@ -308,7 +322,7 @@ class Home extends React.Component {
 									<div className="col-md-12">
 			 							<Collapsible open trigger={<span className='collapsible-icon'><i className='fa fa-caret-right-collpase'></i>Class Test Log</span>}>
 										<div className="collapsible-paragraph">
-											<ClassTestLog openNewTab={this.openNewTab}/>
+											<ClassTestLog openNewTab={this.openNewTab} testLogData={this.props.testLogData}/>
 										</div>
 										</Collapsible>
 									</div>
@@ -316,9 +330,10 @@ class Home extends React.Component {
 								</div>
 							</div>
 					</TabPanel>
-					    {this.state.tabs.map((tab,index) => (
-	      					<TabPanel title="Fc Module 02" key={index}>
-	      						<MostRecentWrapper />
+					    {this.state.tabs.map((ele,index) => (
+	      					<TabPanel title={ele.results.testName} key={index} >
+								<MostRecentWrapper results={ele.results} topics={ele.results.topics} trainees={ele.trainees}
+					 byTopics={ele.byTopics} byTrainee={ele.byTrainee}/>
 	      					</TabPanel>
 					    ))}
 				</Tabs>

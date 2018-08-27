@@ -125,7 +125,8 @@ const createDB = async () => {
         //seed the database with the test
         const newTest = new Test({
           testName: 'Test One',
-          module: 'FC-Module 01'
+          module: 'FC-Module 01',
+          className: 'Class One'
         });
         newTest.save()
         .then(newtest => populateDB(newTest, qArray1, topicsArray1))
@@ -145,7 +146,8 @@ const createDB = async () => {
           console.log('Test Two does not exist');
           const newTest2 = new Test({
             testName: 'Test Two',
-            module: 'FC-Module 01'
+            module: 'FC-Module 01',
+            className: 'Class One'
           });
           newTest2.save()
             .then(newTest => populateDB(newTest, qArray2, topicsArray2))
@@ -164,7 +166,8 @@ const createDB = async () => {
         //seed the database with the test
         const newTest = new Test({
           testName: 'Test Three',
-          module: 'FC-Module 01'
+          module: 'FC-Module 01',
+          className: 'Class One'
         });
         newTest.save()
         .then(newtest => populateDB(newTest, qArray1, topicsArray1))
@@ -228,6 +231,7 @@ router.get('/student/fetchStudentSessions', fetch_answers_controller.fetchStuden
 
 router.get('/instructor/fetchInstructorData', instructor_controller.fetchInstructorData);
 
+router.get('/instructor/fetchTestHistory', instructor_controller.fetchTestHistory);
 
 
 //export router

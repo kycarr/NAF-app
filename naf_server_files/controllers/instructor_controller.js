@@ -71,7 +71,7 @@ const trainees = [
 
     }
   ];
-*/
+
 const byTopics = [
     {
       name: 'Overview',
@@ -168,7 +168,7 @@ const byTopics = [
       ]
     }
   ];
-
+*/
 async function fetchInstructorReport(testName, className) {
     const report = await TestResult.findOne({testName: testName, className: className});
     if(report === null) {
@@ -182,7 +182,7 @@ async function fetchInstructorReport(testName, className) {
 
 async function fetchTraineeReport(testName, className) {
     const report = await TraineeResult.findOne({testName: testName, className: className});
-    console.log(report);
+    // console.log(report);
     if(report === null) {
         return generateTraineeReport(testName, className);
     }
@@ -465,6 +465,55 @@ async function generateInstructorReport(testName, className) {
     const testLog = new TestResult(results);
     await testLog.save();
     return results;
+}
+
+
+exports.fetchTestHistory = async(req, res) => {
+    const tests = await Test.find().sort({date: 'descending'});
+    // console.log(tests);
+    const responseJSON = {};
+    const testResultsArray = [];
+    const logArray = [];
+    for(let i = 0; i < tests.length; i++) {
+        const test = tests[i].testName;
+        const fetchData = await fetchTestHistoryHelper(test, 'Class One');
+        // console.log('>.. ...........');
+        console.log(test);
+        const data = fetchData['results'];
+        // console.log(data);
+
+        const countAttempts = await StudentReport.aggregate([
+                {
+                    $match: {
+                        testName: test
+                    }
+                },
+                { $group: { _id: null, attempts: { $sum: 1 } } },
+                { $project: { _id: 0 } }
+            ]);
+        logArray.push({className: data.className, testName: tests[i].testName, dateCompleted: tests[i].date, 
+            average:data.average, attempts: countAttempts[0].attempts, pass: data.pass,
+            finished: data.finished, inComplete: data.inComplete, notStart: data.notStart
+        });
+        testResultsArray.push(fetchData);
+    }
+    responseJSON['testLogs'] = testResultsArray;
+    responseJSON['logArray'] = logArray;
+    console.log(responseJSON);
+    res.json(responseJSON);
+}
+
+async function fetchTestHistoryHelper (testName, className) {
+    const resultsObject = await fetchInstructorReport(testName, className);
+    const traineesObject = await fetchTraineeReport(testName, className);
+    const requirementsObeject = await fetchRequirementsReport(testName, className);
+    const response = {};
+    response['results'] = resultsObject;
+    response['trainees'] = traineesObject;
+    response['byTrainee'] = requirementsObeject.byTrainee;
+    response['byTopics'] = requirementsObeject.byTopic;
+    // console.log("?????????");
+    return response;
 }
 
 exports.fetchInstructorData = async(req, res) => {

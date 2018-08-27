@@ -8,17 +8,19 @@ import Home                   from './Home';
 const mapStateToProps = (state) => {
   return {
     currentView:  state.views.currentView,
-    currentModule: state.testHistory.currentModule,
     earningGraphIsFetching: state.earningGraph.isFetching,
     earningGraphLabels:     state.earningGraph.labels,
     earningGraphDatasets:   state.earningGraph.datasets,
     teamMatesIsFetching:    state.teamMates.isFetching,
     teamMates:              state.teamMates.data,
+    currentModule:          state.chooseModules.currentModule,
     instructorResults:      state.mostRecent.results,
     instructorTopics:       state.mostRecent.topics,
     instructorTrainees:     state.mostRecent.trainees,
     instructorbyTopics:     state.mostRecent.byTopics,
-    instructorbyTrainee:    state.mostRecent.byTrainee
+    instructorbyTrainee:    state.mostRecent.byTrainee,
+    testHistoryData:        state.testHistory.testHistoryData,
+    testLogData:            state.testHistory.testLogData
   };
 };
     // instructorResults:      state.mostRecent.results,
@@ -33,6 +35,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchEarningGraphDataIfNeeded:  actions.fetchEarningGraphDataIfNeeded,
         fetchTeamMatesDataIfNeeded:     actions.fetchTeamMatesDataIfNeeded,
         fetchInstructorDataIfNeeded: actions.fetchInstructorDataIfNeeded,
+        fetchTestHistoryDataIfNeeded: actions.fetchTestHistoryDataIfNeeded,
+
       },
       dispatch)
   };

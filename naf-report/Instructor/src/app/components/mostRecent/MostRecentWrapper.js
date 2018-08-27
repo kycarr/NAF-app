@@ -46,7 +46,7 @@ class MostRecentWrapper extends React.Component {
 		let rightSeries = topics.map(ele => {
 			return ele.pass;
 		});
-		let series = [leftSeries, rightSeries];
+		let series = [rightSeries, leftSeries];
 		this.state = {
 			key: 1,
 			heatData:null,
@@ -80,7 +80,7 @@ class MostRecentWrapper extends React.Component {
 		let rightSeries = topics.map(ele => {
 			return ele.pass;
 		});
-		let series = [leftSeries, rightSeries];
+		let series = [rightSeries,leftSeries];
 		this.setState({
 			data: {labels: labels, series: series}
 		});

@@ -18,3 +18,14 @@ export const getInstructorData = () => {
     .then(data => data)
     .catch(error => error);
 };
+
+export const getTestHistoryData = () => {
+  const url=`http://localhost:8080/instructor/fetchTestHistory`;
+  const options = {...defaultOptions};
+
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(data => data)
+    .catch(error => error);
+};

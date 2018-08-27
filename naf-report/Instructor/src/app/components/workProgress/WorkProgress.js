@@ -25,10 +25,10 @@ class WorkProgress extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.trainees.length === 0) return;
-    let _content = convertTraineesToArray(nextProps);
-    let labels = nextProps.trainees[0].topics.map(ele => {
+  componentDidMount() {
+    if(this.props.trainees.length === 0) return;
+    let _content = convertTraineesToArray(this.props);
+    let labels = this.props.trainees[0].topics.map(ele => {
         return ele.label;
     });
     let _headers = header.concat(labels);
@@ -37,6 +37,7 @@ class WorkProgress extends React.Component {
       content: _content
     });  
   }
+
 
   render() {
 

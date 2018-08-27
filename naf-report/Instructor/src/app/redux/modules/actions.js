@@ -2,7 +2,6 @@
 
 //testHistory:
 
-export {chooseModule} from './testHistory';
 // earningGraph:
 export {fetchEarningGraphDataIfNeeded} from './earningGraph';
 // sideMenu:
@@ -18,6 +17,10 @@ export {fetchTeamMatesDataIfNeeded}    from './teamMates';
 export {fetchUserInfoDataIfNeeded}     from './userInfos';
 
 export {fetchInstructorDataIfNeeded}   from './mostRecent';
+
+export {fetchTestHistoryDataIfNeeded}  from './testHistory';
+
+export {chooseModule}                  from './chooseModules';
 // views:
 export {
   enterHome,

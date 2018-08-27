@@ -6,147 +6,152 @@
 /*
   imports
  */
+import moment               from 'moment';
 import { appConfig }        from '../../config';
-// import {
-//   getEarningGraphData
-// }                           from '../../services/API';
-// import {
-//   fetchMockEarningGraphData
-// }                           from '../../services/fetchMocks';
+import {
+  getTestHistoryData
+}                           from '../../services/API';
+
+import {
+  fetchInstructorMockData
+}                           from '../../services/fetchMocks';
 import * as ReduxTypes      from '../types';
 
 /*
   constants
  */
-const REQUEST_MODULE_DATA   = 'REQUEST_MODULE_DATA';
-const RECEIVED_MODULE_DATA  = 'RECEIVED_MODULE_DATA';
-const ERROR_MODULE_DATA     = 'ERROR_MODULE_DATA';
-
-type ModuleDataset = {
-  label: string,
-  traineeData: Array<number>,
-  heatMapData: Array<number>
-};
+const REQUEST_TESTHISTORY_DATA   = 'REQUEST_TESTHISTORY_DATA';
+const RECEIVED_TESTHISTORY_DATA  = 'RECEIVED_TESTHISTORY_DATA';
+const ERROR_TESTHISTORY_DATA     = 'ERROR_TESTHISTORY_DATA';
 
 
-type ModuleState = {
+
+type testHistoryState = {
   isFetching: boolean,
-  labels:     Array<string>,
-  datasets:   Array<ModuleDataset>,
-  currentModule: string
+  testHistoryData: Array,
+  testLogData: Array,
+  time: string
 };
+
+export function chooseModule(_module) {
+  console.log(_module);
+  return {
+    type: REQUEST_TESTHISTORY_DATA,
+    module: _module
+  }
+}
 
 /*
   reducer
  */
-const initialState: ModuleState = {
+const initialState: MostRecentState = {
   isFetching: false,
-  currentModule: "Module 01",
-  labels:     [],
-  datasets:   [],
+  testHistoryData: [],
+  testLogData: []
 };
 
 //reducer
 
- export default function testHistory(state = initialState, action) {
- 	switch (action.type) {
- 		case REQUEST_MODULE_DATA:
- 			return {
-				...state,
-				currentModule: action.module
- 			};
- 		default:
- 			return state;
- 	}
- }
-
-
-export function chooseModule(_module) {
-	console.log(_module);
-	return {
-		type: REQUEST_MODULE_DATA,
-		module: _module
-	}
+export default function testHistory(state = initialState, action) {
+  switch (action.type) {
+  case 'REQUEST_TESTHISTORY_DATA':
+    return {
+      ...state,
+      isFetching: action.isFetching,
+      time:       action.time
+    };
+  case 'RECEIVED_TESTHISTORY_DATA':
+    return {
+      ...state,
+      isFetching: action.isFetching,
+      testHistoryData: action.testHistoryData,
+      testLogData: action.testLogData,
+      time:       action.time
+    };
+  case 'ERROR_TESTHISTORY_DATA':
+    return {
+      ...state,
+      isFetching: action.isFetching,
+      time:       action.time
+    };
+  default:
+    return state;
+  }
 }
+
 
  //action
 
-
-
-// export default function fetchingModule(state = initialState, action) {
-//   switch (action.type) {
-//   case 'REQUEST_EARNING_GRAPH_DATA':
-//     return {
-//       ...state,
-//       isFetching: action.isFetching,
-//       time:       action.time
-//     };
-//   case 'RECEIVED_EARNING_GRAPH_DATA':
-//     return {
-//       ...state,
-//       isFetching: action.isFetching,
-//       labels:     action.labels,
-//       datasets:   action.datasets,
-//       time:       action.time
-//     };
-//   case 'ERROR_EARNING_GRAPH_DATA':
-//     return {
-//       ...state,
-//       isFetching: action.isFetching,
-//       time:       action.time
-//     };
-//   default:
-//     return state;
-//   }
-// }
-
-
-/*
-  action creators
-
-
-function requestfetchingModule() {
-  return {
-    type:       REQUEST_EARNING_GRAPH_DATA,
-    isFetching: true,
-    
+export function fetchTestHistoryDataIfNeeded() {
+  return (
+    dispatch, 
+    getState
+  ) => {
+    if (shouldFetchTestHistoryData(getState())) {
+      return dispatch(fetchTestHistoryData());
+    }
   };
 }
-function receivedModuleData() {
+
+
+function requestTestHistoryData(time = moment().format()) {
   return {
-    type:       RECEIVED_M_DATA,
-    isFetching: false,
-    labels:     [...data.labels],
-    datasets:   [...data.datasets],
+    type: REQUEST_TESTHISTORY_DATA,
+    isFetching: true,
     time
   };
 }
-function errorEarningGraphData(error, time = moment().format()) {
+
+
+function receivedTestHistoryData(data, time = moment().format()) {
   return {
-    type:       ERROR_EARNING_GRAPH_DATA,
+    type:       RECEIVED_TESTHISTORY_DATA,
+    isFetching: false,
+    testHistoryData:     [...data.testLogs],
+    testLogData:    [...data.logArray],
+    time
+  };
+}
+
+function errorFetchTestHistoryData(error, time = moment().format()) {
+  return {
+    type:       ERROR_TESTHISTORY_DATA,
     isFetching: false,
     error,
     time
   };
 }
-function fetchEarningGraphData() {
+
+
+
+function fetchTestHistoryData() {
   return dispatch => {
-    dispatch(requestEarningGraphData());
-    if (appConfig.DEV_MODE) {
+    dispatch(requestTestHistoryData());
+    if (!appConfig.DEV_MODE) {
       // DEV ONLY
-      fetchMockEarningGraphData()
+      fetchInstructorMockData()
         .then(
-          data => dispatch(receivedEarningGraphData(data))
+          data => dispatch(receivedTestHistoryData(data))
         );
     } else {
-      getEarningGraphData()
+      getTestHistoryData()
         .then(
-          data => dispatch(receivedEarningGraphData(data))
+          data => dispatch(receivedTestHistoryData(data))
         )
         .catch(
-          error => dispatch(errorEarningGraphData(error))
+
+          error => dispatch(console.log(error))
         );
     }
   };
 }
- */
+
+
+function shouldFetchTestHistoryData(state) {
+  const testHistoryStore = state.testHistory;
+  if (testHistoryStore.isFetching) {
+    return false;
+  } else {
+    return true;
+  }
+}
