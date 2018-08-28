@@ -21,6 +21,8 @@ import Collapsible from 'react-collapsible';
 import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ctBarLabels from './ChartistUtils.js';
+import closeIcon from '../../img/close.png';
+
 const graphLabelName = {
   'marginLeft' : '22px',
   'fontWeight' : 'bold',
@@ -36,6 +38,8 @@ class MostRecentWrapper extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		this.clickFunction = this.clickFunction.bind(this);
 		let topics = props.topics;
 		let labels = topics.map(ele => {
 			return ele.label;
@@ -86,14 +90,22 @@ class MostRecentWrapper extends React.Component {
 		});
 	}
 
+	clickFunction() {
+		if(this.props.closeTab !== undefined)
+			this.props.closeTab(this.props.results.testName);
+	}
+	
 	render() {
 		return (
 			<div>
+					<div className="col-md-12">
+						<h2 className="testhistory-title">Most Recent Test Results:</h2>
+						<img style={{float: 'right', cursor: 'pointer'}} onClick={this.clickFunction} src={closeIcon} height='30' width='30'/>
+					</div>
 					<div
 						className="row"
 						style={{marginBottom: '5px'}}>
-					
-						<h2 className="testhistory-title">Most Recent Test Results:</h2>
+
 						<div className="col-md-2 topcard-left">
 						 <div className="sm-st-info"><div>Class Name</div><span className="testname">{this.props.results.className}</span></div>
 						</div>
@@ -157,7 +169,8 @@ MostRecentWrapper.propTypes = {
 	topics: PropTypes.array,
 	trainees: PropTypes.array,
 	byTopics: PropTypes.array,
-	byTrainee: PropTypes.array
+	byTrainee: PropTypes.array,
+	closeTab: PropTypes.func
 };
 
 export default MostRecentWrapper;

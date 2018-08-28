@@ -116,6 +116,7 @@ class Home extends React.Component {
 		this.reloadHeat = this.reloadHeat.bind(this);
 		this.selectModule = this.selectModule.bind(this);
 		this.openNewTab = this.openNewTab.bind(this);
+		this.closeTab = this.closeTab.bind(this);
 		this.state = {
 			heatmapdata:[],
 			key: 1,
@@ -252,6 +253,15 @@ class Home extends React.Component {
 		// this.reloadHeat();
 	}
 
+	closeTab(testName) {
+		let newTabs = this.state.tabs.filter((ele, index) => {
+			return ele.results.testName !== testName;
+		});
+		this.setState({
+			tabs: newTabs
+		});
+	}
+
 	reloadHeat() {
 			this.setState({heatData:null});
 	}
@@ -333,7 +343,7 @@ class Home extends React.Component {
 					    {this.state.tabs.map((ele,index) => (
 	      					<TabPanel title={ele.results.testName} key={index} >
 								<MostRecentWrapper results={ele.results} topics={ele.results.topics} trainees={ele.trainees}
-					 byTopics={ele.byTopics} byTrainee={ele.byTrainee}/>
+					 byTopics={ele.byTopics} byTrainee={ele.byTrainee} closeTab={this.closeTab}/>
 	      					</TabPanel>
 					    ))}
 				</Tabs>
