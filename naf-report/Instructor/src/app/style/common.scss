@@ -21,12 +21,12 @@
 }
 
 // fix
-.btn {
-  margin: {
-    left: 2px;
-    right: 2px;
-  }
-}
+//.btn {
+//  margin: {
+//    left: 2px;
+//    right: 2px;
+//  }
+//}
 
 // fix
 .well {
@@ -51,4 +51,14 @@ input[type="checkbox"] {
 
 .heatmap-div {
   margin-top:20px;
+}
+
+#sm-st-info-button {
+  background-color:#427d90;
+  height:30px;
+  border-radius: 15px 15px 15px 15px;
+  width:80px;
+  color: white;
+  cursor: pointer;
+  padding:5px 5px 15px 25px;
 }

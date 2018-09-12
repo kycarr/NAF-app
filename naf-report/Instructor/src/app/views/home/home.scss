@@ -87,26 +87,40 @@
   fill: #254e77;
 }
 .sm-st-info{
-	margin-top: 16px;
+	margin-top: 15px;
 
 }
+
+.li.header {
+  margin-left: 15px;
+}
+
+.btn{
+  background-color:#ADBEC9;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  width: 100%;
+  box-shadow: 3px 5px #888888;
+}
+
 .topcard{
 	background-color:#b5e9fa;
-	height:75px;
+	height:80px;
 	border-right: 2px solid #9f9f9f;
 }
 .topcard-left{
 	background-color:#b5e9fa;
 	margin-left: 30px;
 	border-radius: 10px 0 0 10px;
-	height:75px;
+	height:80px;
 	border-right: 2px solid #9f9f9f;
 }
 .topcard-right{
 	background-color:#b5e9fa;
 	margin-right: 10px;
 	border-radius: 0 10px 10px 0;
-	height:75px;
+	height:80px;
 }
 .sm-st-info span {
    display:block;
@@ -247,18 +261,8 @@ body, html {
 }
 .right-align-4 {
 	padding-left:0px;
-}
-.right-align-5 {
-	padding-left:0px;
-}
-.right-align-6 {
-	padding-left:0px;
-}
-.right-align-7 {
-	padding-right:0px;
-}
-.right-align-8 {
-	padding-right:0px;
+  font-size:23px !important;
+  font-weight: 600 !important;
 }
 .react-tabs__tab--selected {
     background: #fff !important;;
@@ -391,14 +395,4 @@ body, html {
   font-weight:600;
   text-align:mid;
   margin-left:10px;
-}
-
-#sm-st-info-button {
-  background-color:#427d90;
-  height:30px;
-  border-radius: 15px 15px 15px 15px;
-  color:white;
-  width:80px;
-  cursor: pointer;
-  padding:5px 5px 15px 25px;
 }
