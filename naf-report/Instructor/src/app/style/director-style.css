@@ -2241,6 +2241,7 @@ content: '';
     transition: all .3s ease;
 }
 .btn.btn-info {
+    color: black;
     background-color: #23b7e5;
     border: none;
     -webkit-transition: all .3s ease;

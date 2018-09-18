@@ -23,7 +23,7 @@ class RequirementsWrapper extends React.Component {
 				<Collapsible trigger={
 							<div className='collapsible-icon-second'>
 								<div className='bycollapse-title'>
-									<i className='fa fa-caret-right-collpase'></i>Requirements Not Met
+									<i className='fa fa-caret-right-collpase'></i>Requirements Not Met:
 								</div>
 							</div>}>
 				<div style={{'marginLeft' : '50px'}}>
@@ -41,7 +41,7 @@ class RequirementsWrapper extends React.Component {
 				<Collapsible trigger={
 							<div className='collapsible-icon-second'>
 								<div className='bycollapse-title'>
-									<i className='fa fa-caret-right-collpase'></i>Requirements Not Met
+									<i className='fa fa-caret-right-collpase'></i>Requirements Not Met:
 								</div>
 							</div>}>
 				<div style={{'marginLeft' : '50px'}}>

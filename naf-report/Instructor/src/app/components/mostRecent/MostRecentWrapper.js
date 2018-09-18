@@ -11,6 +11,7 @@ import {
 	ClassTestLog,
 	ModuleList,
 	RequirementsWrapper,
+	Button
 } from '../../components';
 import ReactDOM from 'react-dom';
 import ChartistGraph from 'react-chartist';
@@ -22,7 +23,6 @@ import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ctBarLabels from './ChartistUtils.js';
 import closeIcon from '../../img/close.png';
-
 const graphLabelName = {
   'marginLeft' : '22px',
   'fontWeight' : 'bold',
@@ -118,24 +118,24 @@ class MostRecentWrapper extends React.Component {
 							 </span></div>
 						</div>
 						<div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div># Finished</div><span className="right-align-4">{this.props.results.finished}</span></div>
+							 <Button className="sm-st-info" type="info" identifier='FINISHED' content={this.props.trainees}><div># Finished</div><span className="right-align-4">{this.props.results.finished}</span></Button>
 						</div>
 							 <div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div># Incomplete</div><span className="right-align-5">{this.props.results.inComplete}</span></div>
+							 <Button className="sm-st-info" type="info" identifier='NOTCOMPLETE' content={this.props.trainees}><div># Incomplete</div><span className="right-align-4">{this.props.results.inComplete}</span></Button>
 						</div>
 							 <div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div># Not Start</div><span className="right-align-6">{this.props.results.notStart}</span></div>
+							 <Button className="sm-st-info" type="info" identifier='NOTSTART' content={this.props.trainees}><div># Not Start</div><span className="right-align-4">{this.props.results.notStart}</span></Button>
 						</div>
 							 <div className="col-md-1 topcard">
-							 <div className="sm-st-info"><div>Average %</div><span className="right-align-7">{this.props.results.average}</span></div>
+							 <Button className="sm-st-info" type="info"><div>Average %</div><span className="right-align-4">{this.props.results.average}</span></Button>
 						</div>
 							 <div className="col-md-1 topcard-right">
-							 <div className="sm-st-info"><div>Pass %</div><span className="right-align-8">{this.props.results.pass}</span></div>
+							 <Button className="sm-st-info" type="info" identifier='PASS' content={this.props.trainees}><div>Pass %</div><span className="right-align-4">{this.props.results.pass}</span></Button>
 						</div>
 					</div>
 
 					<div className="row">
-					<Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i>Pass/Fail by Topics</div> </div>}>
+					<Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i>Pass/Fail by Topics: </div> </div>}>
 		              	<div style={{marginTop: '40px', marginBottom: '30px'}}>
 		              		<span style={graphLabelName} > # Students </span>
           					<span style={graphLabelResults} >Green = Pass / Red = Fail </span>
@@ -150,7 +150,7 @@ class MostRecentWrapper extends React.Component {
 
 					<div className="row collapsible-row">
 						<div className="col-md-12">
-							<Collapsible trigger={<span className='collapsible-icon'><i className='fa fa-caret-right-collpase'></i>Trainee</span>}>
+							<Collapsible trigger={<span className='collapsible-icon'><i className='fa fa-caret-right-collpase'></i>Trainee:</span>}>
 							<div className="collapsible-paragraph">
 								 <WorkProgress trainees={this.props.trainees} />
 							</div>
