@@ -151,7 +151,7 @@ class TestQuestions extends Component {
 
           <div className="test-question-question"> &nbsp; {question.question}</div>
 
-          {question.type === MULTI_CHOICE && question.choiceType === MULTIPLE_ANSWER ? <div className="test-question-filler"><strong>Select all that apply.</strong></div> : null}
+          {question.type === MULTI_CHOICE && question.choiceType === MULTIPLE_ANSWER ? <div className="test-question-filler"><strong><em>This question may have mulitple answers possible. Select all that apply.</em></strong></div> : null}
           {question.type === HOTSPOT ? <div className="test-question-filler"><strong>Click on the image to select a region. Click again to cancel the selection.</strong></div> : null}
 
           {question.videoURL !== undefined ? TestQuestions.renderVideo(question.videoURL) : null}

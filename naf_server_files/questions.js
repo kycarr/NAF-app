@@ -40,7 +40,7 @@ let qArray = [
     {
       id: 3,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "When using frequencies above 30 MegaHertz, you are normally limited to using what range?",
       topicId: 2,
       bookmarked: false,
@@ -48,12 +48,12 @@ let qArray = [
         {option: "UHF", selected: false},
         {option: "Line-of-sight", selected: false},
         {option: "SATCOM", selected: false}],
-      correctAnswer: ['HF','UHF']
+      correctAnswer: ['HF']
     },
     {
       id: 4,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "What is the final stage of a transmitter?",
       topicId: 2,
       bookmarked: false,
@@ -61,12 +61,12 @@ let qArray = [
         {option: "Pulse generator", selected: false},
         {option: "Power reduction", selected: false},
         {option: "Power amplifier", selected: false}],
-      correctAnswer: ['Power amplifier', 'Pulse generator']
+      correctAnswer: ['Power amplifier']
     },
     {
       id: 5,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "Which Receiver assembly provides the internal 5MHz reference signal?",
       topicId: 2,
       bookmarked: false,
@@ -74,12 +74,12 @@ let qArray = [
         {option: "A11", selected: false},
         {option: "A21", selected: false},
         {option: "A10", selected: false}],
-      correctAnswer: ['A12','A11']
+      correctAnswer: ['A12']
     },
     {
       id: 6,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "The ________ in an AM transmitter converts audio (sound) into electrical energy.",
       topicId: 2,
       bookmarked: false,
@@ -87,12 +87,12 @@ let qArray = [
         {option: "Speaker", selected: false},
         {option: "Pulse-generator", selected: false},
         {option: "Toner", selected: false}],
-      correctAnswer: ['Microphone','Speaker']
+      correctAnswer: ['Microphone']
     },
     {
       id: 7,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "What is another name for the positive electrode?",
       topicId: 2,
       bookmarked: false,
@@ -105,7 +105,7 @@ let qArray = [
     {
       id: 8,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "One cycle is equal to how many degrees of rotation of a conductor in a magnetic field?",
       topicId: 2,
       bookmarked: false,
@@ -119,7 +119,7 @@ let qArray = [
     {
       id: 9,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "In the example 1A6CR3, what is the assembly designator?",
       topicId: 2,
       bookmarked: false,
@@ -127,12 +127,12 @@ let qArray = [
         {option: "A6", selected: false},
         {option: "6CR", selected: false},
         {option: "CR3", selected: false}],
-      correctAnswer: ['A6','1A']
+      correctAnswer: ['A6']
     },
     {
       id: 10,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "What is the frequency range of EHF communications?",
       topicId: 2,
       bookmarked: false,
@@ -145,7 +145,7 @@ let qArray = [
     {
       id: 11,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "A message transmitted on several frequencies at the same time is what type of transmission?",
       topicId: 2,
       bookmarked: false,
@@ -158,7 +158,7 @@ let qArray = [
     {
       id: 12,
       type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
+      choiceType: SINGLE_ANSWER,
       question: "The ________ extracts the modulating audio signal.",
       topicId: 2,
       bookmarked: false,
@@ -179,7 +179,7 @@ let qArray = [
         {option: "Amplification", selected: false},
         {option: "Noise", selected: false},
         {option: "Fidelity", selected: false}],
-      correctAnswer: ["Noise"]
+      correctAnswer: ["Noise", "Amplification"]
     },
     {
       id: 14,
