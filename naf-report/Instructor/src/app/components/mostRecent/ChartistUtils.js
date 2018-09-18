@@ -9,7 +9,7 @@ import Chartist from 'chartist';
         var barHorizontalCenter, barVerticalCenter, label, value;
         if (data.type === "bar") {
           barHorizontalCenter = data.x1 + (data.element.width() * .5);
-          barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
+          barVerticalCenter = data.y1 + (data.element.height() * -1) - 5;
           value = data.element.attr('ct:value');
           if (value !== '0') {
             label = new Chartist.Svg('text');

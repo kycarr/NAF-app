@@ -118,19 +118,19 @@ class MostRecentWrapper extends React.Component {
 							 </span></div>
 						</div>
 						<div className="col-md-1 topcard">
-							 <Button className="sm-st-info" type="info"><div># Finished</div><span className="right-align-4">{this.props.results.finished}</span></Button>
+							 <Button className="sm-st-info" type="info" identifier='FINISHED' content={this.props.trainees}><div># Finished</div><span className="right-align-4">{this.props.results.finished}</span></Button>
 						</div>
 							 <div className="col-md-1 topcard">
-							 <Button className="sm-st-info" type="info"><div># Incomplete</div><span className="right-align-4">{this.props.results.inComplete}</span></Button>
+							 <Button className="sm-st-info" type="info" identifier='NOTCOMPLETE' content={this.props.trainees}><div># Incomplete</div><span className="right-align-4">{this.props.results.inComplete}</span></Button>
 						</div>
 							 <div className="col-md-1 topcard">
-							 <Button className="sm-st-info" type="info"><div># Not Start</div><span className="right-align-4">{this.props.results.notStart}</span></Button>
+							 <Button className="sm-st-info" type="info" identifier='NOTSTART' content={this.props.trainees}><div># Not Start</div><span className="right-align-4">{this.props.results.notStart}</span></Button>
 						</div>
 							 <div className="col-md-1 topcard">
 							 <Button className="sm-st-info" type="info"><div>Average %</div><span className="right-align-4">{this.props.results.average}</span></Button>
 						</div>
 							 <div className="col-md-1 topcard-right">
-							 <Button className="sm-st-info" type="info"><div>Pass %</div><span className="right-align-4">{this.props.results.pass}</span></Button>
+							 <Button className="sm-st-info" type="info" identifier='PASS' content={this.props.trainees}><div>Pass %</div><span className="right-align-4">{this.props.results.pass}</span></Button>
 						</div>
 					</div>
 

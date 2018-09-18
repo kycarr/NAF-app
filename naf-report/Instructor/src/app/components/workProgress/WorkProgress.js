@@ -25,17 +25,18 @@ class WorkProgress extends React.Component {
     };
   }
 
-  componentDidMount() {
-    if(this.props.trainees.length === 0) return;
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.trainees.length === 0) return;
     let _content = convertTraineesToArray(this.props);
-    let labels = this.props.trainees[0].topics.map(ele => {
+    let labels = nextProps.trainees[0].topics.map(ele => {
         return ele.label;
     });
     let _headers = header.concat(labels);
     this.setState({
       headers: _headers,
       content: _content
-    });  
+    }); 
+    console.log("?????");
   }
 
 
