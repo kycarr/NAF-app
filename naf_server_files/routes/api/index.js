@@ -220,6 +220,8 @@ router.post('/api/questionAnswerStore', test_controller.post_options_answers);
 
 router.post('/api/questionResponseStore', test_controller.post_essay_answers); 
 
+router.post('/api/hotspotStore', test_controller.post_hotspot_answers);
+
 router.post('/api/submitSection', test_controller.submit_section);
 
 router.post('/api/finishTest', test_controller.finish_test); 

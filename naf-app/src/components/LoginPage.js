@@ -19,15 +19,17 @@ import Paper from "@material-ui/core/Paper";
 
 const buttonStyle = {
   textTransform: 'none',
-  fontSize: '18px',
+  fontSize: '24px',
   color: '#fff',
-    padding: '1px 2px 1px'
+  padding: '1px 2px 1px',
+  margin: '2px 2px 2px'
 };
 
 const loginButtonStyle = {
   textTransform: 'none',
-  fontSize: '18px',
-  padding: '0px'
+  fontSize: '24px',
+  padding: '1px',
+  margin: '2px 2px 2px'
 };
 
 class LoginPage extends Component {

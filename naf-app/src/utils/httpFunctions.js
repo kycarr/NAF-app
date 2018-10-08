@@ -43,6 +43,18 @@ export function saveResponse(userId, taskId, sessionId, sectionId, questionId, r
 	});
 }
 
+
+export function saveHotspot(userId, taskId, sessionId, sectionId, questionId, response) {
+	return axios.post(`${URL}/api/hotspotStore`, {
+		userId,
+		taskId,
+		sessionId,
+		sectionId,
+		questionId,
+		response
+	});
+}
+
 export function submitAnswer(userId, sectionId, timeLeft) {
 	console.log("submit Section");
 	return axios.post(`${URL}/api/submitSection`, {

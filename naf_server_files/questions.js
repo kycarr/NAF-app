@@ -314,7 +314,8 @@ let qArray = [
           throws: "",
           breaks: ""
         }
-      ]
+      ],
+      correctAnswer: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
     },
     {
       id: 8,
@@ -323,7 +324,7 @@ let qArray = [
       topicId: 4,
       bookmarked: false,
       limit: 2,
-      correctAnswer: ["Yes"]
+      correctAnswer: ["616,158,656,198", "415,255,455,295"]
     },
     {
       id: 9,
@@ -331,7 +332,7 @@ let qArray = [
       question: "Construct a simple bridge rectifier by dragging the appropriate components from the tray on the left (below) onto the breadboard (on the right below)",
       topicId: 3,
       bookmarked: false,
-      correctAnswer: ["Yes"]
+      correctAnswer: ["250,270,310,320"]
     }
   ]
 ];

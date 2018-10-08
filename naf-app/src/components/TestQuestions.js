@@ -71,6 +71,7 @@ class TestQuestions extends Component {
   }
 
   static onAnswerChanged(id, answer) {
+    console.log('id: ' + id + "answer" + answer);
     this.props.questionAnswered(id, answer);
   }
 
@@ -90,7 +91,6 @@ class TestQuestions extends Component {
 
   renderQuestion(question) {
     let questionType = question.type;
-    console.log(questionType);
     switch (questionType) {
       case MULTI_CHOICE:
         return question.optionList.map((option) => {
@@ -117,15 +117,15 @@ class TestQuestions extends Component {
         );
       case HOTSPOT:
         return (
-          <HotSpotQuestion limit={question.limit} imageURL={question.imageURL} triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id}/>
+          <HotSpotQuestion limit={question.limit} imageURL={question.imageURL} triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id} answerQuestion={this.props.questionAnswered}/>
         );
       case TABLE_FILL:
         return (
-          <TableFillQuestion data={question.data} columns={question.columns} triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id}/>
+          <TableFillQuestion data={question.data} columns={question.columns} triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id} answerQuestion={this.props.questionAnswered}/>
         );
       case DRAG_DROP:
         return (
-          <DragAroundCustomDragLayer triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id}/>
+          <DragAroundCustomDragLayer triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id} answerQuestion={this.props.questionAnswered}/>
         );
       default:
         break;
@@ -166,7 +166,7 @@ class TestQuestions extends Component {
   }
 
   hotspotBookMark(id) {
-      this.props.changeBookmark(id);
+      // this.props.changeBookmark(id);
   }
 
   goToNextPage(nextPageNum, maxPageNum) {

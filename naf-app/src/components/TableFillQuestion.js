@@ -52,6 +52,8 @@ class TableFillQuestion extends Component {
 
   }
 
+
+
   render() {
     // const images = ['../images/Switch1.png', '../images/Switch2.png', '../images/Switch3.png','../images/Switch2.png'];
     const images = [Switch1, Switch2, Switch3, Switch4];
@@ -67,7 +69,6 @@ class TableFillQuestion extends Component {
         return {
           ...column,
           Cell: this.renderEditable,
-          // width: this.getColumnWidth(data, column.accessor, column.Header)
         }
       }else {
         return { ...column,
@@ -77,10 +78,6 @@ class TableFillQuestion extends Component {
                }
       }
     });
-    // console.log('COLUMNS');
-    // console.log(columns);
-    // console.log('DATA');
-    // console.log(data);
 
     let numAnswered = 0;
     data.forEach((object) => {
@@ -109,7 +106,6 @@ class TableFillQuestion extends Component {
             defaultPageSize={data.length}
             showPagination={false}
             className="-striped -highlight"
-
           />
           <br />
           <p><small><em>You have filled in {numAnswered} {numAnswered === 1 ? 'blank' : 'blanks'} in the table</em></small></p>

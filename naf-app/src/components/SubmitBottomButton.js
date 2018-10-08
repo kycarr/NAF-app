@@ -106,7 +106,6 @@ const loginButtonStyle = {
               <span>You have completed this section. <br />You have answered {this.props.numAnsweredQuestions} out of {this.props.allQuestions.length} questions in this section.
                If you proceed, you will not be able to return to this section. <br /><br /></span> :
 
-
               <span>You have not completed this section. You have <span style={{'color': 'red'}}> <b>{this.props.allQuestions.length - this.props.numAnsweredQuestions} unanswered </b>  {this.props.allQuestions.length - this.props.numAnsweredQuestions === 1 ? 'question' : 'questions' } </span>
                out of {this.props.allQuestions.length} questions.
                <br />If you submit, you will not be able to return to this section. Any unanswered questions will be graded as incomplete.<br /><br /></span>}

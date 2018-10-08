@@ -61,20 +61,24 @@ class Container extends Component {
 	}
 
 	moveBox(id, left, top) {
+		console.log("left: " + left + ", top: " + top + ", id: " + id);
 		const { triggerMark } = this.props;
-		if(!this.state.triggered) {
-			this.props.triggerMark(this.props.id);
-			this.state.triggered = true;
-		}
-		this.setState(
-			update(this.state, {
+		// if(!this.state.triggered) {
+		// 	this.props.triggerMark(this.props.id);
+		// 	this.state.triggered = true;
+		// }
+		// 
+		let newBoxes = 	
+		this.setState(update(this.state, {
 				boxes: {
 					[id]: {
 						$merge: { left, top },
 					},
-				},
-			}),
-		)
+				}
+			})
+		);
+		// console.log(JSON.stringify(newBoxes));
+
 	}
 
 	renderBox(item, key) {

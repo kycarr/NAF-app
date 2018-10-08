@@ -113,7 +113,7 @@ export default class ImageMapper extends Component {
 
 ImageMapper.defaultProps = {
 	active: true,
-	fillColor: 'rgba(211,211,211,0.1)',
+	fillColor: 'rgba(211,211,211,0.05)',
 	lineWidth: 1,
 	map: {
 		areas: [],

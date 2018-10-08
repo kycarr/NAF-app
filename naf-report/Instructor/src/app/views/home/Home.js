@@ -197,21 +197,26 @@ class Home extends React.Component {
 
 	componentDidUpdate() {
 	 $('.heatmap-div div[title]').each(function(i, obj) {
-	  if($(obj)[0].title.trim() < 20 ) {
-	  	$(obj)[0]['style'].background='red';
-	  	$(obj)[0]['style'].opacity='1';
-	  }
-	  else if($(obj)[0].title.trim() > 20  && $(obj)[0].title < 50) {
-	  	$(obj)[0]['style'].background='yellow';
-	  	$(obj)[0]['style'].opacity='1';
-	  }
-	  else if($(obj)[0].title.trim() > 50 ) {
-	  	$(obj)[0]['style'].background='green';
-	  	$(obj)[0]['style'].opacity='1';
-	  }
-      if(!isNaN($(obj)[0].title)) {
-  }
-});
+			  if($(obj)[0].title.trim() < 20 ) {
+			  	$(obj)[0]['style'].background='red';
+			  	$(obj)[0]['style'].opacity='1';
+			  }
+			  else if($(obj)[0].title.trim() >= 20  && $(obj)[0].title <= 40) {
+			  	$(obj)[0]['style'].background='yellow';
+			  	$(obj)[0]['style'].opacity='1';
+			  }
+			  else if($(obj)[0].title.trim() >= 50 ) {
+			  	$(obj)[0]['style'].background='green';
+			  	$(obj)[0]['style'].opacity='1';
+			  }
+			  else {
+			  	$(obj)[0]['style'].background='white';
+			  	$(obj)[0]['style'].opacity='1';
+			  }
+		      if(!isNaN($(obj)[0].title)) {
+		      	console.log("not a numebr");
+		  }
+	});
 }
 	handleSelect(key) {
 		const data = this.state.data;
@@ -234,7 +239,7 @@ class Home extends React.Component {
 	}
 
 	loadHeatmap(index) {
-	const xLabels = new Array(44).fill(0).map((_, i) => `Topic ${i+1}`);
+	const xLabels = new Array(15).fill(0).map((_, i) => `Topic ${i+1}`);
 	const yLabels = ['Class 9', 'Class 10', 'Class 13', 'Class 5', 'Class 6', 'Class 7', 'Class 3', 'Class 2', 'Class 8', 'Class 11'];
 	const data = new Array(yLabels.length)
 			.fill(0)
@@ -278,7 +283,7 @@ class Home extends React.Component {
 		} = this.props;
 		
 		const randomValues = generateRandomValues(2000);
-		const xLabels = new Array(44).fill(0).map((_, i) => `Topic ${i+1}`);
+		const xLabels = new Array(15).fill(0).map((_, i) => `Topic ${i+1}`);
 		const yLabels = ['Class 9', 'Class 10', 'Class 13', 'Class 5', 'Class 6', 'Class 7', 'Class 3', 'Class 2', 'Class 8', 'Class 11'];
 		// console.log('this.state.heatmapdata' + this.state.heatmapdata);
 		return(

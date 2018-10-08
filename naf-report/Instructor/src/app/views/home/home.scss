@@ -217,7 +217,7 @@ body, html {
   overflow: auto;
 }
 .heatmap-div {
-	width:1850px;
+  width: 1280px;
 }
 .heatmap-div-table {
 	width:98%;	
@@ -226,13 +226,12 @@ body, html {
 	-webkit-transform: rotate(-45deg);
 	margin-top:20px;
 	margin-bottom:10px;
-	flex: none !important;
+	flex: 20 !important;
 }
 .heatmap-div >div > div:nth-child(n+4)> div{
 	-webkit-transform: rotate(-0deg);
 	margin-top:0px;
 	margin-bottom:0px;
-
 }
 .table > tbody 
 {

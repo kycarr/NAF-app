@@ -35,7 +35,8 @@ const initState = {
   isAuthenticated: false,
   answerArray: [],
   resultUrl: "",
-  numAnsweredQuestions: 0
+  numAnsweredQuestions: 0,
+
 };
 
 
@@ -142,12 +143,17 @@ function optionSelected(state, payload) {
       numAnsweredQuestions: numAnsweredQuestions
   });
 }
+
 function optionSave(userId, taskId, sessionId, sectionId, questionId, answer) {
     saveAnswer(userId, taskId, sessionId, sectionId, questionId, answer)
       .catch(error => {
         console.log(error);
       });
 }
+
+//new item types requires a different system of storing
+//we store all of them into answer array and when submit section is click, 
+//we go through the answerArray to see if we need to submit
 
 function questionAnswered(state, payload) {
   let numAnsweredQuestions = 0;

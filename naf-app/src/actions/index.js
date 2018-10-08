@@ -67,8 +67,6 @@ export function resetToDefaultState() {
 }
 
 export function WayPointSection(lineNumber) {
-
-  console.log("lineNumber: " + lineNumber);
   return {
     type: LINE_NUMBER,
     payload: lineNumber
@@ -144,6 +142,13 @@ export function submitSectionAnswers(userId, sectionId, timeLeft) {
   };
 }
 
+
+export function saveHotspotAnswer(userId, sectionId) {
+
+
+
+}
+
 export function receiveSaveAnswer(response) {
   return {
     type: RECEIVE_SAVE_ANSWER,
@@ -162,6 +167,8 @@ export function sendTestFinishAction(userId, sectionId, timeLeft){
   }
 }
 */
+
+
 
 export function sendTestFinishAction(userId, sessionId, sectionId, timeLeft){
   let response = sendTestFinish(userId, sessionId, sectionId, timeLeft);

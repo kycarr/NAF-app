@@ -23,7 +23,6 @@ export default class HotSpotQuestion extends Component {
   }
 
   clicked(area) {
-  	console.log('inside clicked');
     // this.state.visited = [];
     console.log('You clicked on ' + area.shape + ' at coords ' + JSON.stringify(area.coords) + ' !');
     let count = this.state.count;
@@ -34,16 +33,23 @@ export default class HotSpotQuestion extends Component {
       this.props.triggerMark(this.props.id);
       this.state.triggered = false;
     }
-  	this.setState({
-      visited: this.state.visited.filter(ele => {
+
+    let nextVisited = this.state.visited.filter(ele => {
         return !(ele.coords === area.coords);
-      }),
+      });
+
+  	this.setState({
+      visited: nextVisited,
       count: this.state.count - 1
     });
+
+    let coordsString = nextVisited.map(ele => {
+      return ele.coords.toString();
+    });
+    this.props.answerQuestion(this.props.id, coordsString);
   }
 
   clickedOutside(evt) {
-  	console.log('inside clickedOutside');
     let count = this.state.count;
     if(count + 1 > this.props.limit) {
       this.state.warningToggle = true;
@@ -62,12 +68,16 @@ export default class HotSpotQuestion extends Component {
   	const areaObject = {shape: "rect", coords: [coords.x-20, coords.y-20, coords.x + 20, coords.y + 20] };
   	const currentVisited = this.state.visited;
   	currentVisited.push(areaObject);
-
+    
   	this.setState({
       msg: 'You clicked on the image at coords ' + JSON.stringify(coords) + ' !' , x: coords.x, y: coords.y,
       visited: currentVisited,
       count: count
     });
+    let coordsString = this.state.visited.map(ele => {
+      return ele.coords.toString();
+    });
+    this.props.answerQuestion(this.props.id, coordsString);
   }
 
   render() {
@@ -81,7 +91,7 @@ export default class HotSpotQuestion extends Component {
     		name: "my-map",
     		areas: this.state.visited
   	};
-    console.log(MAP);
+    // console.log(MAP);
 
     return (
       <div>
@@ -134,5 +144,6 @@ HotSpotQuestion.propTypes = {
     limit: PropTypes.number,
     imageURL: PropTypes.string,
     triggerMark: PropTypes.func,
-    id: PropTypes.number.required
+    id: PropTypes.number,
+    answerQuestion: PropTypes.func
 };

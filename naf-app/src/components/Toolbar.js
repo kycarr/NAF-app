@@ -62,7 +62,7 @@ class ToolbarComponent extends React.Component {
 
   componentDidMount() {
     let timeLeftVar = ToolbarComponent.secondsToTime(this.props.sectionTime);
-    console.log(timeLeftVar);
+    // console.log(timeLeftVar);
     this.setState({time: timeLeftVar});
     this.startTimer();
   }
