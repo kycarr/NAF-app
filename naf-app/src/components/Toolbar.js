@@ -28,7 +28,7 @@ class ToolbarComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {showTimer: true, time: {}, seconds: props.sectionTime, openInstructions: false, openSectionWarning: false, openTimeoutWarning: false};
+    this.state = {showTimer: true, time: {}, seconds: props.sectionTime, openInstructions: false, openSectionWarning: false, openTimeoutWarning: false, openSectionTimeWarning: false};
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
@@ -38,9 +38,18 @@ class ToolbarComponent extends React.Component {
     this.resetTimerTime = this.resetTimerTime.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.testFinish = this.testFinish.bind(this);
+    this.sectionFinish = this.sectionFinish.bind(this);
   }
 
   handleClose() {
+  }
+
+  sectionFinish() {
+      this.setState({
+        openSectionTimeWarning: false
+      });
+      this.props.submitSectionAnswers(this.props.userId, this.props.sectionNum, ToolbarComponent.secondsToTime(this.props.sectionTime));
+
   }
 
   testFinish() {
@@ -67,22 +76,23 @@ class ToolbarComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      this.setState({
-        seconds: nextProps.sectionTime
-      });
+    this.setState({
+      seconds: nextProps.sectionTime
+    });
+    this.resetTimerTime(nextProps.sectionTime);
   }
 
   componentDidMount() {
     let timeLeftVar = ToolbarComponent.secondsToTime(this.props.sectionTime);
     // console.log(timeLeftVar);
     this.setState({time: timeLeftVar});
-    this.startTimer();
+    // this.startTimer();
   }
 
   startTimer() {
-    if (this.timer === 0) {
+    // if (this.timer === 0) {
       this.timer = setInterval(this.countDown, 1000);
-    }
+    // }
   }
 
   countDown() {
@@ -96,9 +106,18 @@ class ToolbarComponent extends React.Component {
 
     // Check if we're at zero.
     if (seconds === 0) {
-      this.setState({
-        openTimeoutWarning: true
-      });
+      console.log(this.props.sectionNum);
+      console.log(this.props.totalSectionNum);
+      if (this.props.sectionNum < this.props.totalSectionNum - 1) {
+        this.setState({
+          openSectionTimeWarning: true
+        });
+      }
+      else {
+        this.setState({
+          openTimeoutWarning: true
+        });
+      }
       clearInterval(this.timer);
     }
   }
@@ -150,7 +169,7 @@ class ToolbarComponent extends React.Component {
     ];
 
     const exitButtons = [<Link to={'/reviewTestPage'}> <FlatButton label="Exit Test" primary={true} labelStyle={buttonStyle} onClick={this.testFinish}/></Link>];
-
+    const exitSectionButtons = <FlatButton label="Exit Test" primary={true} labelStyle={buttonStyle} onClick={this.sectionFinish}/>
 
     // [
     //   <Link to={`/`}>
@@ -252,6 +271,22 @@ class ToolbarComponent extends React.Component {
               <span>Your time is over. All your work has been automatically saved and submitted.<br/><br/></span>
           </p>
         </Dialog>
+
+
+          <Dialog
+          style = {{ fontFamily : 'Work Sans', textAlign : 'center' }}
+          actions={exitSectionButtons}
+          modal={false}
+          open={this.state.openSectionTimeWarning}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}
+        >
+          <img className="image-warning" src={warning} alt="warning"/>
+          <p className="dialog-text">
+            <div className="dialog-title">Warning</div>
+              <span>Your time is over. All your work has been automatically saved and submitted.<br/><br/></span>
+          </p>
+        </Dialog>
     </div>
     )
   }
@@ -261,6 +296,7 @@ function mapStateToProps(state) {
   return {
     allQuestionsAnswered : state.QuestionsOnAPage.allQuestionsAnswered,
     sectionNum: state.QuestionsOnAPage.section,
+    totalSectionNum : state.QuestionsOnAPage.totalSections,
     sectionTime: state.QuestionsOnAPage.time,
     userId: state.auth.userId,
     sessionId: state.QuestionsOnAPage.sessionId
