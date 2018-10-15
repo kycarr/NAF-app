@@ -112,7 +112,7 @@ exports.post_options_answers = async (req,res) => {
  //check the answer database for the sectionId  questionId  taskId  sessionId
  const section = await Section.findOne({test: task.test, sectionId: Number.parseInt(sectionId)}).populate('items');
  const item = section.items.find(item => item.id === Number.parseInt(questionId));
- console.log(item);
+ // console.log(item);
 
  console.log('Correct: ', item.correctAnswer.trim());
  const session = await Session.findById(sessionId);
@@ -186,7 +186,7 @@ exports.post_essay_answers = async (req,res) => {
 
     let answers = [];
     answers.push(answer.answer);
-
+    // console.log(answer.answer);
     const task = await Task.findById(taskId);
     const section = await Section.findOne({test: task.test, sectionId: Number.parseInt(sectionId)}).populate('items');
     const item = section.items.find(item => item.id === Number.parseInt(questionId));
@@ -194,8 +194,8 @@ exports.post_essay_answers = async (req,res) => {
     
     const answerFromDB = await Answer.findOne({section: section, item: item, session: session, task: task});
     const correctAnswers = item.correctAnswer.trim().split(',');
+    // console.log(correctAnswers);
     let pass = true;
-
     if(correctAnswers.length !== answers.length){
       pass = false; 
      }
@@ -224,6 +224,8 @@ exports.post_essay_answers = async (req,res) => {
         console.log('answer present');
         await Answer.findOneAndUpdate({section: section._id, item: item._id, session: session._id, task: task._id}, { $set: {answers: answers, pass: pass} });
     }
+     res.status(200).json({msg: `Answer posted for section ${sectionId} and question ${questionId}`});
+
 }
 
 exports.submit_section = async (req,res) => {
@@ -322,11 +324,14 @@ exports.finish_test = async (req,res) => {
   
   // answerResponse['reportingData'] = reportingData;
   console.log(userId + "has finished the test"); 
-  res.status(200).end('Success Finish');
+  res.status(200).json({
+      url: 'http://usc-taf-student-reporting.s3-website-us-west-1.amazonaws.com?results=$' + sessionId,
+      pass: reportingData['testResult'],
+      score: reportingData['testScore']
+  });
 }
 
 exports.update_test = async () => {
-  console.log("???");
   const reports = await StudentReport.find();
   for(let i = 0; i < reports.length; i++) {
     await populate_test(reports[i].session);

@@ -29,10 +29,10 @@ export default class HotSpotQuestion extends Component {
     if(count - 1 < this.props.limit) {
       this.state.warningToggle = false;
     }
-    if(count - 1 == 0 && this.state.triggered) {
-      this.props.triggerMark(this.props.id);
-      this.state.triggered = false;
-    }
+    // if(count - 1 == 0 && this.state.triggered) {
+    //   this.props.triggerMark(this.props.id);
+    //   this.state.triggered = false;
+    // }
 
     let nextVisited = this.state.visited.filter(ele => {
         return !(ele.coords === area.coords);
@@ -44,8 +44,9 @@ export default class HotSpotQuestion extends Component {
     });
 
     let coordsString = nextVisited.map(ele => {
-      return ele.coords.toString();
+      return ele.coords[0] + ':' + ele.coords[1] + ':' + ele.coords[2] + ':' + ele.coords[3];
     });
+    console.log(coordsString);
     this.props.answerQuestion(this.props.id, coordsString);
   }
 
@@ -56,12 +57,12 @@ export default class HotSpotQuestion extends Component {
       return;
     }
     else {
-      if(count == 0) {
-        if(!this.state.triggered) {
-          this.props.triggerMark(this.props.id);
-          this.state.triggered = true;
-        }
-      }
+      // if(count == 0) {
+      //   if(!this.state.triggered) {
+      //     this.props.triggerMark(this.props.id);
+      //     this.state.triggered = true;
+      //   }
+      // }
       count++;
     }
   	const coords = { x: evt.nativeEvent.layerX, y: evt.nativeEvent.layerY };
@@ -75,7 +76,7 @@ export default class HotSpotQuestion extends Component {
       count: count
     });
     let coordsString = this.state.visited.map(ele => {
-      return ele.coords.toString();
+      return ele.coords[0] + ':' + ele.coords[1] + ':' + ele.coords[2] + ':' + ele.coords[3];
     });
     this.props.answerQuestion(this.props.id, coordsString);
   }
@@ -143,7 +144,6 @@ export default class HotSpotQuestion extends Component {
 HotSpotQuestion.propTypes = {
     limit: PropTypes.number,
     imageURL: PropTypes.string,
-    triggerMark: PropTypes.func,
     id: PropTypes.number,
     answerQuestion: PropTypes.func
 };

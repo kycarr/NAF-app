@@ -28,6 +28,16 @@ import MediaQuery from 'react-responsive';
 import DragAroundCustomDragLayer from './CustomDragLayer';
 class TestQuestions extends Component {
 
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableAnswers: {}
+    };
+    this.sendTableFillContent = this.sendTableFillContent.bind(this);
+    this.sendDragAndDrop = this.sendDragAndDrop.bind(this);
+
+  }
   static renderVideo(videoURL) {
     if (null != videoURL) {
       return (
@@ -89,6 +99,62 @@ class TestQuestions extends Component {
       }
   }
 
+  sendTableFillContent(questionId, index, column, content) {
+    let mark = false;
+    let tableContent = this.state.tableAnswers[questionId];
+    if(tableContent == null) {
+      tableContent = [];
+      mark = true;
+    }
+    let i = 0;
+    for(i = 0; i < tableContent.length; i++) {
+      if(tableContent[i][0] === index && tableContent[i][1] === column) {
+        tableContent[i][2] = content;
+        break;
+      }
+    }
+    if(i == tableContent.length) {
+      tableContent.push([index, column, content.toString()]);
+    }
+    let tableAnswers = Object.assign({}, this.state.tableAnswers);
+    tableAnswers[questionId] = tableContent;
+    this.setState({tableAnswers});
+    let answers = tableContent.map(ele => {
+      return ele[0].toString() + ':' + ele[1].toString() + ':' + ele[2].toString();
+    });
+    this.props.questionAnswered(questionId, answers);
+    console.log(answers);
+  }
+
+
+  sendDragAndDrop(questionId, index, top, left) {
+    let tableContent = this.state.tableAnswers[questionId];
+    let mark = false;
+      if(tableContent == null) {
+      tableContent = [];
+      mark = true;
+    }
+      let i = 0;
+    for(i = 0; i < tableContent.length; i++) {
+      if(tableContent[i][0] === index) {
+        tableContent[i][1] = top;
+        tableContent[i][2] = left;
+        break;
+      }
+    }
+    if(i == tableContent.length) {
+      tableContent.push([index, top, left]);
+    }
+    let tableAnswers = Object.assign({}, this.state.tableAnswers);
+    tableAnswers[questionId] = tableContent;
+    this.setState({tableAnswers});
+    let answers = tableContent.map(ele => {
+      return ele[0].toString() + ':' + ele[1].toString() + ':' + ele[2].toString();
+    });
+    this.props.questionAnswered(questionId, answers);
+    console.log(answers);
+  }
+
   renderQuestion(question) {
     let questionType = question.type;
     switch (questionType) {
@@ -117,15 +183,15 @@ class TestQuestions extends Component {
         );
       case HOTSPOT:
         return (
-          <HotSpotQuestion limit={question.limit} imageURL={question.imageURL} triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id} answerQuestion={this.props.questionAnswered}/>
+          <HotSpotQuestion limit={question.limit} imageURL={question.imageURL} id={question.id} answerQuestion={this.props.questionAnswered}/>
         );
       case TABLE_FILL:
         return (
-          <TableFillQuestion data={question.data} columns={question.columns} triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id} answerQuestion={this.props.questionAnswered}/>
+          <TableFillQuestion data={question.data} columns={question.columns}  id={question.id} sendTableFillContent={this.sendTableFillContent}/>
         );
       case DRAG_DROP:
         return (
-          <DragAroundCustomDragLayer triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id} answerQuestion={this.props.questionAnswered}/>
+          <DragAroundCustomDragLayer triggerMark={id => this.hotspotBookMark.bind(this)(id)} id={question.id} sendDragAndDrop={this.sendDragAndDrop}/>
         );
       default:
         break;
@@ -163,10 +229,6 @@ class TestQuestions extends Component {
       );
       }
     )
-  }
-
-  hotspotBookMark(id) {
-      // this.props.changeBookmark(id);
   }
 
   goToNextPage(nextPageNum, maxPageNum) {

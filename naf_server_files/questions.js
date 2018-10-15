@@ -315,7 +315,7 @@ let qArray = [
           breaks: ""
         }
       ],
-      correctAnswer: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+      correctAnswer: ['0:poles:1','0:throws:2','0:breaks:3','1:poles:4','1:throws:5','1:breaks:6','2:poles:7','2:throws:8','2:breaks:9','3:poles:10','3:throws:11','3:breaks:12']
     },
     {
       id: 8,
@@ -324,7 +324,7 @@ let qArray = [
       topicId: 4,
       bookmarked: false,
       limit: 2,
-      correctAnswer: ["616,158,656,198", "415,255,455,295"]
+      correctAnswer: ["616:158:656:198", "415:255:455:295"]
     },
     {
       id: 9,
@@ -332,7 +332,7 @@ let qArray = [
       question: "Construct a simple bridge rectifier by dragging the appropriate components from the tray on the left (below) onto the breadboard (on the right below)",
       topicId: 3,
       bookmarked: false,
-      correctAnswer: ["250,270,310,320"]
+      correctAnswer: ['a:144:265', 'b:120:598', 'c:142:384', 'd:299:268', 'e:297:390']
     }
   ]
 ];

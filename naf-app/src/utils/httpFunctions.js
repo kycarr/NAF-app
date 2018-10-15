@@ -14,7 +14,7 @@ export function login(username, password) {
 }
 
 export function getQuestions(userId) {
-	const testParamName="Test Three";
+	const testParamName="Test Five";
 	return axios.post(`${URL}/api/questions`, {
 		 userId,
 		 testParamName

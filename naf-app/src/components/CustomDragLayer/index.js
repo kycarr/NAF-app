@@ -26,7 +26,7 @@ class DragAroundCustomDragLayer extends Component {
 
 		return (
 			<div className="dragdrop-type">
-				<Container snapToGrid={snapToGridAfterDrop} triggerMark={this.props.triggerMark} id={this.props.id}/>
+				<Container snapToGrid={snapToGridAfterDrop} sendDragAndDrop={this.props.sendDragAndDrop} id={this.props.id}/>
 				<CustomDragLayer snapToGrid={snapToGridWhileDragging} />
 			</div>
 		)

@@ -102,6 +102,8 @@ export default createReducer(initState, {
   [GO_TO_REVIEW_TEST_PAGE]: (state, payload) =>
     Object.assign({}, state, {
       resultUrl: payload.url,
+      pass: payload.pass,
+      score: payload.score,
       isAuthenticated: false
     })
 });

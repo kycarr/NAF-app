@@ -29,6 +29,7 @@ class TableFillQuestion extends Component {
         onBlur={e => {
           const data = [...this.state.data];
           data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+          this.props.sendTableFillContent(this.props.id, cellInfo.index, cellInfo.column.id, e.target.innerHTML);
           this.setState({ data });
         }}
         dangerouslySetInnerHTML={{
@@ -88,14 +89,14 @@ class TableFillQuestion extends Component {
         if(object['throws'] !== "")
           numAnswered++;
     });
-    if(numAnswered > 0 && !this.state.triggered) {
-      this.props.triggerMark(this.props.id);
-      this.state.triggered = true;
-    }
-    if(numAnswered == 0 && this.state.triggered) {
-      this.props.triggerMark(this.props.id);
-      this.state.triggered = false;
-    }
+    // if(numAnswered > 0 && !this.state.triggered) {
+    //   this.props.triggerMark(this.props.id);
+    //   this.state.triggered = true;
+    // }
+    // if(numAnswered == 0 && this.state.triggered) {
+    //   this.props.triggerMark(this.props.id);
+    //   this.state.triggered = false;
+    // }
     // console.log(numAnswered);
 
     return (

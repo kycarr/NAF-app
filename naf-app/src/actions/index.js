@@ -40,10 +40,15 @@ export function goToSection(sectionNumber) {
   }
 }
 
-export function goToReviewTestPage(url) {
+export function goToReviewTestPage(response) {
+  console.log(response);
   return {
     type: GO_TO_REVIEW_TEST_PAGE,
-    payload: url
+    payload: {
+      url: response.url,
+      pass: response.pass,
+      score: response.score
+    }
   }
 }
 export function questionAnswered(questionId, answer) {
@@ -158,40 +163,27 @@ export function receiveSaveAnswer(response) {
      } 
   }
 }
-/*
-  
-export function sendTestFinishAction(userId, sectionId, timeLeft){
-  sendTestFinish(userId, sectionId, timeLeft);
-  return {
-    type: SET_TO_DEFAULT
-  }
-}
-*/
-
-
 
 export function sendTestFinishAction(userId, sessionId, sectionId, timeLeft){
-  let response = sendTestFinish(userId, sessionId, sectionId, timeLeft);
   return function(dispatch) {
-    () => {
-      dispatch(goToReviewTestPage(response));
+    return submitAnswer(userId, sectionId, timeLeft)
+      .then(parseJSON)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(error =>  {
+      console.log(error);
+      })
+      .then(() => {
+        return finishTest(userId, sessionId)
+      })
+      .then(parseJSON)
+      .then((response) => {
+        dispatch(goToReviewTestPage(response));
+        })
+        .catch(error =>  {
+          console.log(error);
+      });
     };
-  };
-}
 
-
-async function sendTestFinish(userId, sessionId, sectionId, timeLeft) {
-  let response;
-  try {
-      response = await parseJSON(submitAnswer(userId, sectionId, timeLeft));
-      console.log(response);
-  } catch(err) {
-      console.log(err);
-    }
-  try {
-    response = await parseJSON(finishTest(userId, sessionId));
-  } catch(err) {
-      console.log(err);
-    }
-  return response;
 }

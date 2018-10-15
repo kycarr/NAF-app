@@ -27,6 +27,8 @@ class ReviewTestPage extends Component {
                                 </p>
 				              	<p className="dialog-text-center" align="center">
                       You have completed the test {this.props.name}. <br />
+                      Your score is {this.props.score == undefined ? 'loading' : this.props.score}. <br />
+                      Your result is {this.props.pass == undefined ? 'loading' : this.props.pass}. <br />
 						          You can now either go to review your test result or go back to home page.<br /><br />
 						        </p>
 						        <Link to={`/testResultPage`}>
@@ -52,7 +54,9 @@ function mapStateToProps(state) {
   return {
     name: state.auth.name,
     userId: state.auth.userId,
-    sessionId: state.QuestionsOnAPage.sessionId
+    sessionId: state.QuestionsOnAPage.sessionId,
+    pass: state.QuestionsOnAPage.pass,
+    score: state.QuestionsOnAPage.score
   }
 }
 
