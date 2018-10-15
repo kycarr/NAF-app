@@ -17,7 +17,7 @@ import { createReducer } from '../utils/utils';
 
 // import imageFlowChart from '../images/FlowChartExample.png';
 
-let sectionTimes = [15 * 60, 17 * 60];
+let sectionTimes = [15 * 60, 1 * 60];
 
 const initState = {
   page: 0,

@@ -42,6 +42,10 @@ const loginButtonStyle = {
     });
   }
 
+  // static sendTestFinish() {
+  //   this.props.sendTestFinishAction(this.props.userId, this.props.sessionId, this.props.sectionNum, SubmitBottomButton.getToolbarTimer());
+  // }
+
   togglePopupWarning() {
     this.setState({
       openWarning: !this.state.openWarning

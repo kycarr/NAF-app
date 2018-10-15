@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {resetToDefaultState} from '../actions'
+import {resetToDefaultState, submitSectionAnswers, sendTestFinishAction} from '../actions'
 
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -36,6 +36,18 @@ class ToolbarComponent extends React.Component {
     this.togglePopup = this.togglePopup.bind(this);
     this.togglePopupWarning = this.togglePopupWarning.bind(this);
     this.resetTimerTime = this.resetTimerTime.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.testFinish = this.testFinish.bind(this);
+  }
+
+  handleClose() {
+  }
+
+  testFinish() {
+      this.setState({
+        openTimeoutWarning: false
+      });
+    this.props.sendTestFinishAction(this.props.userId, this.props.sessionId, this.props.sectionNum, ToolbarComponent.secondsToTime(this.props.sectionTime));
   }
 
   static secondsToTime(secs) {
@@ -137,11 +149,14 @@ class ToolbarComponent extends React.Component {
       </Link>
     ];
 
-    const exitButtons = [
-      <Link to={`/`}>
-        <FlatButton label="Exit Test" primary={true} labelStyle={buttonStyle}/>
-      </Link>
-    ];
+    const exitButtons = [<Link to={'/reviewTestPage'}> <FlatButton label="Exit Test" primary={true} labelStyle={buttonStyle} onClick={this.testFinish}/></Link>];
+
+
+    // [
+    //   <Link to={`/`}>
+    //     <FlatButton label="Exit Test" primary={true} labelStyle={buttonStyle}/>
+    //   </Link>
+    // ];
 
     return (
       <div>
@@ -246,8 +261,10 @@ function mapStateToProps(state) {
   return {
     allQuestionsAnswered : state.QuestionsOnAPage.allQuestionsAnswered,
     sectionNum: state.QuestionsOnAPage.section,
-    sectionTime: state.QuestionsOnAPage.time
+    sectionTime: state.QuestionsOnAPage.time,
+    userId: state.auth.userId,
+    sessionId: state.QuestionsOnAPage.sessionId
   }
 }
 
-export default connect(mapStateToProps, {resetToDefaultState})(ToolbarComponent);
+export default connect(mapStateToProps, {resetToDefaultState,submitSectionAnswers,sendTestFinishAction})(ToolbarComponent);
