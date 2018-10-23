@@ -135,7 +135,7 @@ class MostRecentWrapper extends React.Component {
 					</div>
 
 					<div className="row">
-					<Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i>Pass/Fail by Topics: </div> </div>}>
+					<Collapsible open trigger={<div className='collapsible-icon-second'><div className='bycollapse-title'><i className='fa fa-caret-right-collpase'></i>Pass/Fail by Objectives: </div> </div>}>
 		              	<div style={{marginTop: '40px', marginBottom: '30px'}}>
 		              		<span style={graphLabelName} > # Students </span>
           					<span style={graphLabelResults} >Green = Pass / Red = Fail </span>

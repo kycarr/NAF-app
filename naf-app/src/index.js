@@ -36,7 +36,7 @@ ReactDOM.render(
           <ProtectedRoute exact path="/instructionsPage" component={InstructionsPage} />
           <ProtectedRoute exact path="/reviewTestPage" component={ReviewTestPage} />
           <ProtectedRoute exact path="/testPage" component={App} />
-          <ProtectedRoute exact path ="/testResultPage" component={() => {
+          <ProtectedRoute exact path="/testResultPage" component={() => {
                                                                           // window.location.href = `http://usc-taf-student-reporting.s3-website-us-west-1.amazonaws.com?results=${store.getState().QuestionsOnAPage.sessionId}`}
                                                                             window.location.href=`http://localhost:3001?results=${store.getState().QuestionsOnAPage.sessionId}`}
                                                                            } />

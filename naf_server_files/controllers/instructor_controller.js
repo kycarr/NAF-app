@@ -171,6 +171,8 @@ const byTopics = [
 */
 async function fetchInstructorReport(testName, className) {
     const report = await TestResult.findOne({testName: testName, className: className});
+    console.log(testName);
+    console.log(className);
     if(report === null) {
         return generateInstructorReport(testName, className);
     }
@@ -517,9 +519,9 @@ async function fetchTestHistoryHelper (testName, className) {
 }
 
 exports.fetchInstructorData = async(req, res) => {
-	const resultsObject = await fetchInstructorReport('Test One', 'Class One');
-    const traineesObject = await fetchTraineeReport('Test One', 'Class One');
-    const requirementsObeject = await fetchRequirementsReport('Test One', 'Class One');
+	const resultsObject = await fetchInstructorReport('Test Five', 'Class One');
+    const traineesObject = await fetchTraineeReport('Test Five', 'Class One');
+    const requirementsObeject = await fetchRequirementsReport('Test Five', 'Class One');
 	const responseJSON = {};
 	responseJSON['results'] = resultsObject;
 	responseJSON['trainees'] = traineesObject;

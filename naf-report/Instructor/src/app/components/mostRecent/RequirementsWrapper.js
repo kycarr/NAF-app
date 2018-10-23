@@ -27,7 +27,7 @@ class RequirementsWrapper extends React.Component {
 								</div>
 							</div>}>
 				<div style={{'marginLeft' : '50px'}}>
-					<div className='bycollapse-button' onClick={this.clickFunction} ><span>By Topic</span></div>
+					<div className='bycollapse-button' onClick={this.clickFunction} ><span>By Objective</span></div>
 					<div className='bycollapse-button-trainee' onClick={this.clickFunction}><span>By Trainee</span></div>
 				</div>
 				<div className="collapsible-paragraph">
