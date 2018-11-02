@@ -80,19 +80,23 @@ class ToolbarComponent extends React.Component {
       seconds: nextProps.sectionTime
     });
     this.resetTimerTime(nextProps.sectionTime);
+    if (this.timer === 0) {
+      this.timer = setInterval(this.countDown, 1000);
+    }
   }
 
   componentDidMount() {
     let timeLeftVar = ToolbarComponent.secondsToTime(this.props.sectionTime);
     // console.log(timeLeftVar);
     this.setState({time: timeLeftVar});
+
     // this.startTimer();
   }
 
   startTimer() {
-    // if (this.timer === 0) {
+    if (this.timer === 0) {
       this.timer = setInterval(this.countDown, 1000);
-    // }
+    }
   }
 
   countDown() {
@@ -119,6 +123,7 @@ class ToolbarComponent extends React.Component {
         });
       }
       clearInterval(this.timer);
+      this.timer = 0;
     }
   }
 
@@ -133,7 +138,7 @@ class ToolbarComponent extends React.Component {
   resetTimerTime(newTime) {
       let timeLeftVar = ToolbarComponent.secondsToTime(newTime);
       this.setState({time: timeLeftVar});
-      this.startTimer();
+      // this.startTimer();
   }
 
   togglePopup() {
@@ -169,7 +174,7 @@ class ToolbarComponent extends React.Component {
     ];
 
     const exitButtons = [<Link to={'/reviewTestPage'}> <FlatButton label="Exit Test" primary={true} labelStyle={buttonStyle} onClick={this.testFinish}/></Link>];
-    const exitSectionButtons = <FlatButton label="Exit Test" primary={true} labelStyle={buttonStyle} onClick={this.sectionFinish}/>
+    const exitSectionButtons = <FlatButton label="OK" primary={true} labelStyle={buttonStyle} onClick={this.sectionFinish}/>
 
     // [
     //   <Link to={`/`}>

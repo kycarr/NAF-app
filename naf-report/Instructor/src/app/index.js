@@ -5,6 +5,7 @@ import React                from 'react';
 import {render}             from 'react-dom';
 import { AppContainer }     from 'react-hot-loader';
 import smoothScrollPolyfill from 'smoothscroll-polyfill';
+import 'babel-polyfill';
 import injectTpEventPlugin  from 'react-tap-event-plugin';
 import 'animate.css';
 import 'jquery';

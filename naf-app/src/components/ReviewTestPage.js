@@ -13,8 +13,19 @@ const buttonStyle = {
   textTransform: 'none'
 };
 
+
+
 class ReviewTestPage extends Component {
-    render() {
+  constructor(props) {
+    super(props);
+    this.openNewPage = this.openNewPage.bind(this);
+  }
+
+  openNewPage() {
+    window.open(`http://localhost:3001?results=${this.props.sessionId}`);
+  }
+
+  render() {
         return (
             <div className="ReviewTestPage">
                 <MuiThemeProvider>
@@ -31,10 +42,9 @@ class ReviewTestPage extends Component {
                       Your result is {this.props.pass == undefined ? 'loading' : this.props.pass}. <br />
 						          You can now either go to review your test result or go back to home page.<br /><br />
 						        </p>
-						        <Link to={`/testResultPage`}>
-					            	{/*<FlatButton className="reviewtest-button" label="Review Test Result" labelStyle={buttonStyle}/> */}
-                        <div className="btn btn-info"> Review Test Result </div>
-					            </Link>
+					            	{<FlatButton className="reviewtest-button" label="Review Test Result" labelStyle={buttonStyle} onClick={this.openNewPage}/>
+                          /* <div className="btn btn-info"> Review Test Result </div> */
+                        }
                       <div></div>
                       <Link to={`/`}>
                             <FlatButton className="reviewtest-button" label="Go Back Home" labelStyle={buttonStyle}/>

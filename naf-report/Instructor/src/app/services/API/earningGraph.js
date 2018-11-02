@@ -7,6 +7,7 @@ import {
   parseJSON,
   getLocationOrigin
 }                     from '../fetchTools';
+import "isomorphic-fetch";
 
 export const getEarningGraphData = () => {
   const url = `${getLocationOrigin()}/${appConfig.earningGraph.data.API}`;

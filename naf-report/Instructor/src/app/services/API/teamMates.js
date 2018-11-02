@@ -7,6 +7,7 @@ import {
   parseJSON,
   getLocationOrigin
 }                     from '../fetchTools';
+import "isomorphic-fetch";
 
 export const getTeamMatesData = () => {
   const url = `${getLocationOrigin()}/${appConfig.teamMates.data.API}`;

@@ -10,18 +10,18 @@ module.exports = {
   'react-hot-loader/patch?reload=true',
   'webpack-dev-server/client',
   './src/index.js',
-	'./src/styles/app.scss'
+  './src/styles/app.scss'
   ],
   module: {
   devtool: 'inline-source-map',
-	preLoaders: [
+  preLoaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint'
       }
     ],
-	loaders: [
+  loaders: [
       {
         test: /\.js?$/,
         exclude: /node_modules/,

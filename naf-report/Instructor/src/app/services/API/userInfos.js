@@ -7,6 +7,7 @@ import {
   parseJSON,
   getLocationOrigin
 }                     from '../fetchTools';
+import "isomorphic-fetch";
 
 export const getUserInfoData = () => {
   const url = `${getLocationOrigin()}/${appConfig.userInfos.data.API}`;

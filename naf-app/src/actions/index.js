@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { parseJSON } from '../utils/utils';
 import { login, getQuestions, submitAnswer, finishTest } from '../utils/httpFunctions';
 import {
@@ -81,9 +82,6 @@ export function WayPointSection(lineNumber) {
 export function loginUser(username, password) {
   console.log('login');
     return function (dispatch) {
-        dispatch(() => {
-            type: LOGIN_USER_REQUEST
-        });
         return login(username, password)
           .then(parseJSON)
           .then(response => {

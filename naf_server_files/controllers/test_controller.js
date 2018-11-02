@@ -14,6 +14,7 @@ const Topic = require('../models/Topic');
 
 //loading utils
 const calculateTestResult = require('../utils/calculateTestResult');
+import {generateAll} from './instructor_controller';
 
 exports.index = (req,res) => {
     console.log('Server is running');
@@ -124,18 +125,14 @@ exports.post_options_answers = async (req,res) => {
  console.log('CorrectAnswer', item.correctAnswer);
  let pass = true;
 
- if(correctAnswers.length !== answers.length)
- {
+ if(correctAnswers.length !== answers.length) {
     pass = false;
-    console.log('here is the issue');
-
  } else {
     for(let i =0; i<correctAnswers.length; i++) {
       console.log(answers);
       console.log(correctAnswers[i]);
       if(!answers.includes(correctAnswers[i])){
         pass = false;
-        console.log('here is the problem');
         break;
       }
     }
@@ -182,10 +179,9 @@ exports.post_essay_answers = async (req,res) => {
     let questionId = req.body.questionId;
     let sessionId = req.body.sessionId;
     let taskId = req.body.taskId;
-    let answer = req.body.response;
-
+    let answer = req.body.response.answer;
     let answers = [];
-    answers.push(answer.answer);
+    answers.push(answer);
     // console.log(answer.answer);
     const task = await Task.findById(taskId);
     const section = await Section.findOne({test: task.test, sectionId: Number.parseInt(sectionId)}).populate('items');
@@ -196,18 +192,95 @@ exports.post_essay_answers = async (req,res) => {
     const correctAnswers = item.correctAnswer.trim().split(',');
     // console.log(correctAnswers);
     let pass = true;
-    if(correctAnswers.length !== answers.length){
-      pass = false; 
-     }
-     else
-     {
+    if(item.type === 'Table_Fill') {
+      if(correctAnswers.length !== answer.length) {
+        pass = false; 
+      }
+      else {
         for(let i =0; i<correctAnswers.length; i++) {
-          if(!answers.includes(correctAnswers[i])){
+          if(!answer.includes(correctAnswers[i])) {
             pass = false;
             break;
           }
         }
-     }     
+      }
+      console.log("table fill result is :" + pass);
+    }
+    else if(item.type === 'Hot_Spot') {
+      if(correctAnswers.length !== answer.length) {
+        pass = false; 
+      }
+      else {
+        for(let i =0; i < correctAnswers.length; i++) {
+          let found = false;
+          for(let j = 0; j < answer.length; j++) {
+            let target = correctAnswers[i].split(':');
+            let source = answer[j].split(':');
+            let x_source = +source[0] + (+source[2] - +source[0]) / 2;
+            let y_source = +source[1] + (+source[3] - +source[1]) / 2;
+            if(x_source > +target[0] && x_source < +target[2] && y_source > +target[1] && y_source < +target[3]) {
+              found = true;
+              break;
+            }
+          }
+          if(found === false) {
+            pass = false;
+            break;
+          }
+        }
+      }
+      console.log("hot spot result is :" + pass);
+    }
+    else if(item.type === 'Drag_Drop') {
+      if(correctAnswers.length !== answer.length) {
+        pass = false; 
+      }
+      else {
+        let source = {};
+        for(let j = 0; j < answer.length; j++) {
+          let temp = answer[j].split(':');
+          source[temp[0]] = temp.slice(1);
+        }
+        console.log(source);
+        console
+        for(let i =0; i < correctAnswers.length; i++) {
+          let target = correctAnswers[i].split(':');
+          if(source[target[0]] == null) {
+            pass = false;
+            break;
+          }
+          else {
+            let x_source = +source[target[0]][0];
+            let y_source = +source[target[0]][1];
+            let x_left = +target[1] - 40;
+            let x_right = +target[1] + 40;
+            let y_top = +target[2] - 40;
+            let y_bottom = +target[2] + 40;
+            if(x_source < x_left || x_source > x_right || y_source < y_top || y_source > y_bottom) {
+              pass = false;
+              break;
+            }
+          }
+        }
+      }
+      console.log("hot spot result is :" + pass);
+    }
+    else {
+      if(correctAnswers.length !== answers.length) {
+        pass = false; 
+       }
+       else {
+          for(let i =0; i<correctAnswers.length; i++) {
+            if(!answers.includes(correctAnswers[i])) {
+              pass = false;
+              break;
+            }
+          }
+       }
+       console.log("essay result is :" + pass);
+    
+    }
+ 
    if(!answerFromDB) {
      const answerObject = {
         answers: answers,
@@ -221,7 +294,6 @@ exports.post_essay_answers = async (req,res) => {
         .then(answer => console.log('SUCCESS ANSWER STORED'))
         .catch(err => console.log('ANSWER NOT STORED. ERROR: ' + err));
     } else {
-        console.log('answer present');
         await Answer.findOneAndUpdate({section: section._id, item: item._id, session: session._id, task: task._id}, { $set: {answers: answers, pass: pass} });
     }
      res.status(200).json({msg: `Answer posted for section ${sectionId} and question ${questionId}`});
@@ -259,7 +331,7 @@ exports.finish_test = async (req,res) => {
   answerResponse['testDate'] = task.date;
   answerResponse['questionResponses'] = {};
   answerResponse['testName'] = task.test.testName;
-
+  let testName = task.test.testName;
   for(let i=0; i<items.length;i++) {
       const currentItem = items[i];
       const topic = await Topic.findOne({id: currentItem.topicId});
@@ -317,10 +389,11 @@ exports.finish_test = async (req,res) => {
 
   const answerReport = new StudentReport(dbResultSave);
 
-  answerReport.save()
+  await answerReport.save()
     .then(report => {console.log('answer report Successfully saved'); console.log(report);})
     .catch(err => console.log('Error in saving the answer report ' + err))
 
+  await generateAll(testName, 'Class One');
   
   // answerResponse['reportingData'] = reportingData;
   console.log(userId + "has finished the test"); 
@@ -390,14 +463,6 @@ const populate_test = async (sessionId) => {
   
   answerResponse['userId'] = session.user._id;
   const reportingData = calculateTestResult(answerResponse);
-  // console.log('reportingData');
-  // console.log(reportingData);
-  
-  // task.score = reportingData['testScore'];
-  // task.testResult = reportingData['testResult'];
-  // task.save()
-  //   .then(task => console.log('Task Successfully saved'))
-  //   .catch(error => console.log('ERROR in saving task with updated score and result'));
 
   const dbResultSave = {
     ...reportingData,
@@ -406,8 +471,6 @@ const populate_test = async (sessionId) => {
     user: session.user.name
   };
 
-  // console.log('dbResultSave');
-  // console.log(dbResultSave);
 
   console.log(dbResultSave);
   StudentReport.findOneAndUpdate({session: sessionId}, {$set: dbResultSave},

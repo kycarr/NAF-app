@@ -209,9 +209,9 @@ async function fetchRequirementsReport(testName, className) {
 
 
 export async function generateRequirementsReport(testName, className) {
+    await RequirementsNotMet.deleteMany({testName: testName, className: className});
     const students = await Class.findOne({className: className});
     const reports = await StudentReport.find({testName: testName}, 'user byTopic testDate').sort({testDate: 'descending'});
-    
     let byTopic = [];
     let byTrainee = [];
 
@@ -316,6 +316,7 @@ export async function generateRequirementsReport(testName, className) {
 }
 
 export async function generateTraineeReport(testName, className) {
+    await TraineeResult.deleteMany({testName: testName, className: className});
     const students = await Class.findOne({className: className});
     const reports = await StudentReport.find({testName: testName}).sort({testDate: 'descending'});
     const users = await User.find({
@@ -418,7 +419,7 @@ export async function generateTraineeReport(testName, className) {
 
 
 async function generateInstructorReport(testName, className) {
-    // await generateTraineeReport(testName, className);
+    await TestResult.deleteMany({testName: testName, className: className});
     let results = {};
     const reports = await StudentReport.find({testName: testName}).sort({testDate: 'descending'});
     const students = await Class.findOne({className: className});
@@ -503,6 +504,12 @@ exports.fetchTestHistory = async(req, res) => {
     responseJSON['logArray'] = logArray;
     console.log(responseJSON);
     res.json(responseJSON);
+}
+
+exports.generateAll = async(testName, className) => {
+    generateInstructorReport(testName, className);
+    generateTraineeReport(testName, className);
+    generateRequirementsReport(testName, className);
 }
 
 async function fetchTestHistoryHelper (testName, className) {

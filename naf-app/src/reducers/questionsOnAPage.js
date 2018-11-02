@@ -10,14 +10,14 @@ import {OPTION_SELECTED,
   SUBMIT_SECTION_ANSWER,
   GO_TO_REVIEW_TEST_PAGE
 } from '../constants';
-import {ESSAY, MULTI_CHOICE, MULTIPLE_ANSWER, SHORT_ANSWER, SINGLE_ANSWER} from '../constants';
+import {SINGLE_ANSWER} from '../constants';
 import image from '../images/nimitz3.jpg';
 import { saveAnswer, saveResponse } from '../utils/httpFunctions';
 import { createReducer } from '../utils/utils';
 
 // import imageFlowChart from '../images/FlowChartExample.png';
 
-let sectionTimes = [15 * 60, 17 * 60];
+let sectionTimes = [0.5 * 60, 17 * 60];
 
 const initState = {
   page: 0,
