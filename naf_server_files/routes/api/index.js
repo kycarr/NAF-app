@@ -11,6 +11,8 @@ const Answer = require('../../models/Answer');
 const Session = require('../../models/Session');
 const Module = require('../../models/Module');
 const Test = require('../../models/Test');
+const Task = require('../../models/Task');
+
 const Section = require('../../models/Section');
 const Item = require('../../models/Item');
 const Topic = require('../../models/Topic');
@@ -69,6 +71,7 @@ const populateDB = async (test, qArray, topicsArray) => {
     
   }
 
+
   for(let i=0; i<qArray.length; i++)
   {
     const currentSectionItems = qArray[i];
@@ -100,6 +103,7 @@ const populateDB = async (test, qArray, topicsArray) => {
 }
 
 const createDB = async () => {
+    // await Session.deleteMany({user: "5b57cdd75c70356c2e39d834"});
 
     for(let i=0; i<usersArray.length; i++) {
       const currentUser = usersArray[i];
