@@ -195,7 +195,12 @@ exports.fetchStudentSessions = async(req,res) => {
 
   for(let i = 0; i<user.sessions.length; i++) {
     const session = user.sessions[i];
+
     const currentTask = await Task.findById(session.task).populate('test');
+    if(currentTask.test == null) {
+      console.log(currentTask);
+      continue;
+    }
     const currentTestName = currentTask.test.testName;
     if(!(currentTestName in responseObject)) 
       responseObject[currentTestName] = {testName: currentTestName, attempts: 1, date: new Date(currentTask.date), testScore: currentTask.score, testResult: currentTask.testResult, session: session._id};

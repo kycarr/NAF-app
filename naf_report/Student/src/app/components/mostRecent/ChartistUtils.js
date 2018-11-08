@@ -16,8 +16,6 @@ function ctPointLabels(options) {
 
       chart.on('draw', function(data) {
         if(data.type === 'bar') {
-          console.log("BABABABABABBABABA");
-          console.log(data.value);
           if(data.value.x < 50) {
             data.element.attr({
               style: 'stroke: #c14a41'
