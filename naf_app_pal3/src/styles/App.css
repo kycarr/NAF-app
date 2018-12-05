@@ -1,0 +1,634 @@
+.App {
+  	font-family: 'Work Sans', sans-serif !important;
+  	height: 100% !important;
+}
+
+button {
+	font-family: 'Work Sans', sans-serif !important;
+}
+/* ---------------- MEDIA-QUERIES FOR LOGIN PAGE ----------------- */
+@media screen and (max-width: 480px) {
+  .intro-instructions {
+    font-size: 1em;
+  }
+  .app-logo{
+    width: 50vw;
+  }
+  .app-logo-small {
+    width: 30vw;
+  }
+  .card-instructions p.header{
+    font-size: 1em;
+  }
+  .toolbar-text{
+    font-size: 15px !important;
+    margin-right: 15px !important;
+  }
+  .icon-user {
+    height: auto;
+    width: 25px;
+  }
+
+  .image-type {
+    height: 45vw !important;
+    margin: 5px auto;
+  }
+  .image-hotspot {
+    width: 240px !important;
+  }
+  .card-instructions p {
+      font-size: 1em;
+  }
+
+  .test-question-question {
+  			margin-left: 24px;
+        font-size: 15px;
+  }
+  .reviewtest-box {
+    margin: 100px auto !important;
+  }
+
+  .toolbar-button-instructions {
+    height: 10px;
+    width: auto;
+  }
+
+  .toolbar-button-exit {
+    margin-left: 15px !important;
+
+  }
+
+  .toolbar-timer {
+    font-size: 15px !important;
+  }
+
+}
+
+@media screen and (min-width: 481px ) and (max-width: 769px) {
+  .intro-instructions {
+    font-size: 1.4em;
+  }
+  .card-instructions p.header{
+      font-size: 1.4em;
+  }
+  .app-logo-small {
+    width: 32vw;
+  }
+
+    .image-type {
+      height: 30vw !important;
+      margin: 5px auto;
+    }
+
+  .card-instructions p {
+      font-size: 1.2em;
+  }
+}
+
+@media screen and (min-width: 770px ) {
+  .intro-instructions {
+    font-size: 1.8em;
+  }
+  .card-instructions p.header{
+      font-size: 1.6em;
+  }
+  .card-instructions p {
+      font-size: 1.4em;
+  }
+  .image-type {
+    height: 20vw !important;
+    margin: 5px auto;
+  }
+}
+
+/* ---------------------------------------------- */
+
+/* ---------------- INTRO-PAGE ----------------- */
+
+.app-logo {
+	display: block !important;
+	padding : 6vh 0vw 2vh 0vw !important;
+	margin: 0px auto !important;
+	text-align: center !important;
+  height: auto;
+}
+
+.intro-instructions {
+	width: 90vw;
+	background-color: rgba(256, 256, 256, 0.6) !important;
+	color: #000000 !important;
+	border-radius: 8px !important;
+	padding: 6vh 4vw !important;
+	margin: 0px auto !important;
+  text-align: justify;
+  text-justify: inter-word;
+  margin-bottom: 20px;
+}
+
+
+
+
+.outter-box {
+	text-align: center !important;
+}
+
+.card-instructions {
+	width: 45vw !important;
+	height: 100% !important;
+	display: inline-block !important;
+	vertical-align: middle !important;
+	background-color: rgba(83, 100, 108, 0.3) !important;
+	color: #FFFFFF !important;
+	border-radius: 8px !important;
+	padding: 2vh 1vw !important;
+	margin: 2vh 1vw !important;
+	font-weight: 700 !important;
+	text-align: center !important;
+}
+
+.card-instructions img {
+	padding: 10px 10px !important;
+}
+
+.card-instructions p {
+	margin: 0px auto !important;
+  color: #000;
+}
+
+.intro-buttons-div {
+	display: flex !important;
+	justify-content: center !important;
+	font-size: 24px !important;
+	margin-top: 25px !important;
+	margin-bottom: 15px !important;
+	font-weight: 700 !important;
+	align-items: center !important;
+}
+
+
+.intro-buttons {
+	display: inline-block !important;
+	background-color: #53646C ;
+	color: #000000 ;
+	border-radius: 8px !important;
+	margin: 0vh 1vw !important;
+	font-weight: 700 !important;
+	text-align: center !important;
+}
+
+.intro-buttons Button {
+  textTransform: 'none';
+  fontSize: '24px';
+  color: '#fff';
+}
+
+.pagination-button-label {
+  font-size: 1.25em;
+}
+
+/* ---------------- INSTRUCTIONS-PAGE ----------------- */
+
+.instructions-box {
+	background-color: rgba(256, 256, 256, 0.4);
+	color: #000;
+	border-radius: 8px;
+	padding: 20px 20px;
+	margin: 100px 2vw 20px 2vw;
+	text-align: center;
+}
+
+.dialog-text {
+	color: #000;
+	font-family: 'Work Sans', sans-serif !important;
+	font-size: 16px;
+	text-align: justify;
+}
+
+.dialog-text-center {
+	color: #000000 !important;
+	font-family: 'Work Sans', sans-serif !important;
+	font-size: 16px !important;
+	margin: 15px 30px !important;
+}
+
+.instructions-button {
+	display: inline-block !important;
+	text-align: center !important;
+	margin: 20px auto !important;
+    color: #FFFFFF !important;
+    background-color: #53646C !important;
+	font-weight: 700 !important;
+    border-radius: 8px !important;
+}
+
+.logout-button {
+    color: #FFFFFF !important;
+    margin-right: 5px !important;
+    background-color: #204252 !important;
+	  font-weight: 700 !important;
+    border-radius: 8px !important;
+    padding: 0px !important;
+
+}
+
+/* ---------------- REVIEWTEST-PAGE ----------------- */
+.reviewtest-button {
+	display: inline-block !important;
+	text-align: center !important;
+	margin: 20px auto !important;
+    color: #FFFFFF !important;
+    background-color: #53646C !important;
+	font-weight: 700 !important;
+    border-radius: 8px !important;
+}
+.reviewtest-box {
+	/*background-color: #FFFFFF !important;*/
+	background-color: rgba(256, 256, 256, 0.4) !important;
+	color: #000000 !important;
+	border-radius: 8px !important;
+	padding: 20px 20px !important;
+	margin: 100px 20vw 20px 20vw;
+	text-align: center !important;
+}
+	/* ---------------- TOOLBAR-LOGIN ----------------- */
+
+	.app-logo-small {
+		margin: 0px 20px;
+    height: auto;
+	}
+
+	.toolbar-text {
+		display: inline-block !important;
+		color: #FFFFFF !important;
+		font-family: 'Work Sans', sans-serif !important;
+    font-size: 20px;
+    margin-right: 20px;
+
+	}
+
+	.icon-user {
+		margin: 0px 10px !important;
+	}
+
+/* ------------------------------------------------ */
+/* ---------------- MAIN APP PAGE ----------------- */
+/* ------------------------------------------------ */
+
+	/* ---------------- TOOLBAR ----------------- */
+
+	.toolbar {
+		  padding: 0px 0px;
+	  	width: 100%;
+	    position: fixed;
+	  	background: linear-gradient(to right, #182E3B , #54707B) !important;
+	    z-index: 1;
+	    overflow-x: hidden;
+	}
+
+    .toolbar-eye {
+
+    }
+
+		.toolbar-time {
+			/* margin: 0 auto !important; */
+		  justify-content: flex-start !important;
+      font-size: 10px;
+		}
+
+		.toolbar-fixed-width-div {
+			/*min-width: 350px !important;*/
+		}
+
+			.toolbar-title {
+				color: #FFFFFF !important;
+				font-size: 20px !important;
+				font-family: 'Work Sans', sans-serif !important;
+				letter-spacing: 1.6px !important;
+			}
+
+			.toolbar-timer {
+				display: inline-block !important;
+				color: #FFFFFF !important;
+				/* min-width: 150px !important; */
+				padding: 0px 5px !important;
+				font-size: 20px;
+				font-family: 'Work Sans', sans-serif !important;
+				letter-spacing: 1.6px !important;
+			}
+
+			.toolbar-timer-min-time {
+				display: inline-block !important;
+				color: #F17243 !important;
+				min-width: 150px !important;
+				padding: 0px 20px !important;
+				font-size: 20px !important;
+				font-family: 'Work Sans', sans-serif !important;
+				letter-spacing: 1.6px !important;
+			}
+
+		.toolbar-button-instructions {
+			background-color: #1B4355 !important;
+			color: #FFFFFF !important;
+		  border-radius: 8px !important;
+
+		}
+
+		.toolbar-button-exit {
+			background-color: #1B4355 !important;
+			color: #FFFFFF !important;
+		  border-radius: 8px !important;
+			margin-right: 0px !important;
+      margin-left: 60px;
+
+		}
+
+		.image-warning {
+			justify-content: center !important;
+			margin: 20px 0px 10px 0px !important;
+			text-align: center !important;
+		}
+
+		.toolbar-dialog-text {
+			color: #000000 !important;
+			color: rgba(0, 0, 0, 0.8) !important;
+			font-family: 'Work Sans', sans-serif !important;
+			font-size: 16px !important;
+			margin: 15px 30px !important;
+		}
+
+		.dialog-title {
+			display: flex;
+			justify-content: center;
+			color: #000000 !important;
+			color: rgba(0, 0, 0, 0.8) !important;
+			font-family: 'Work Sans', sans-serif !important;
+			font-weight: bold !important;
+			font-size: 22px !important;
+			margin: 10px auto !important;
+		}
+
+	/* ---------------- NAVBAR ----------------- */
+
+	.nav-component {
+		/*height: 85vh !important;*/
+	    /*padding: 15px 60px 0px 0px !important;*/
+	    width: 200px !important;
+	    position: fixed !important;
+	    z-index: 1 !important;
+	    top: 70px !important;
+	    right: 75px !important;
+	    overflow-x: hidden !important;
+	    padding: 0px 0px !important;
+	}
+
+		.nav-header {
+			margin: 0 !important;
+			text-align: center !important;
+			color: #FFFFFF !important;
+			background-color: #1B4355 !important;
+			padding: 10px !important;
+		}
+
+		.nav-button {
+			position: absolute;
+			margin: 5px auto !important;
+		  color: #FFFFFF !important;
+		  background-color: #53646C !important;
+		  border-radius: 8px !important;
+      min-width: 50px;
+		}
+
+			.nav-button .image {
+				margin-left : 1px;
+			}
+
+			.image-bookmark {
+				display: inline-block !important;
+				margin: 0px 10px !important;
+				cursor: pointer !important;
+			}
+
+		.nav-questions {
+			position: relative;
+			display: block !important;
+			height: 620px !important;
+			text-align: center !important;
+			padding: 20px 20px !important;
+			background: linear-gradient(rgba(173, 190, 197, 0.8) , rgba(173, 190, 197, 0.2) , rgba(173, 190, 197, 0.7)) !important;
+		}
+
+			.nav-qlist {
+				min-height: 390px;
+				margin: 10px 10px !important;
+				font-size: 18px !important;
+				text-align: center !important;
+			}
+
+			.nav-question-unselected {
+				cursor: pointer !important;
+			    width: 28px !important;
+			    height: 28px !important;
+			    background-color: #1B4355 !important;
+			    color: #FFFFFF !important;
+			    border-radius: 14px !important;
+			    border: 1px solid #FFFFFF;
+				margin: 5px auto !important;
+			}
+
+			.nav-question-selected {
+				cursor: pointer !important;
+			    width: 28px !important;
+			    height: 28px !important;
+			    background-color: #53646C !important;
+				opacity: 0.5 !important;
+
+			    color: #FFFFFF !important;
+			    border-radius: 14px !important;
+			    border: 1px solid #FFFFFF;
+				margin: 5px auto !important;
+			}
+
+			.arrow-right {
+				display: inline-block !important;
+				vertical-align: middle !important;
+				width: 0 !important;
+				height: 0 !important;
+				border-top: 8px solid transparent !important;
+	  			border-bottom: 8px solid transparent !important;
+	  			border-left: 12px solid #53646C80 !important;
+			}
+
+			.arrow-left {
+				display: inline-block !important;
+				vertical-align: middle !important;
+				width: 0 !important;
+				height: 0 !important;
+				border-top: 8px solid transparent !important;
+	  			border-bottom: 8px solid transparent !important;
+	  			border-right: 12px solid #53646C80 !important;
+			}
+
+			.arrow-spacing-right {
+				display: inline-block !important;
+				width: 0 !important;
+				height: 0 !important;
+	  			border-left: 12px solid transparent !important;
+			}
+
+			.arrow-spacing-left {
+				display: inline-block !important;
+				width: 0 !important;
+				height: 0 !important;
+	  			border-right: 12px solid transparent !important;
+			}
+
+			.nav-question {
+				display: inline-block !important;
+				padding: 0px 15px !important;
+			}
+
+
+	/* ---------------- TEST ----------------- */
+
+	.test-component {
+	padding: 15px 10px !important;
+	padding-top: 70px !important;
+	}
+
+		.test-questions {
+			text-align: center !important;
+			padding: 10px 10px !important;
+			background: linear-gradient(rgba(193, 190, 210, 0.4) , rgba(173, 190, 197, 0.1) , rgba(173, 190, 197, 0.6)) !important;
+		}
+
+			.test-qlist {
+				margin: 0px 20px !important;
+			}
+
+			.test-question {
+				margin: 50px auto !important;
+				padding: 0px 10px !important;
+				font-size: 18px;
+				font-weight: bold !important;
+				text-align: left !important;
+			}
+
+			.test-question-num {
+				font-size: 16px;
+				float: left !important;
+			  width: 26px !important;
+			  height: 26px !important;
+			  background-color: #1B4355 !important;
+			  color: #FFFFFF !important;
+			  border-radius: 13px !important;
+			  border: 1px solid #FFFFFF !important;
+			  text-align: center !important;
+			}
+
+			.test-question-question {
+				margin-left: 32px;
+        font-size: 18px;
+			}
+
+			.test-question-filler {
+				color: #00000080 !important;
+				font-size: 16px !important;
+				margin: 8px 0px !important;
+				margin-left: 32px !important;
+        font-weight: bold !important;
+			}
+
+			.test-option-unselected {
+				cursor: pointer !important;
+				display: inline-block !important;
+				width: 100% !important;
+				margin: 10px auto !important;
+			    color: #FFFFFF !important;
+			    padding: 6px 0px !important;
+			    background-color: #53646C !important;
+			    border-radius: 8px !important;
+				border: 2px solid transparent !important;
+			    text-align: center !important;
+			}
+
+			.test-option-selected {
+				cursor: pointer !important;
+				display: inline-block !important;
+				width: 100% !important;
+				margin: 10px auto !important;
+			    color: #FFFFFF !important;
+			    padding: 6px 0px !important;
+			    background-color: #366B80 !important;
+			    border-radius: 8px !important;
+				border: 2px solid #FFFFFF !important;
+			    text-align: center !important;
+			}
+
+			.page-navigation-active {
+				cursor: pointer !important;
+				margin: 0px 20px !important;
+			}
+
+			.page-navigation-inactive {
+				opacity: 0.4 !important;
+				margin:10px 20px !important;
+			}
+
+			.page-current {
+				cursor: pointer !important;
+				display: inline-block !important;
+			    width: 10px !important;
+			    height: 10px !important;
+			    background-color: #FFFFFF !important;
+			    color: #FFFFFF !important;
+				margin: 0px 10px !important;
+			    border-radius: 5px !important;
+			}
+
+			.page-not-current {
+				cursor: pointer;
+				display: inline-block !important;
+				opacity: 0.5 !important;
+			    width: 10px !important;
+			    height: 10px !important;
+			    background-color: #FFFFFF !important;
+			    color: #FFFFFF !important;
+				margin: 0px 10px !important;
+			    border-radius: 5px !important;
+			}
+
+
+			/* ---------------- QUESTION SPECIFIC CSS ----------------- */
+
+			.image-question {
+				width: 100% !important;
+				display: flex;
+				margin-top: 20px;
+				justify-content: center;
+			}	
+
+			.image-hotspot {
+				width: 800px;
+			}
+
+			.video-type {
+				width: 100% !important;
+				margin: 10px 0px !important;
+			}
+
+			.image-type {
+				display: flex !important;
+				justify-content: center;
+			}
+
+			.dragdrop-type {
+				justify-content: center;
+				display: flex ;
+				height: 800px;
+				margin-top: 20px;
+			}
+
+			.text-field {
+				margin: 10px 0px !important;
+				border: 1px solid #FFFFFFDD !important;
+			}
