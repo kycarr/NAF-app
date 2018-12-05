@@ -9,6 +9,7 @@
 		<meta name="author" content="Erwan DATIN (MacKentoch)">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="./public/assets/app.styles.css">
+    <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
     <style>
       .loading-message {
         position: relative;
@@ -84,7 +85,7 @@
     <section id="root"></section>
     <script src="./public/assets/app.vendor.bundle.js"></script>
     <script src="./public/assets/app.bundle.js"></script>
-    <script>
+    <script type="text/javascript">
       // loading fadeOut pure vanilla JS (I9+)
       ;(function(){
         document.addEventListener("DOMContentLoaded", function(event) {
@@ -102,6 +103,15 @@
           })();
         }
       })()
+    </script>
+        <script>
+      $(document).ready(function(){
+        $( "#controlled-tab-example-tab-1" ).click(function() {
+          $('body').find('.ct-chart').each(function(i, e) {
+            e.__chartist__.update();
+          });
+        });;
+      });
     </script>
   </body>
 </html>

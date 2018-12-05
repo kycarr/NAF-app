@@ -1,11 +1,11 @@
 // flow weak
 
 // #region imports
+import 'babel-polyfill';
 import React                from 'react';
-import {render}             from 'react-dom';
+import ReactDOM from 'react-dom';
 import { AppContainer }     from 'react-hot-loader';
 import smoothScrollPolyfill from 'smoothscroll-polyfill';
-import 'babel-polyfill';
 import injectTpEventPlugin  from 'react-tap-event-plugin';
 import 'animate.css';
 import 'jquery';
@@ -34,7 +34,7 @@ window.__forceSmoothScrollPolyfill__ = true;
 // #endregion
 
 const renderApp = RootComponent => {
-  render(
+  ReactDOM.render(
     <AppContainer
       warnings={false}
     >

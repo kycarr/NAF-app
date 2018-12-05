@@ -16,6 +16,7 @@ const config = {
       indexFile
     ],
     vendor: [
+      'babel-polyfill',
       'prop-types',
       'react',
       'react-bootstrap',
@@ -34,7 +35,6 @@ const config = {
       'redux',
       'redux-thunk',
       'axios',
-      'babel-polyfill',
       'better-react-spinkit',
       'jquery',
       'bootstrap/dist/js/bootstrap.min.js',
@@ -112,7 +112,9 @@ const config = {
     new ExtractTextPlugin('app.styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
       name:     'vendor',
-      filename: 'app.vendor.bundle.js'
+      filename: 'app.vendor.bundle.js',
+      React: "react",
+      ReactDOM: "react-dom"
     })
   ]
 };

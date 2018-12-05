@@ -4,7 +4,7 @@ const chalk     = require('chalk');
 
 const app       = express();
 const DOCS_PATH = '../../docs/';
-const PORT      = 8082;
+const PORT      = 8081;
 const IP_ADRESS = 'localhost';
 
 app.use(express.static(path.join(__dirname, DOCS_PATH)));

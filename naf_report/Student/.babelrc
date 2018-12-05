@@ -4,7 +4,7 @@
       "modules": false
     }],
     "react",
-    "stage-2",
+    "stage-0",
     "flow"
   ],
   "plugins": [
@@ -26,7 +26,12 @@
     },
     "production": {
       "presets": [
-        "react-optimize"
+            ["es2015", {
+              "modules": false
+            }],
+            "react",
+            "stage-0",
+            "flow"
       ],
       "comments": false
     }

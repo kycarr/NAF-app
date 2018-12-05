@@ -11,7 +11,7 @@ import * as userInfosActions    from '../../redux/modules/userInfos';
 import * as sidemenuActions     from '../../redux/modules/sideMenu';
 import * as earningGraphActions from '../../redux/modules/earningGraph';
 import App                      from './App';
-
+import 'babel-polyfill';
 
 const mapStateToProps = (state) => {
   return {
