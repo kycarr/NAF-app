@@ -8,7 +8,9 @@ import InstructionsPage from './components/InstructionsPage';
 import App from './components/App';
 import LoginPage from './components/LoginPage';
 import ReviewTestPage from './components/ReviewTestPage';
+import Pal3Page from './components/Pal3Page';
 import registerServiceWorker from './utils/registerServiceWorker';
+// import Cmi5 from './utils/cmi5.js';
 import 'babel-polyfill';
 
 const store = configureStore();
@@ -43,7 +45,8 @@ ReactDOM.render(
                                                                             // window.open(`http://localhost:3001?results=${store.getState().QuestionsOnAPage.sessionId}`)
                                                                           }} />
 
-          <Route path="/" component={LoginPage} />
+          <Route path="/LoginPage" component={LoginPage} />
+          <Route path="/" component={Pal3Page} />
         </Switch>
       </div>
     </BrowserRouter>

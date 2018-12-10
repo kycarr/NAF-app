@@ -7,6 +7,7 @@
     "@material-ui/icons": "^2.0.1",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "cmi5.js": "^2.0.1",
     "immutability-helper": "^2.7.1",
     "material-design-icons": "^3.0.1",
     "material-ui": "^0.20.2",

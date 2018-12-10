@@ -336,9 +336,9 @@ button {
 		.toolbar-button-exit {
 			background-color: #1B4355 !important;
 			color: #FFFFFF !important;
-		  border-radius: 8px !important;
+		  	border-radius: 8px !important;
 			margin-right: 0px !important;
-      margin-left: 60px;
+      		margin-left: 20px !important;
 
 		}
 

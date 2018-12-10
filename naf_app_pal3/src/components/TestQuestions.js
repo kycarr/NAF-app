@@ -308,6 +308,12 @@ class TestQuestions extends Component {
       </div>
     );
   }
+
+  // componentDidMount() {
+  //   console.log('will enable debug...')
+  //   Cmi5.enableDebug(true)
+  //   const cmi = new Cmi5(window.location.href);
+  // }
 }
 
 function mapStateToProps(state) {

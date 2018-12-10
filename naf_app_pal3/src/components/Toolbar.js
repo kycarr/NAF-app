@@ -24,6 +24,11 @@ const buttonStyle = {
   fontSize: '16px'
 };
 
+const headerButtonStyle = {
+  textTransform: 'none',
+  fontSize: '20px',
+};
+
 class ToolbarComponent extends React.Component {
 
   constructor(props) {
@@ -211,11 +216,11 @@ class ToolbarComponent extends React.Component {
           <ToolbarGroup className="">
             <div className="toolbar-options">
 
-              <RaisedButton style={{minWidth : '20px'}} className="toolbar-button-instructions" onClick={this.togglePopup} label="?"
-                            labelStyle={buttonStyle} />
+              <FlatButton style={{minWidth : '20px', backgroundColor: 'rgba(0,0,0,0.0)'}} className="toolbar-button-instructions" onClick={this.togglePopup} label="?"
+                            labelStyle={headerButtonStyle} />
 
-              <RaisedButton className="toolbar-button-exit" onClick={this.togglePopupWarning} label="Exit Test"
-                          labelStyle={buttonStyle} />
+              <FlatButton style={headerButtonStyle} className="toolbar-button-exit" onClick={this.togglePopupWarning} label="Exit Test"
+                          labelStyle={headerButtonStyle} />
             </div>
           </ToolbarGroup>
         </Toolbar>

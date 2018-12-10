@@ -30,9 +30,6 @@ export default class App extends Component {
                         <div className="col-lg-8 col-md-8 col-sm-7">
                             <Test onWayPoint={this.onWayPoint.bind(this)}/>
                         </div>
-                        <div className="col-lg-3 col-md-3 col-sm-4">
-                            <Navbar lineNumber={this.state.lineNumber}/>
-                        </div>
                     </div>
                 </MuiThemeProvider>
             </div>
