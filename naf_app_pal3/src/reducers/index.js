@@ -4,8 +4,7 @@ import auth from './auth'
 import {WayPointSection} from '../actions';
 const rootReducer = combineReducers({
     QuestionsOnAPage: questionsOnAPageReducer,
-    auth,
-    WayPointSection
+    auth
 });
 
 export default rootReducer;

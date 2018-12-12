@@ -3,9 +3,6 @@ import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import '../styles/App.css';
-import Toolbar from './Toolbar';
-import Navbar from './Navbar';
-import Test from './Test';
 
 export default class App extends Component {
     constructor(props) {
@@ -24,11 +21,7 @@ export default class App extends Component {
             <div className="App">
                 <MuiThemeProvider>
                     <div>
-                        <Toolbar/>
-                        <div className="col-lg-1 col-md-1 col-sm-1">
-                        </div>
                         <div className="col-lg-8 col-md-8 col-sm-7">
-                            <Test onWayPoint={this.onWayPoint.bind(this)}/>
                         </div>
                     </div>
                 </MuiThemeProvider>

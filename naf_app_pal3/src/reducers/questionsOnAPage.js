@@ -17,7 +17,6 @@ import { createReducer } from '../utils/utils';
 
 // import imageFlowChart from '../images/FlowChartExample.png';
 
-let sectionTimes = [15 * 60, 17 * 60];
 
 const initState = {
   page: 0,
@@ -48,152 +47,13 @@ export default createReducer(initState, {
       userId: payload.res.id,
       isFetchingQuestions: true,
       isAuthenticated: !payload.res.loginFailed
-    }),
-
-  [OPTION_SELECTED]: (state, payload) =>
-    optionSelected(state, payload),
-
-  [GO_TO_PAGE]: (state, payload) =>
-      Object.assign({}, state, {
-        page: payload,
-    }),
-
-  [GO_TO_SECTION]: (state, payload) =>
-    Object.assign({}, state, {
-      isSubmitingAnswer: false,
-      page: 0,
-      section: payload,
-      time: sectionTimes[payload],
-      questionsArray: state.qArray[payload]
-  }),
-
-  [QUESTION_ANSWERED]: (state, payload) =>
-    questionAnswered(state, payload),
-
-  [FETCH_QUESTIONS_REQUEST]: (state, payload) =>
-    Object.assign({}, state, {
-      isFetchingQuestions: true
-    }),
-
-  [RECEIVE_USER_QUESTIONS]: (state, payload) =>
-    Object.assign({}, state, {
-      page: 0,
-      section: 0,
-      time: sectionTimes[0],
-      allQuestionsAnswered: false,
-      totalSections: payload.questions.length,
-      questionsArray: payload.questions[0],
-      qArray: payload.questions,
-      sessionId: payload.sessionId,
-      taskId: payload.taskId,
-      isFetchingQuestions: false
-    }),
-  [CHANGE_BOOKMARK]: (state, payload) =>
-    changeBookmark(state, payload),
-
-  [SUBMIT_SECTION_ANSWER]: (state, payload) =>
-    Object.assign({}, state, {
-      isSubmitingAnswer: true
-    }),
-
-  [SET_TO_DEFAULT]: (state, payload) =>
-    Object.assign({}, state, initState),
-
-  [GO_TO_REVIEW_TEST_PAGE]: (state, payload) =>
-    Object.assign({}, state, {
-      resultUrl: payload.url,
-      pass: payload.pass,
-      score: payload.score,
-      isAuthenticated: false
     })
 });
 
-function optionSelected(state, payload) {
-  let numAnsweredQuestions = 0;
-  let newArray = state.questionsArray.slice();
-  let nextQuestionsArray = newArray.map((question) => {
-    if (question.id === payload.questionId) {
-      let questionSelected = false;
-      // eslint-disable-next-line
-      question.optionList.map((option) => {
-        if (option === payload.option) {
-          option.selected = !option.selected;
-        }
-        else if (question.choiceType === SINGLE_ANSWER) {
-          option.selected = false;
-        }
-        questionSelected = questionSelected || option.selected
-      });
-      question.answered = questionSelected;
-    }
-    if (question.answered) {
-      numAnsweredQuestions++;
-    }
-    return question;
-  });
-  optionSave(state.userId,
-                  state.taskId,
-                  state.sessionId,
-                  state.section,
-                  payload.questionId,
-                  nextQuestionsArray[payload.questionId - 1].optionList
-  );
 
-  return Object.assign({}, state, {
-      allQuestionsAnswered: numAnsweredQuestions === nextQuestionsArray.length,
-      questionsArray: nextQuestionsArray,
-      numAnsweredQuestions: numAnsweredQuestions
-  });
-}
-
-function optionSave(userId, taskId, sessionId, sectionId, questionId, answer) {
-    saveAnswer(userId, taskId, sessionId, sectionId, questionId, answer)
-      .catch(error => {
-        console.log(error);
-      });
-}
-
-//new item types requires a different system of storing
-//we store all of them into answer array and when submit section is click, 
-//we go through the answerArray to see if we need to submit
-
-function questionAnswered(state, payload) {
-  let numAnsweredQuestions = 0;
-  let newArray = state.questionsArray.slice();
-  let nextQuestionsArray = newArray.map((question) => {
-    if (question.id === payload.questionId) {
-      question.answer = payload.answer;
-      question.answered = question.answer !== "";
-      responseSave(state.userId, state.taskId, state.sessionId, state.section, question.id, {answer: question.answer, answered: question.answered});
-    }
-    if (question.answered) {
-      numAnsweredQuestions++;
-    }
-    return question;
-  });
-  return Object.assign({}, state, {
-    allQuestionsAnswered: numAnsweredQuestions === nextQuestionsArray.length,
-    questionsArray: nextQuestionsArray,
-    numAnsweredQuestions: numAnsweredQuestions
-  });
-}
-
-function responseSave(userId, taskId, sessionId, sectionId, questionId, answer) {
-  saveResponse(userId, taskId, sessionId, sectionId, questionId, answer)
-    .catch(error => {
-      console.log(error);
-    });
-}
-
-function changeBookmark(state, payload) {
-  let newArray = state.questionsArray.slice();
-  let nextQuestionsArray = newArray.map((question) => {
-    if (question.id === payload.questionId) {
-      question.bookmarked = !question.bookmarked;
-    }
-    return question;
-  });
-  return Object.assign({}, state, {
-    questionsArray: nextQuestionsArray,
-  });
-}
+// function optionSave(userId, taskId, sessionId, sectionId, questionId, answer) {
+//   saveAnswer(userId, taskId, sessionId, sectionId, questionId, answer)
+//     .catch(error => {
+//       console.log(error);
+//     });
+// }
