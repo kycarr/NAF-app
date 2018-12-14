@@ -4,6 +4,8 @@ const router = express.Router();
 const test_controller = require('../../controllers/test_controller');
 const fetch_answers_controller = require('../../controllers/fetch_answers_controller');
 const instructor_controller = require('../../controllers/instructor_controller');
+const pal3_controller = require('../../controllers/pal3_controller');
+
 import {update_test} from '../../controllers/test_controller';
 import {generateRequirementsReport} from '../../controllers/instructor_controller';
 const User = require('../../models/User');
@@ -238,6 +240,8 @@ router.get('/student/fetchStudentSessions', fetch_answers_controller.fetchStuden
 router.get('/instructor/fetchInstructorData', instructor_controller.fetchInstructorData);
 
 router.get('/instructor/fetchTestHistory', instructor_controller.fetchTestHistory);
+
+router.post('/pal3/getQuestion', pal3_controller.getQuestion);
 
 
 //export router

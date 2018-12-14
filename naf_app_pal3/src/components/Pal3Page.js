@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 // import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from "react-router-dom";
-
+import {fetchPal3Question} from '../actions';
 import '../styles/App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
@@ -36,13 +36,21 @@ const question = {
 const buttonStyle = {
   textTransform: 'none',
   fontSize: '24px',
-  color: '#fff',
+  color: '#fff'
 };
 
+const disabledButtonStyle = {
+  textTransform: 'none',
+  fontSize: '24px',
+  color: 'gray'
+};
 class Pal3Page extends Component {
 
   constructor(props) {
     super(props);
+    var queryString = window.location.search.slice(1);
+    var questionId = queryString.split('=')[1];
+    this.props.fetchPal3Question(questionId);
     this.state = {
       question: question
     }
@@ -52,14 +60,16 @@ class Pal3Page extends Component {
 
   optionSelected(option) {
     let question = this.state.question;
-    question.optionList.map((_option) => {
+    let _optionList = question.optionList.map((_option) => {
           if (option === _option) {
-            option.selected = !option.selected;
+            _option.selected = !option.selected;
           }
           else if (question.choiceType === SINGLE_ANSWER) {
-            option.selected = false;
+            _option.selected = false;
           }
+          return _option;
         });
+    question.optionList = _optionList;
     this.setState({
       ...this.state,
       question: question
@@ -107,12 +117,26 @@ class Pal3Page extends Component {
       this.props.passed(score);
   }
 
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    // 
+    if (this.props.question !== prevProps.question) {
+      this.setState({
+        ...this.state,
+        question: this.props.question[0]
+      });
+    }
+  }
 
-//            <div id="loading" className="row">
-              // loading...
-            // </div>
-            // 
   render() {
+    if(this.props.loading || this.props.isFetchingQuestions) {
+      return (
+        <div>
+        Loading...
+        </div>
+        )
+    }
+    const question = this.state.question;
   	return (
       <MuiThemeProvider>
   		  <div className="container" style={{marginTop: "20px"}}>
@@ -127,7 +151,7 @@ class Pal3Page extends Component {
             {this.renderQuestion.bind(this)(question)}
             <span className="intro-buttons" style={{float: "right"}}>
 
-            <FlatButton style={buttonStyle} label="Submit Answer"  onClick={this.onSubmit}/>
+            <FlatButton style={this.props.answered ? disabledButtonStyle : buttonStyle} disabled={this.props.answered} label="Submit Answer"  onClick={this.onSubmit}/>
             </span>
   		  </div>
       </MuiThemeProvider>
@@ -139,7 +163,9 @@ class Pal3Page extends Component {
 
 function mapStateToProps(state) {
   return {
+    isFetchingQuestions: state.QuestionsOnAPage.isFetchingQuestions,
+    question: state.QuestionsOnAPage.question
   }
 }
 
-export default connect(mapStateToProps, {})(Pal3Page);
+export default connect(mapStateToProps, {fetchPal3Question})(Pal3Page);

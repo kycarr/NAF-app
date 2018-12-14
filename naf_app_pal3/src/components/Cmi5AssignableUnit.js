@@ -37,51 +37,124 @@ const url = "http://qa-pal.ict.usc.edu/cmi5/?fetch=http://qa-pal.ict.usc.edu/api
  * and if either of the inject 'passed' or 'failed' functions is called
  * before cmi5 is ready, it will store the result and submit when ready.
  */
-export default class Cmi5AssignableUnit extends Component {
+class Cmi5AssignableUnit extends Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      cmiStatus: CMI_STATUS.NONE
+      cmiStatus: CMI_STATUS.NONE,
+      loading: true,
+      answered: false
     }
-    this.trySubmitScore = this.trySubmitScore.bind(this);
-    this.passed = this.passed.bind(this);
-    this.failed = this.failed.bind(this);
+    this.passed = this.passed.bind(this)
+    this.failed = this.failed.bind(this)
+    this.completed = this.completed.bind(this)
+    this.terminate = this.terminate.bind(this)
+    this._submitScore = this._submitScore.bind(this)
+    this._execCmiOrQueue = this._execCmiOrQueue.bind(this)
   }
-
+  
+/**
+ * A function for the assignable unit to call when the user passes an assessment (e.g. answers a question correctly.
+ * 
+ * @param {number|XAPI Score} score 
+ *  
+ * For arguments, accepts either a single normalized score (0.0-1.0) value
+ * or an object that's a valid XAPI Result Score (https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#2451-score)
+ * 
+ * @see https://github.com/AICC/CMI-5_Spec_Current/blob/quartz/cmi5_spec.md#verbs_failed} score 
+ */
   passed(score) {
-    this.trySubmitScore(score, true)
+    this._submitScore(score, true)
   }
 
+/**
+ * A function for the assignable unit to call when the user fails an assessment (e.g. answers a question incorrectly.
+ * 
+ * @param {number|XAPI Score} score 
+ *  
+ * For arguments, accepts either a single normalized score (0.0-1.0) value
+ * or an object that's a valid XAPI Result Score (https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#2451-score)
+ * 
+ * @see https://github.com/AICC/CMI-5_Spec_Current/blob/quartz/cmi5_spec.md#verbs_failed} score 
+ */
   failed(score) {
-    this.trySubmitScore(score, false)
+    this._submitScore(score, false)
   }
 
-  trySubmitScore(result, isPassing) {
+  /**
+   * A function for the assignable unit to call, 
+   * when it's a non-assessment type resource (no score)
+   * and the user has completed it, e.g. finished watching a video.
+   * 
+   * @see https://github.com/AICC/CMI-5_Spec_Current/blob/quartz/cmi5_spec.md#verbs_completed
+   */
+  completed() {
+    this._execCmiOrQueue(() => {
+      this.state.cmi.completed()
+    })
+  }
+
+/**
+ * Required function the assignable unit MUST call, 
+ * to signal to the LMS (container that launched the assignable unit)
+ * that the user's session is complete (no additional xapi statements will be sent)
+ * @see https://github.com/AICC/CMI-5_Spec_Current/blob/quartz/cmi5_spec.md#verbs_terminated
+ */
+  terminate() {
+    this._execCmiOrQueue(() => {
+      this.state.cmi.terminate()
+    })
+  }
+
+/**
+   * @private
+   * submit a score if cmi is ready,
+   * or if cmi is not ready, store the action for later execution.
+   */
+  _submitScore(result, isPassing) {
     const score = isNaN(Number(result))? result: { scaled: Number(result) }
-    switch(this.state.cmiStatus) {
-      case CMI_STATUS.READY:
-        if(isPassing) {
-          this.state.cmi.passed(score)
-        }
-        else {
-          this.state.cmi.failed(score)
-        }
-        this.setState({
-          ...this.state,
-          cmiStatus: CMI_STATUS.RESULT_SENT
-        })
-        break
-      case CMI_STATUS.RESULT_SENT:
-        console.log('result already sent')
-        break
-      default:
-        // save the score to submit when cmi is ready
-        this.setState({
-          ...this.state,
-          scorePendingSubmit: { score, isPassing }
-        })
-        break
+
+    this._execCmiOrQueue(() => {
+      if(isPassing) {
+        this.state.cmi.passed(score)
+      }
+      else {
+        this.state.cmi.failed(score)
+      }
+    })
+    this.setState({
+      ...this.state,
+       answered: true
+    })
+  }
+
+  /**
+   * @private
+   * Execute an action (generally a cmi call) if cmi is ready,
+   * or if cmi is not ready, store the action for later execution.
+   * 
+   * @param {*} action - a function to call if/when cmi is ready
+   */
+  _execCmiOrQueue(action) {
+
+    if(this.state.cmiStatus !== CMI_STATUS.READY) {
+      // save the action to submit when cmi is ready
+  
+      this.setState({
+        ...this.state,
+        actionsPendingCmiReady: Array.isArray(this.state.actionsPendingCmiReady)?
+          [...this.state.actionsPendingCmiReady, action] : [action]
+      })
+
+      return
+    }
+
+    try {
+      action()
+    }
+    catch(cmiErr) {
+        console.error(`cmi action failed: ${cmiErr.message}\n${cmiErr.stack}`)
     }
   }
 
@@ -106,12 +179,13 @@ export default class Cmi5AssignableUnit extends Component {
         this.setState({
           ...this.state,
           cmiStatus: CMI_STATUS.READY,
+          loading: false
         })
       })
 
       this.setState({
         ...this.state,
-        cmi: cmi
+        cmi: cmi,
       })
     }
     catch(errInit) {
@@ -127,13 +201,11 @@ export default class Cmi5AssignableUnit extends Component {
 
   render()
   {
+    console.log(`render state.cmiStatus=${this.state.cmiStatus}`)
     switch(this.state.cmiStatus) {
       case CMI_STATUS.READY:
-        if(this.state.scorePendingSubmit) {
-          this.trySubmitScore(
-            this.state.scorePendingSubmit.score,
-            this.state.scorePendingSubmit.isPassing
-          )
+        if(Array.isArray(this.state.actionsPendingCmiReady)) {
+          this.actionsPendingCmiReady.forEach(a => a())
         }
         break
       case CMI_STATUS.ERROR:
@@ -145,9 +217,12 @@ export default class Cmi5AssignableUnit extends Component {
 
     return(
     <div>
-      <Pal3Page passed={this.passed} failed={this.failed}>
+      <Pal3Page passed={this.passed} failed={this.failed} loading={this.state.loading} answered={this.state.answered}>
       </Pal3Page>
     </div>
     )
    }
  }
+
+  export default Cmi5AssignableUnit
+
