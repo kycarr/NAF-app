@@ -9,6 +9,7 @@ import Cmi5AssignableUnit from './components/Cmi5AssignableUnit';
 import registerServiceWorker from './utils/registerServiceWorker';
 // import Cmi5 from './utils/cmi5.js';
 import 'babel-polyfill';
+import CmiQuestion from './components/CmiQuestion';
 
 const store = configureStore();
 
@@ -33,7 +34,7 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
-          <Route path="/" component={Cmi5AssignableUnit} />
+          <Route path="/" component={CmiQuestion} />
         </Switch>
       </div>
     </BrowserRouter>

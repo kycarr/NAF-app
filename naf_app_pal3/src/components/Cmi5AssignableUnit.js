@@ -7,7 +7,7 @@ const CMI_STATUS = {
   RESULT_SENT: 3,
   ERROR: -1
 }
-const url = "http://qa-pal.ict.usc.edu/cmi5/?fetch=http://qa-pal.ict.usc.edu/api/1.0/cmi5/accesstoken2basictoken?access_token=8847d000-dba3-11e8-a05b-c40010c9cc01&endpoint=http://qa-pal.ict.usc.edu/api/1.0/cmi5/&activityId=http://pal.ict.usc.edu/activities/claire-the-counselor&registration=957f56b7-1d34-4b01-9408-3ffeb2053b28&actor=%7B%22objectType%22:%20%22Agent%22,%22name%22:%20%22clairelearner1%22,%22account%22:%20%7B%22homePage%22:%20%22http://pal.ict.usc.edu/xapi/users%22,%22name%22:%20%225bd749146b66c40010c9cc01%22%7D%7D"
+// const url = "http://qa-pal.ict.usc.edu/cmi5/?fetch=http://qa-pal.ict.usc.edu/api/1.0/cmi5/accesstoken2basictoken?access_token=8847d000-dba3-11e8-a05b-c40010c9cc01&endpoint=http://qa-pal.ict.usc.edu/api/1.0/cmi5/&activityId=http://pal.ict.usc.edu/activities/claire-the-counselor&registration=957f56b7-1d34-4b01-9408-3ffeb2053b28&actor=%7B%22objectType%22:%20%22Agent%22,%22name%22:%20%22clairelearner1%22,%22account%22:%20%7B%22homePage%22:%20%22http://pal.ict.usc.edu/xapi/users%22,%22name%22:%20%225bd749146b66c40010c9cc01%22%7D%7D"
 
 /**
  * A reusable wrapper Component that handles cmi initialization
@@ -162,6 +162,9 @@ class Cmi5AssignableUnit extends Component {
   {
     try {
       const Cmi5 = window.Cmi5
+
+      const url = this.props.url || window.location.href
+      console.log(`launch cmi with url ${url}`)
       const cmi = new Cmi5(url)
 
       cmi.start((err, result) => {
@@ -175,7 +178,6 @@ class Cmi5AssignableUnit extends Component {
           return
         }
 
-        console.log('ok!')
         this.setState({
           ...this.state,
           cmiStatus: CMI_STATUS.READY,
@@ -215,11 +217,22 @@ class Cmi5AssignableUnit extends Component {
         console.log(`cmi status updated to ${this.state.cmiStatus}`)
     }
 
+    const { children } = this.props
+    const assignableUnit = React.Children.map(children, child =>
+      React.cloneElement(child, {
+        cmi: this.state.cmi,
+        terminate: this.terminate, // action that MUST be called to signal end of the session
+        passed: this.passed, // action for child to call on passed an assessment (with score)
+        failed: this.failed, // action for child to call on failed an assessment (with score)
+        completed: this.completed, // action for child to call on completion of a non-assessment resource, e.g. finished watching video
+        loading: this.state.loading,
+        answered: this.state.answered
+      }
+     )
+    )
+
     return(
-    <div>
-      <Pal3Page passed={this.passed} failed={this.failed} loading={this.state.loading} answered={this.state.answered}>
-      </Pal3Page>
-    </div>
+        <div>{assignableUnit}</div>
     )
    }
  }

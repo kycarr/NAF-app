@@ -109,12 +109,14 @@ class Pal3Page extends Component {
           for(let i =0; i<correctAnswers.length; i++) {
             if(!answers.includes(correctAnswers[i])){
               this.props.failed(score)
+              this.props.terminate()
               return;
             } 
           }
       }
       score = 1.0;
-      this.props.passed(score);
+      this.props.passed(score)
+      this.props.terminate()
   }
 
   componentDidUpdate(prevProps) {
