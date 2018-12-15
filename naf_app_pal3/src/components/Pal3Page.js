@@ -17,7 +17,6 @@ import {
   TABLE_FILL,
   DRAG_DROP
 } from '../constants';
-const url = "http://qa-pal.ict.usc.edu/cmi5/?fetch=http://qa-pal.ict.usc.edu/api/1.0/cmi5/accesstoken2basictoken?access_token=8847d000-dba3-11e8-a05b-c40010c9cc01&endpoint=http://qa-pal.ict.usc.edu/api/1.0/cmi5/&activityId=http://pal.ict.usc.edu/activities/claire-the-counselor&registration=957f56b7-1d34-4b01-9408-3ffeb2053b28&actor=%7B%22objectType%22:%20%22Agent%22,%22name%22:%20%22clairelearner1%22,%22account%22:%20%7B%22homePage%22:%20%22http://pal.ict.usc.edu/xapi/users%22,%22name%22:%20%225bd749146b66c40010c9cc01%22%7D%7D"
 
 const question = {
       id: 15,
@@ -109,12 +108,14 @@ class Pal3Page extends Component {
           for(let i =0; i<correctAnswers.length; i++) {
             if(!answers.includes(correctAnswers[i])){
               this.props.failed(score)
+              this.props.terminate()
               return;
             } 
           }
       }
       score = 1.0;
-      this.props.passed(score);
+      this.props.passed(score)
+      this.props.terminate()
   }
 
   componentDidUpdate(prevProps) {
