@@ -5,7 +5,6 @@ import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import configureStore from './store/configureStore'
 import './styles/index.css';
 import App from './components/App';
-import Cmi5AssignableUnit from './components/Cmi5AssignableUnit';
 import registerServiceWorker from './utils/registerServiceWorker';
 // import Cmi5 from './utils/cmi5.js';
 import 'babel-polyfill';

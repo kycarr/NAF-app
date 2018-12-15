@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import Pal3Page from './Pal3Page';
-import Cmi5AssignableUnit from './Cmi5AssignableUnit';
+import React, { Component } from 'react'
+import Pal3Page from './Pal3Page'
+import Cmi5AssignableUnit from 'react-cmi5-assignable-unit'
 
 class CmiQuestion extends Component {
 
