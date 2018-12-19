@@ -19,6 +19,7 @@ export function fetchPal3Question(questionId) {
 }
 
 export function receivePal3Question(response) {
+  console.log(response);
     return {
     type: RECEIVE_PAL3_QUESTION,
     payload: { 

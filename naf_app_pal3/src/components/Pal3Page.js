@@ -48,11 +48,9 @@ class Pal3Page extends Component {
   constructor(props) {
     super(props);
     var queryString = window.location.search.slice(1);
-    var questionId = queryString.split('=')[1];
+    // var questionId = queryString.split('=')[1];
+    var questionId = window.location.href.split("?fetch=")[0].split("questionId=")[1];
     this.props.fetchPal3Question(questionId);
-    // this.state = {
-    //   question: question
-    // }
     this.optionSelected = this.optionSelected.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
