@@ -18,19 +18,19 @@ import {
   DRAG_DROP
 } from '../constants';
 
-const question = {
-      id: 15,
-      type: MULTI_CHOICE,
-      choiceType: MULTIPLE_ANSWER,
-      question: "What are the terms used to describe an open or closed telegraph circuit?",
-      topicId: 2,
-      bookmarked: false,
-      optionList: [{option: "Dot and dash", selected: false},
-        {option: "Start and stop", selected: false},
-        {option: "Hack and slash", selected: false},
-        {option: "Space and mark", selected: false}],
-      correctAnswer: ["Space and mark"]
-};
+// const question = {
+//       id: 15,
+//       type: MULTI_CHOICE,
+//       choiceType: MULTIPLE_ANSWER,
+//       question: "What are the terms used to describe an open or closed telegraph circuit?",
+//       topicId: 2,
+//       bookmarked: false,
+//       optionList: [{option: "Dot and dash", selected: false},
+//         {option: "Start and stop", selected: false},
+//         {option: "Hack and slash", selected: false},
+//         {option: "Space and mark", selected: false}],
+//       correctAnswer: ["Space and mark"]
+// };
 
 const buttonStyle = {
   textTransform: 'none',
@@ -50,9 +50,9 @@ class Pal3Page extends Component {
     var queryString = window.location.search.slice(1);
     var questionId = queryString.split('=')[1];
     this.props.fetchPal3Question(questionId);
-    this.state = {
-      question: question
-    }
+    // this.state = {
+    //   question: question
+    // }
     this.optionSelected = this.optionSelected.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -71,7 +71,8 @@ class Pal3Page extends Component {
     question.optionList = _optionList;
     this.setState({
       ...this.state,
-      question: question
+      question: question,
+      anyOptionSelected: true
     });
   }
 
@@ -101,20 +102,25 @@ class Pal3Page extends Component {
           answers.push(element.option);
         }
       });
-     if(correctAnswers.length !== answers.length) {
-        this.props.failed(score);
-      } 
-      else {
+
+      let userCorrectCount = 0
+
+      if(correctAnswers.length === answers.length) {
           for(let i =0; i<correctAnswers.length; i++) {
             if(!answers.includes(correctAnswers[i])){
-              this.props.failed(score)
-              this.props.terminate()
-              return;
+              break
             } 
+            userCorrectCount++
           }
       }
-      score = 1.0;
-      this.props.passed(score)
+      
+      if(userCorrectCount === correctAnswers.length) {
+        this.props.passed(1.0)
+      }
+      else {
+        this.props.failed(0.0) // should score be (userCorrectCount/correctAnswers.length)?
+      }
+
       this.props.terminate()
   }
 
@@ -130,7 +136,7 @@ class Pal3Page extends Component {
   }
 
   render() {
-    if(this.props.loading || this.props.isFetchingQuestions) {
+    if(this.props.loading || this.props.isFetchingQuestions || !this.state.question) {
       return (
         <div>
         Loading...
@@ -138,6 +144,12 @@ class Pal3Page extends Component {
         )
     }
     const question = this.state.question;
+
+    const submitDisabled = this.props.answered || 
+      (question.type === MULTI_CHOICE && !this.state.anyOptionSelected)
+
+      console.log(`submit disabled=${submitDisabled}`)
+
   	return (
       <MuiThemeProvider>
   		  <div className="container" style={{marginTop: "20px"}}>
@@ -152,7 +164,7 @@ class Pal3Page extends Component {
             {this.renderQuestion.bind(this)(question)}
             <span className="intro-buttons" style={{float: "right"}}>
 
-            <FlatButton style={this.props.answered ? disabledButtonStyle : buttonStyle} disabled={this.props.answered} label="Submit Answer"  onClick={this.onSubmit}/>
+            <FlatButton style={submitDisabled ? disabledButtonStyle : buttonStyle} disabled={submitDisabled} label="Submit Answer"  onClick={this.onSubmit}/>
             </span>
   		  </div>
       </MuiThemeProvider>
