@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import queryString from 'query-string'
 import {connect} from 'react-redux';
 // import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
@@ -40,11 +41,14 @@ class Pal3Page extends Component {
 
   constructor(props) {
     super(props);
-    var queryString = window.location.search.slice(1);
-    var questionId = queryString.split('=')[1];
-    // var questionId = window.location.href.split("?fetch=")[0].split("questionId=")[1];
-    // this.props.fetchPal3Question(questionId);
-    this.props.fetchPal3Question(7);
+    const queryParams = queryString.parse(window.location.search)
+    const questionId = queryParams['questionId']
+    if(!questionId) {
+      console.error(`unable to find questionId in query string ${window.location.search}`)
+    }
+    
+    // console.log(`questionId=${questionId}`)
+    this.props.fetchPal3Question(questionId);
 
     this.state = {
       essayChanged: false,
@@ -437,6 +441,8 @@ class Pal3Page extends Component {
         )
     }
     const question = this.state.question;
+
+    // console.log(`render question=${JSON.stringify(question, null, 2)}`)
 
   	return (
       <MuiThemeProvider>
