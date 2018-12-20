@@ -20,7 +20,7 @@ const QUESTION_ID_DEFAULT = 0
 let qArray =
   [
     {
-      id: 1,
+      id: 0,
       type: MULTI_CHOICE,
       choiceType: SINGLE_ANSWER,
       question: "What are the two types of electrical communications?",
@@ -33,7 +33,7 @@ let qArray =
       correctAnswer: ['Radio and wire']
     },
     {
-      id: 2,
+      id: 1,
       type: MULTI_CHOICE,
       choiceType: SINGLE_ANSWER,
       question: "What unit of measurement is used to express quantities of inductance?",
@@ -46,7 +46,7 @@ let qArray =
       correctAnswer: ['Microhenrys']
     },
     {
-      id: 3,
+      id: 2,
       type: MULTI_CHOICE,
       choiceType: SINGLE_ANSWER,
       question: "When using frequencies above 30 MegaHertz, you are normally limited to using what range?",
@@ -59,7 +59,7 @@ let qArray =
       correctAnswer: ['HF']
     },
     {
-      id: 4,
+      id: 3,
       type: MULTI_CHOICE,
       choiceType: SINGLE_ANSWER,
       question: "What is the final stage of a transmitter?",
@@ -72,7 +72,7 @@ let qArray =
       correctAnswer: ['Power amplifier']
     },
     {
-      id: 5,
+      id: 4,
       type: TABLE_FILL,
       question: "For each switch symbol in the table, please enter a number for the number of poles, throws, and breaks.",
       topicId: 1,
@@ -112,7 +112,7 @@ let qArray =
       correctAnswer: ['0:poles:1','0:throws:2','0:breaks:3','1:poles:4','1:throws:5','1:breaks:6','2:poles:7','2:throws:8','2:breaks:9','3:poles:10','3:throws:11','3:breaks:12']
     },
     {
-      id: 6,
+      id: 5,
       type: HOTSPOT,
       question: "On the schematic diagram for the radar power supply (unit 4), there are four fuses. Click on the region for fuses 3 and 4.",
       topicId: 4,
@@ -121,7 +121,7 @@ let qArray =
       correctAnswer: ["314:206:354:246", "460:108:500:148"]
     },
     {
-      id: 7,
+      id: 6,
       type: DRAG_DROP,
       question: "Construct a simple bridge rectifier by dragging the appropriate components from the tray on the left (below) onto the breadboard (on the right below)",
       topicId: 3,
@@ -130,7 +130,7 @@ let qArray =
       
     },
     {
-      id: 8,
+      id: 7,
       type: ESSAY,
       topicId: 4,
       bookmarked: false,
