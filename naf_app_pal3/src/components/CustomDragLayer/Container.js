@@ -15,11 +15,11 @@ import Picture6 from './Picture6.png';
 
 const styles = {
 	width: 800,
-	height: 600,
-	border: '1px solid black',
+	height: 438,
 	position: 'relative',
 	backgroundImage:  "url(" + Background + ")",
-	backgroundSize: 'contain'
+	backgroundSize: 'contain',
+	backgroundRepeat: 'no-repeat'
 }
 
 const boxTarget = {
@@ -50,11 +50,11 @@ class Container extends Component {
 		super(props)
 		this.state = {
 			boxes: {
-				a: { top: 620, left: 0, title: Picture2},
-				b: { top: 620, left: 150, title: Picture3 },
-				c: { top: 680, left: 0, title: Picture4 },
-				d: { top: 740, left: 0, title: Picture5 },
-				e: { top: 800, left: 0, title: Picture6 },
+				a: { top: 450, left: 0, title: Picture2},
+				b: { top: 450, left: 150, title: Picture3 },
+				c: { top: 510, left: 0, title: Picture4 },
+				d: { top: 570, left: 0, title: Picture5 },
+				e: { top: 630, left: 0, title: Picture6 },
 			},
 		}
 	}

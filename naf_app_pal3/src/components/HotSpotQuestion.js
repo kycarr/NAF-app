@@ -113,19 +113,17 @@ export default class HotSpotQuestion extends Component {
               onImageClick={evt => this.clickedOutside(evt)}
               />
               </MediaQuery>
-              <MediaQuery maxDeviceWidth={768} >
               <ImageMapper   src={picture} map={MAP}
-              width={300}
+              width={600}
               onLoad={() => this.load()}
               onClick={area => this.clicked(area, MAP)}
               onImageClick={evt => this.clickedOutside(evt)}
               />
-              </MediaQuery>
               <br />
   		 </div>
        <div>
        
-        <p><small><em><center>You have clicked on {this.state.count} {this.state.count === 1 ? 'region' : 'regions'}. You have {this.props.limit - this.state.count} components left to identify.</center></em></small></p>
+        <p><small><em>You have clicked on {this.state.count} {this.state.count === 1 ? 'region' : 'regions'}. You have {this.props.limit - this.state.count} components left to identify.</em></small></p>
         <br />
        </div>
     </div>

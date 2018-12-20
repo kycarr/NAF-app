@@ -70,8 +70,75 @@ let qArray =
         {option: "Power reduction", selected: false},
         {option: "Power amplifier", selected: false}],
       correctAnswer: ['Power amplifier']
+    },
+    {
+      id: 5,
+      type: TABLE_FILL,
+      question: "For each switch symbol in the table, please enter a number for the number of poles, throws, and breaks.",
+      topicId: 1,
+      bookmarked: false,
+      columns: [
+        {Header: "Symbol",accessor: "symbol"},
+        {Header: "Number of Poles",accessor: "poles"},
+        {Header: "Number of Throws",accessor: "throws"},
+        {Header: "Number of Breaks",accessor: "breaks"}
+      ],
+      data: [
+        {
+          symbol: "1",
+          poles: "",
+          throws: "",
+          breaks: ""
+        },
+        {
+          symbol: "2",
+          poles: "",
+          throws: "",
+          breaks: ""
+        },
+        {
+          symbol: "3",
+          poles: "",
+          throws: "",
+          breaks: ""
+        },
+        {
+          symbol: "4",
+          poles: "",
+          throws: "",
+          breaks: ""
+        }
+      ],
+      correctAnswer: ['0:poles:1','0:throws:2','0:breaks:3','1:poles:4','1:throws:5','1:breaks:6','2:poles:7','2:throws:8','2:breaks:9','3:poles:10','3:throws:11','3:breaks:12']
+    },
+    {
+      id: 6,
+      type: HOTSPOT,
+      question: "On the schematic diagram for the radar power supply (unit 4), there are four fuses. Click on the region for fuses 3 and 4.",
+      topicId: 4,
+      bookmarked: false,
+      limit: 2,
+      correctAnswer: ["314:206:354:246", "460:108:500:148"]
+    },
+    {
+      id: 7,
+      type: DRAG_DROP,
+      question: "Construct a simple bridge rectifier by dragging the appropriate components from the tray on the left (below) onto the breadboard (on the right below)",
+      topicId: 3,
+      bookmarked: false,
+      correctAnswer: ["a:109:203", "c:107:291", "d:232:199", "e:231:304", "b:76:469"]
+      
+    },
+    {
+      id: 8,
+      type: ESSAY,
+      topicId: 4,
+      bookmarked: false,
+      answer: "",
+      question: "Why do you want to join the Navy?",
+      correctAnswer: ["ESSAY"]
     }
-    ];
+  ];
 
 export function getPal3Question(questionId) {
 	// console.log(questionId);

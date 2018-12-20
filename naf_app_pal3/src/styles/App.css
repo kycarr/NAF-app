@@ -621,8 +621,9 @@ button {
 			.dragdrop-type {
 				justify-content: center;
 				display: flex ;
-				height: 800px;
+				height: auto;
 				margin-top: 20px;
+				margin-bottom: 30px;
 			}
 
 			.text-field {

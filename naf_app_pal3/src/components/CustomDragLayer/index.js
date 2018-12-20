@@ -3,6 +3,7 @@ import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import Container from './Container'
 import CustomDragLayer from './CustomDragLayer'
+import TouchBackend from 'react-dnd-touch-backend';
 
 class DragAroundCustomDragLayer extends Component {
 	constructor(props) {
@@ -45,4 +46,4 @@ class DragAroundCustomDragLayer extends Component {
 	}
 }
 
-export default DragDropContext(HTML5Backend)(DragAroundCustomDragLayer);
+export default DragDropContext(TouchBackend)(DragAroundCustomDragLayer);
