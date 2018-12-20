@@ -242,7 +242,6 @@ exports.post_essay_answers = async (req,res) => {
           source[temp[0]] = temp.slice(1);
         }
         console.log(source);
-        console
         for(let i =0; i < correctAnswers.length; i++) {
           let target = correctAnswers[i].split(':');
           if(source[target[0]] == null) {
