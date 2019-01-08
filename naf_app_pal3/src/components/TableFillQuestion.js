@@ -53,8 +53,6 @@ class TableFillQuestion extends Component {
 
   }
 
-
-
   render() {
     // const images = ['../images/Switch1.png', '../images/Switch2.png', '../images/Switch3.png','../images/Switch2.png'];
     const images = [Switch1, Switch2, Switch3, Switch4];
@@ -70,6 +68,8 @@ class TableFillQuestion extends Component {
         return {
           ...column,
           Cell: this.renderEditable,
+          maxWidth: 400,
+          minWidth: Math.min(400, column.Header.length * 11)
         }
       }else {
         return { ...column,
@@ -98,6 +98,8 @@ class TableFillQuestion extends Component {
     //   this.state.triggered = false;
     // }
     // console.log(numAnswered);
+
+    console.log(columns)
 
     return (
         <div>

@@ -79,9 +79,9 @@ let qArray =
       bookmarked: false,
       columns: [
         {Header: "Symbol",accessor: "symbol"},
-        {Header: "Number of Poles",accessor: "poles"},
-        {Header: "Number of Throws",accessor: "throws"},
-        {Header: "Number of Breaks",accessor: "breaks"}
+        {Header: "Poles",accessor: "poles"},
+        {Header: "Throws",accessor: "throws"},
+        {Header: "Breaks",accessor: "breaks"}
       ],
       data: [
         {
@@ -127,7 +127,7 @@ let qArray =
       topicId: 3,
       bookmarked: false,
       correctAnswer: ["a:109:203", "c:107:291", "d:232:199", "e:231:304", "b:76:469"]
-      
+
     },
     {
       id: 7,
@@ -153,4 +153,3 @@ export function getPal3Question(questionId) {
 		})
 	})
 }
-
